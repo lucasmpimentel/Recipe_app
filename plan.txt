@@ -1,2 +1,55 @@
+Combinados:
+Daily 14:00 ou após abertura.
+[meals, setRecipe] => NOK
+[recipe, setRecipe] => OK
+
+Hooks:
+[localStorage, useLocalStorage] => OK
+
+Variáveis em inglês.
+
+Trello para organização e comunicação.
+
+Code Review assíncrono => avisar no slack e mover o card no Trello.
+Antes de fazer o push, fazer um pull da main e verificar se há conflitos, caso tenha conflitos resolver localmente.
+
+Padrão de PR:
+[Main-Group-3] Req-1
+
+Branches: main-group-3-req-x
+
+Commits: req-x-ongoing // req-x-finished // req-x-blocked
+
 Rodar 1 teste por vez:
 npm run cy -- --spec cypress/integration/login_spec.js
+
+Primeiros passos:
+configurar rotas
+configurar localStorage (a chave foi informada e o valor é sempre 1 para teste da api)
+configurar fetch
+ícones na pasta src/image
+
+Biblioteca clipboard-copy (reqs 57 e 63)
+Para os componentes que contêm a funcionalidade de favoritar pratos ou bebidas, será necessário utilizar a biblioteca clipboard-copy para copiar as informações da receita. Essa biblioteca já vem instalada no projeto.
+
+Para mais informações, consulte a documentação
+https://www.npmjs.com/package/clipboard-copy
+
+Estilização (Bootsrap? Tailwind via CDN? Outra?)
+
+Reqs - 1 - testes (Durante todo o projeto?)
+ 
+Login => 2 - 8
+Header => 9 - 12
+Header busca => 13 - 18 (fetchs incluídos)
+Menu inferior => 19 - 24
+Principal Receitas => 25 - 32
+Detalhes de uma Receita => 33 - 46
+receita em progresso => 47 - 53
+receitas feitas => 54 - 59
+receitas favoritas => 60 - 67
+explorar => 67 - 69
+explorar bebidas ou comidas => 70 - 74
+explorar ingredientes => 75 - 77
+explorar por nacionalidades => 78 - 81
+perfil => 82 - 87
