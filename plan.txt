@@ -1,0 +1,2 @@
+Rodar 1 teste por vez:
+npm run cy -- --spec cypress/integration/login_spec.js
