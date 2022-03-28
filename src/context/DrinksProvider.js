@@ -12,12 +12,12 @@ const DRINKS_CATEGORIES_ENDPOINT = 'www.thecocktaildb.com/api/json/v1/1/list.php
 // const DRINKS_IMAGE_ENDPOINT = `www.thecocktaildb.com/images/ingredients/${drinkIngredientName}-Small.png`;
 
 const DrinksProvider = ({ children }) => {
-  const { error, isLoading, data } = useFetch(DRINKS_CATEGORIES_ENDPOINT);
+  const { errorMessage, isLoading, data } = useFetch(DRINKS_CATEGORIES_ENDPOINT);
 
   const drinks = {
     characters: data ? data.results : [],
     isLoading,
-    error,
+    errorMessage,
   };
 
   return (

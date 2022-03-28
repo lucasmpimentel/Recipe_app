@@ -11,12 +11,12 @@ const CATEGORIES_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/list.php?c=
 // const IMAGE_ENDPOINT = `https://www.themealdb.com/images/ingredients/${ingredientName}-Small.png`;
 
 const MealsProvider = ({ children }) => {
-  const { error, isLoading, data } = useFetch(CATEGORIES_ENDPOINT);
+  const { errorMessage, isLoading, data } = useFetch(CATEGORIES_ENDPOINT);
 
   const context = {
     characters: data ? data.results : [],
     isLoading,
-    error,
+    errorMessage,
   };
 
   return (
