@@ -12,11 +12,11 @@ const useFetch = (url) => {
         const response = await fetch(url);
         const results = await response.json();
         setData(results);
-        console.log(results);
-        console.log(results.meals);
+        // console.log(results);
+        // console.log(results.meals);
       } catch (error) {
         setErrorMessage(error.message);
-        console.log(error.message);
+        // console.log(error.message);
       } finally {
         setIsLoading(false);
       }
