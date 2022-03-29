@@ -5,7 +5,7 @@ export default function ExploreDrinks() {
   return (
     <>
       <Header />
-      <p>ExploreDrinks</p>
+      <p data-testid="page-title">Explore Drinks</p>
     </>
   );
 }
