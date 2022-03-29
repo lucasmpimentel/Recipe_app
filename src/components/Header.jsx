@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import HeaderSearch from './HeaderSearch';
 
 export default function Header({ searchTopBtn }) {
   const [showInput, setShowInput] = useState('true');
@@ -33,6 +34,7 @@ export default function Header({ searchTopBtn }) {
           />
         </button>
       )}
+      { !showInput && <HeaderSearch /> }
     </header>
   );
 }
