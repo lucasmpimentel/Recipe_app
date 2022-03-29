@@ -26,6 +26,11 @@ export default function HeaderSearch() {
 
   const [url, setUrl] = useState(`${urlSearchIngredient}`);
 
+  const firstLetterSearch = () => {
+    if (searchInput.length === 1) setUrl(urlFirstLetter);
+    alert('Your search must have only 1 (one) character');
+  };
+
   const handleChange = ({ target: { name, value } }) => {
     console.log(name, value);
     switch (value) {
@@ -36,7 +41,7 @@ export default function HeaderSearch() {
       setUrl(urlSearchName);
       break;
     case 'first-letter-search':
-      setUrl(urlFirstLetter);
+      firstLetterSearch();
       break;
     default:
       throw new Error('invalid state');
