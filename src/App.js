@@ -15,6 +15,10 @@ import FoodsNationalities from './pages/FoodsNationalities';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
+import FoodsDetails from './pages/FoodsDetails';
+import DrinksDetails from './pages/DrinksDetails';
+import FoodsInProgress from './pages/FoodsInProgress';
+import DrinksInProgress from './pages/DrinksInProgress';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -30,20 +34,12 @@ const App = () => (
         <Route exact path="/drinks" component={ Drinks } />
 
         {/* detalhe da receita ou drink */}
-        <Route exact path="/foods/:id" render={ (props) => <Foods { ...props } /> } />
-        <Route exact path="/drinks/:id" render={ (props) => <Drinks { ...props } /> } />
+        <Route exact path="/foods/:id" component={ FoodsDetails } />
+        <Route exact path="/drinks/:id" component={ DrinksDetails } />
 
         {/* tela da receita em progresso da comida e bebida */}
-        <Route
-          exact
-          path="/foods/:id/in-progress"
-          render={ (props) => <Foods { ...props } /> }
-        />
-        <Route
-          exact
-          path="/drinks/:id/in-progress"
-          render={ (props) => <Drinks { ...props } /> }
-        />
+        <Route exact path="/foods/:id/in-progress" component={ FoodsInProgress } />
+        <Route exact path="/drinks/:id/in-progress" component={ DrinksInProgress } />
 
         {/* telas de explorar */}
         <Route exact path="/explore" component={ Explore } />

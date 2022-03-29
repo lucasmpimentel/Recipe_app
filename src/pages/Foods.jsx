@@ -4,8 +4,8 @@ import Header from '../components/Header';
 export default function Foods() {
   return (
     <>
-      <Header />
-      <div>Foods</div>
+      <Header searchTopBtn />
+      <p data-testid="page-title">Foods</p>
     </>
   );
 }
