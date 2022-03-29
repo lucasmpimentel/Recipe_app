@@ -1,7 +1,11 @@
 import React from 'react';
+import HeaderSearch from '../components/HeaderSearch';
 
 export default function Login() {
   return (
-    <div>Login</div>
+    <div>
+      Login
+      <HeaderSearch />
+    </div>
   );
 }
