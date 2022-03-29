@@ -16,7 +16,6 @@ const useFetch = (url) => {
         // console.log(results.meals);
       } catch (error) {
         setErrorMessage(error.message);
-        // console.log(error.message);
       } finally {
         setIsLoading(false);
       }
