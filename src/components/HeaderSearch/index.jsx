@@ -102,9 +102,8 @@ export default function HeaderSearch() {
         type="button"
         data-testid="exec-search-btn"
         onClick={ HandleBtn }
-        className="btn-ordenar"
       >
-        Ordenar
+        Search
       </button>
     </form>
   );
