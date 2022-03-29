@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
 export default function Header({ searchTopBtn }) {
+  const [showInput, setShowInput] = useState('true');
+  const input = <input type="text" data-testid="search-input" />;
   return (
+
     <header>
       <h1> teste header </h1>
       <Link to="/Profile">
@@ -17,12 +20,19 @@ export default function Header({ searchTopBtn }) {
           />
         </button>
       </Link>
+      { !showInput && input }
       { searchTopBtn && (
-        <img
-          src={ SearchIcon }
-          alt="Buscar"
-          data-testid="search-top-btn"
-        />)}
+        <button
+          type="button"
+          onClick={ () => { setShowInput(!showInput); } }
+        >
+          <img
+            src={ SearchIcon }
+            alt="Buscar"
+            data-testid="search-top-btn"
+          />
+        </button>
+      )}
     </header>
   );
 }
