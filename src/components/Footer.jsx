@@ -8,7 +8,6 @@ import './footer.css';
 export default function Footer() {
   return (
     <footer data-testid="footer" className="footer">
-      <h1>Olá</h1>
       <Link
         to="/drinks"
         data-testid="drinks-bottom-btn"
