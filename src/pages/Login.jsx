@@ -4,7 +4,7 @@ import HeaderSearch from '../components/HeaderSearch';
 export default function Login() {
   return (
     <div>
-      Login
+      <p>Login</p>
       <HeaderSearch />
     </div>
   );

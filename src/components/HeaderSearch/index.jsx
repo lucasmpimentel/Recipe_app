@@ -1,19 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
-import MealsContext from '../../context/MealsContext';
+import React, { useState } from 'react';
+// import React, { useContext, useEffect, useState } from 'react';
+// import MealsContext from '../context/MealsContext';
 import useFetch from '../../hooks/useFetch';
 
-export default HeaderSearch = () => {
-  // confirmar como esse input vem do Req 12
-  const [searchInput] = useContext(MealsContext);
-  const [url, setUrl] = useState('');
-  const [meals, setMeals] = useState;
+export default function HeaderSearch() {
+// ? confirmar como esse input vem do Req 12
+//   const [searchInput] = useContext(MealsContext);
+// const [meals, setMeals] = useState;
+  const searchInput = 'orange';
 
-  const handleSearchBtn = (event) => {
-    event.preventDefault();
-    console.log(event);
-  };
-
-  const urlBase = 'www.themealdb.com/api/json/v1/1/';
+  const urlBase = 'https://www.themealdb.com/api/json/v1/1/';
   // volta um objeto com um array meals
   const urlSearchIngredient = `${urlBase}filter.php?i=${searchInput}`;
   // Esse traz um objeto com array de objetos que tem o id, e a consulta com o id traz o objeto igual no por nome e primeira letra.
@@ -86,7 +82,10 @@ export default HeaderSearch = () => {
   // }
   // ]
   // }
+
   const urlFirstLetter = `${urlBase}search.php?f=${searchInput.charAt(0)}`;
+
+  const [url, setUrl] = useState(`${urlSearchIngredient}`);
 
   // preciso do value que vem do input do req12, para junto com o value de um dos 3 checkboxes definir qual url será pesquisada
   // caso seja a url do firstLetter, pegar somente a primeira letra do que for digitado
@@ -108,11 +107,31 @@ export default HeaderSearch = () => {
     }
   };
 
-  // parei aqui, tenho que implementar os fetchs.
+  // if (isLoading) return <h1>Loading...</h1>;
 
-  useEffect(() => {
+  const { data, isLoading, errorMessage } = useFetch(url);
+  if (data) console.log(data);
 
-  }, [url]);
+  const mealsObj = {
+    mealsResponse: data ? data.meals : [],
+    isLoading,
+    errorMessage,
+  };
+
+  const HandleBtn = (event) => {
+    event.preventDefault();
+    console.log(event);
+    console.log(mealsObj.mealsResponse);
+  };
+
+  console.log(url);
+  console.log(useFetch(url));
+
+  // www.themealdb.com/api/json/v1/1/lookup.php?i=52772
+
+  // const mealIngredients = () => {
+  //   meals.forEach((meal) => idMeal.map((id)=>useFetch)
+  // }
 
   return (
     <form>
@@ -156,12 +175,11 @@ export default HeaderSearch = () => {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ handleSearchBtn }
+        onClick={ HandleBtn }
         className="btn-ordenar"
       >
         Ordenar
       </button>
-
     </form>
   );
-};
+}
