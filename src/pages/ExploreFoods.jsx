@@ -7,6 +7,10 @@ export default function ExploreFoods() {
     <>
       <Header />
       <p data-testid="page-title">Explore Foods</p>
+
+      <button type="button" data-testid="explore-by-ingredient">By Ingredient</button>
+      <button type="button" data-testid="explore-by-nationality">By Nacionality</button>
+      <button type="button" data-testid="explore-surprise">Surprise me!</button>
       <Footer />
     </>
   );
