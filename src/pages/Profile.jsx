@@ -4,6 +4,15 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Profile() {
+  function clearStorage() {
+    if (localStorage) { // Check if the localStorage object exists
+      localStorage.clear(); // clears the localstorage
+    } else {
+      global.alert('Sorry, no local storage.'); // an alert if localstorage is non-existing
+    }
+  //   if clearStorage.clear() && history.push('/');
+  }
+
   return (
     <>
       <Header />
@@ -43,3 +52,5 @@ export default function Profile() {
     </>
   );
 }
+
+// maneiras de limpar o localstorage https://stackoverflow.com/questions/7667958/clearing-localstorage-in-javascript
