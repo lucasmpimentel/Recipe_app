@@ -6,6 +6,20 @@ export default function Explore() {
     <>
       <Header />
       <p data-testid="page-title" searchTopBtn>Explore</p>
+      <button
+        data-testid="explore-foods"
+        type="button"
+      >
+        {' '}
+        Explore Foods
+      </button>
+      <button
+        data-testid="explore-drinks"
+        type="button"
+      >
+        {' '}
+        Explore Drinks
+      </button>
     </>
   );
 }
