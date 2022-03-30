@@ -14,26 +14,45 @@ const mealByName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const mealByFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 const mealByIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 
-const firstLetterSearch = (searchInput) => {
+// Drinks
+const drinkByName = 'www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const drinkByFirstLetter = 'www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+
+const mealOrDrink = (mealsVisible, drinksVisible) => {
+  console.log('entrou na meals or drink');
+  if (mealsVisible) {
+    const byName = mealByName;
+    const byFirstLetter = mealByFirstLetter;
+    const byIngredient = mealByIngredient;
+    return { byName, byFirstLetter, byIngredient };
+  }
+  if (drinksVisible) {
+    const byName = drinkByName;
+    const byFirstLetter = drinkByFirstLetter;
+    const byIngredient = drinksByIngredient;
+    return { byName, byFirstLetter, byIngredient };
+  }
+};
+
+const firstLetterSearch = (searchInput, mealsVisible, drinksVisible) => {
   console.log('entrou na firstLetterSearch');
+  const { byFirstLetter } = mealOrDrink(mealsVisible, drinksVisible);
   if (searchInput.length === 1) {
-    return fetchMealOrDrink(`${mealByFirstLetter}${searchInput}`);
+    return fetchMealOrDrink(`${byFirstLetter}${searchInput}`);
   }
   global.alert('Your search must have only 1 (one) character');
 };
 
-export const fetchMeal = (searchInput, search) => {
+export const fetchMeal = (searchInput, search, mealsVisible, drinksVisible) => {
+  const { byName, byIngredient } = mealOrDrink(mealsVisible, drinksVisible);
   if (search === 'ingredient-search') {
-    fetchMealOrDrink(`${mealByIngredient}${searchInput}`);
+    fetchMealOrDrink(`${byIngredient}${searchInput}`);
   } else if (search === 'name-search') {
-    fetchMealOrDrink(`${mealByName}${searchInput}`);
+    fetchMealOrDrink(`${byName}${searchInput}`);
   } else if (search === 'first-letter-search') {
-    firstLetterSearch(searchInput);
+    firstLetterSearch(searchInput, mealsVisible, drinksVisible);
   }
 };
-
-// Drinks
-
-// const url // switch/case
 
 export default fetchMealOrDrink;

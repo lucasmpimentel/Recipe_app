@@ -4,7 +4,11 @@ import Context from '../../context/Context';
 import { fetchMeal } from '../../services/FetchMealOrDrink';
 
 export default function HeaderSearch() {
-  const { filters: { searchInput }, setMeals } = useContext(Context);
+  const { filters: { searchInput },
+    setMeals,
+    mealsVisible,
+    drinksVisible,
+  } = useContext(Context);
 
   const [search, setSearch] = useState({
     searchCat: 'ingredient-search',
@@ -20,7 +24,7 @@ export default function HeaderSearch() {
   const HandleSearch = (event) => {
     event.preventDefault();
     const { searchCat } = search;
-    const data = fetchMeal(searchInput, searchCat);
+    const data = fetchMeal(searchInput, searchCat, mealsVisible, drinksVisible);
     setMeals(data);
     setSearch(search);
   };
