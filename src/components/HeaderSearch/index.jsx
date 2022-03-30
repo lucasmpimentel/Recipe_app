@@ -5,29 +5,33 @@ import useFetch from '../../hooks/useFetch';
 
 export default function HeaderSearch() {
   const { filters: { searchInput }, setMeals } = useContext(MealsContext);
-  // const [meals, setMeals] = useState([]);
-  // const searchInput = 'orange';
 
   const urlBase = 'https://www.themealdb.com/api/json/v1/1/';
   const urlSearchIngredient = `${urlBase}filter.php?i=${searchInput}`;
   const urlSearchName = `${urlBase}search.php?s=${searchInput}`;
   const urlFirstLetter = `${urlBase}search.php?f=${searchInput}`;
+  const [url, setUrl] = useState(urlSearchIngredient);
 
-  const [url, setUrl] = useState('');
+  const [search, setSearch] = useState({
+    search: 'ingredient-search',
+  });
 
   const firstLetterSearch = () => {
     if (searchInput.length === 1) return setUrl(urlFirstLetter);
     global.alert('Your search must have only 1 (one) character');
   };
 
-  // input com estado controlado, falta setar o estado inicial para o ingredient-search
+  const handleChange = ({ target: { name, value } }) => {
+    setSearch(() => ({
+      [name]: value,
+    }));
+  };
 
   // para a troca das urls de comida/bebida => "componendDidMount e componentWillUnmount para setar as flags de qual componente está ativo"
 
-  const handleChange = ({ target: { name, value } }) => {
-    console.log('handlechange');
-    console.log(name, value);
-    switch (value) {
+  const buildUrl = () => {
+    console.log(search);
+    switch (search.search) {
     case 'ingredient-search':
       console.log('ingredient-search-case');
       setUrl(urlSearchIngredient);
@@ -45,28 +49,25 @@ export default function HeaderSearch() {
     }
   };
 
-  // const { data, isLoading, errorMessage } = useFetch(url);
   const { data } = useFetch(url);
-  console.log('url depois do const data = useFetch', url);
-  // if (data) console.log(data);
 
-  const HandleBtn = (event) => {
+  const HandleSearch = (event) => {
     event.preventDefault();
-
+    buildUrl();
+    console.log('url no handleSearch', url);
+    // const { value } = search;
     console.log(data.meals);
     setMeals(data.meals);
+    setSearch(search);
   };
-
-  // console.log('searchInput', searchInput);
-  console.log('Console log da URL', url);
 
   return (
     <form>
-      <label htmlFor="search-recipe">
+      <label htmlFor="search">
         <input
           type="radio"
           id="ingredient-search"
-          name="search-recipe"
+          name="search"
           value="ingredient-search"
           data-testid="ingredient-search-radio"
           onChange={ handleChange }
@@ -75,10 +76,10 @@ export default function HeaderSearch() {
         Ingredient
       </label>
 
-      <label htmlFor="search-recipe">
+      <label htmlFor="search">
         <input
           type="radio"
-          name="search-recipe"
+          name="search"
           id="name-search"
           value="name-search"
           data-testid="name-search-radio"
@@ -87,10 +88,10 @@ export default function HeaderSearch() {
         Name
       </label>
 
-      <label htmlFor="search-recipe">
+      <label htmlFor="search">
         <input
           type="radio"
-          name="search-recipe"
+          name="search"
           id="first-letter-search"
           value="first-letter-search"
           data-testid="first-letter-search-radio"
@@ -102,7 +103,7 @@ export default function HeaderSearch() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ HandleBtn }
+        onClick={ HandleSearch }
       >
         Search
       </button>
