@@ -26,7 +26,7 @@ export default function Login() {
   // Solução: https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
   // Guia: https://regexr.com/3e48o
   useEffect(() => {
-    const MIN_PASSWORD = 6;
+    const MIN_PASSWORD = 7;
     const isValidPassword = userState.userPassword.length >= MIN_PASSWORD;
     const regEx = /^[\wa-z0-9.-]+@[\wa-z0-9]+\.[a-z]+(\.+[a-z]+)?$/gi;
     const isValidEmail = regEx.test(userState.userEmail);
