@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
+import Context from '../context/Context';
 
 export default function Foods() {
+  const { setMealsVisible } = useContext(Context);
+
+  // component did mount
+  useEffect(() => {
+    setMealsVisible(true);
+  }, [setMealsVisible]);
+
+  // component will unmount
+  useEffect(() => {
+    console.log('Hello World');
+    return () => {
+      console.log('Do some cleanup');
+      setMealsVisible(false);
+    };
+  }, [setMealsVisible]);
+
   return (
     <>
       <Header searchTopBtn />

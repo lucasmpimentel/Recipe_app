@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import HeaderSearch from './HeaderSearch';
-import MealsContext from '../context/MealsContext';
+import Context from '../context/Context';
 
 export default function Header({ searchTopBtn }) {
-  const { filters: { searchInput }, setFilter } = useContext(MealsContext);
+  const { filters: { searchInput }, setFilter } = useContext(Context);
   const [showInput, setShowInput] = useState('false');
   // const input = <input type="text" data-testid="search-input" />;
 

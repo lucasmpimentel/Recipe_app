@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 // import React, { useContext, useEffect, useState } from 'react';
-import MealsContext from '../../context/MealsContext';
+import Context from '../../context/Context';
 import useFetch from '../../hooks/useFetch';
 
 export default function HeaderSearch() {
-  const { filters: { searchInput }, setMeals } = useContext(MealsContext);
+  const { filters: { searchInput }, setMeals } = useContext(Context);
 
   const urlBase = 'https://www.themealdb.com/api/json/v1/1/';
   const [url, setUrl] = useState(`${urlBase}filter.php?i=${searchInput}`);

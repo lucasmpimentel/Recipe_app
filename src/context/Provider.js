@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import MealsContext from './MealsContext';
+import Context from './Context';
 
-const MealsProvider = ({ children }) => {
+const Provider = ({ children }) => {
   const [meals, setMeals] = useState({
     mealsRetrieved: [],
   });
@@ -14,6 +14,7 @@ const MealsProvider = ({ children }) => {
   });
 
   const [mealsVisible, setMealsVisible] = useState(false);
+  const [drinksVisible, setDrinksVisible] = useState(false);
 
   const setFilter = (filter, value) => {
     setState((prevState) => ({
@@ -29,17 +30,19 @@ const MealsProvider = ({ children }) => {
     setFilter,
     mealsVisible,
     setMealsVisible,
+    drinksVisible,
+    setDrinksVisible,
   };
 
   return (
-    <MealsContext.Provider value={ context }>
+    <Context.Provider value={ context }>
       { children }
-    </MealsContext.Provider>
+    </Context.Provider>
   );
 };
 
-MealsProvider.propTypes = {
+Provider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default MealsProvider;
+export default Provider;
