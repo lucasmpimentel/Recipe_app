@@ -13,6 +13,8 @@ const MealsProvider = ({ children }) => {
     },
   });
 
+  const [mealsVisible, setMealsVisible] = useState(false);
+
   const setFilter = (filter, value) => {
     setState((prevState) => ({
       ...prevState,
@@ -25,6 +27,8 @@ const MealsProvider = ({ children }) => {
     meals,
     setMeals,
     setFilter,
+    mealsVisible,
+    setMealsVisible,
   };
 
   return (

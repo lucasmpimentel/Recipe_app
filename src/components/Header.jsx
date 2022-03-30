@@ -28,7 +28,7 @@ export default function Header({ searchTopBtn }) {
           />
         </button>
       </Link>
-      {showInput
+      {!showInput
               && <input
                 type="text"
                 data-testid="search-input"
@@ -48,7 +48,7 @@ export default function Header({ searchTopBtn }) {
           />
         </button>
       )}
-      { showInput && <HeaderSearch /> }
+      { !showInput && <HeaderSearch /> }
     </header>
   );
 }

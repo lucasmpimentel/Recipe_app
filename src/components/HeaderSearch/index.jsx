@@ -7,38 +7,29 @@ export default function HeaderSearch() {
   const { filters: { searchInput }, setMeals } = useContext(MealsContext);
 
   const urlBase = 'https://www.themealdb.com/api/json/v1/1/';
-  const urlSearchIngredient = `${urlBase}filter.php?i=${searchInput}`;
-  const urlSearchName = `${urlBase}search.php?s=${searchInput}`;
-  const urlFirstLetter = `${urlBase}search.php?f=${searchInput}`;
-  const [url, setUrl] = useState(urlSearchIngredient);
+  const [url, setUrl] = useState(`${urlBase}filter.php?i=${searchInput}`);
 
   const [search, setSearch] = useState({
     search: 'ingredient-search',
   });
 
   const firstLetterSearch = () => {
-    if (searchInput.length === 1) return setUrl(urlFirstLetter);
+    if (searchInput.length === 1) return setUrl(`${urlBase}search.php?f=${searchInput}`);
     global.alert('Your search must have only 1 (one) character');
-  };
-
-  const handleChange = ({ target: { name, value } }) => {
-    setSearch(() => ({
-      [name]: value,
-    }));
   };
 
   // para a troca das urls de comida/bebida => "componendDidMount e componentWillUnmount para setar as flags de qual componente está ativo"
 
   const buildUrl = () => {
-    console.log(search);
+    console.log(search.search);
     switch (search.search) {
     case 'ingredient-search':
       console.log('ingredient-search-case');
-      setUrl(urlSearchIngredient);
+      setUrl(`${urlBase}filter.php?i=${searchInput}`);
       break;
     case 'name-search':
       console.log('name-search-case');
-      setUrl(urlSearchName);
+      setUrl(`${urlBase}search.php?s=${searchInput}`);
       break;
     case 'first-letter-search':
       console.log('first-letter-search-case');
@@ -49,14 +40,25 @@ export default function HeaderSearch() {
     }
   };
 
+  const handleChange = ({ target: { name, value } }) => {
+    console.log('entrei na handle change');
+    setSearch(() => ({
+      [name]: value,
+    }));
+    buildUrl();
+  };
+
+  // aqui vem "atrasado"
   const { data } = useFetch(url);
+
+  // console.log('url no corpo do react function component', url);
 
   const HandleSearch = (event) => {
     event.preventDefault();
+    console.log(search.search);
+    console.log(searchInput);
     buildUrl();
-    console.log('url no handleSearch', url);
-    // const { value } = search;
-    console.log(data.meals);
+    console.log(url);
     setMeals(data.meals);
     setSearch(search);
   };
