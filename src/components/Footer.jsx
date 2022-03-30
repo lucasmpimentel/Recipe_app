@@ -12,19 +12,19 @@ export default function Footer() {
         to="/drinks"
       >
         <button type="button" data-testid="drinks-bottom-btn" src={ drinkIcon }>
-          <img src={ drinkIcon } alt="Ícone de drinks" />
+          <img name="drink" src={ drinkIcon } alt="Ícone de drinks" />
         </button>
       </Link>
 
       <Link to="/explore">
         <button type="button" data-testid="explore-bottom-btn" src={ exploreIcon }>
-          <img src={ exploreIcon } alt="Ícone de explorar" />
+          <img name="explore" src={ exploreIcon } alt="Ícone de explorar" />
         </button>
       </Link>
 
       <Link to="/foods">
         <button type="button" data-testid="food-bottom-btn" src={ mealIcon }>
-          <img src={ mealIcon } alt="Ícone de comida" />
+          <img name="food" src={ mealIcon } alt="Ícone de comida" />
         </button>
       </Link>
     </footer>
