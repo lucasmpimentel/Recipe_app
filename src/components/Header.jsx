@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import HeaderSearch from './HeaderSearch';
+import MealsContext from '../context/MealsContext';
 
 export default function Header({ searchTopBtn }) {
-  const [showInput, setShowInput] = useState('true');
-  const input = <input type="text" data-testid="search-input" />;
+  const { filters: { searchInput }, setFilter } = useContext(MealsContext);
+  const [showInput, setShowInput] = useState('false');
+  // const input = <input type="text" data-testid="search-input" />;
+
+  const handleChange = ({ target: { name, value } }) => {
+    setFilter(name, value);
+  };
+
   return (
 
     <header>
@@ -21,7 +28,14 @@ export default function Header({ searchTopBtn }) {
           />
         </button>
       </Link>
-      { !showInput && input }
+      {showInput
+              && <input
+                type="text"
+                data-testid="search-input"
+                name="searchInput"
+                value={ searchInput }
+                onChange={ handleChange }
+              />}
       { searchTopBtn && (
         <button
           type="button"
@@ -34,7 +48,7 @@ export default function Header({ searchTopBtn }) {
           />
         </button>
       )}
-      { !showInput && <HeaderSearch /> }
+      { showInput && <HeaderSearch /> }
     </header>
   );
 }
