@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import Context from '../context/Context';
+import Footer from '../components/Footer';
 
 export default function Foods() {
   const { setMealsVisible } = useContext(Context);
@@ -23,6 +24,7 @@ export default function Foods() {
     <>
       <Header searchTopBtn />
       <p data-testid="page-title">Foods</p>
+      <Footer />
     </>
   );
 }
