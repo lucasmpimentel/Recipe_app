@@ -1,10 +1,12 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function Profile() {
   return (
     <>
-      <div>Profile</div>
+      <Header />
+      <p data-testid="page-title">Profile</p>
       <Footer />
     </>
   );
