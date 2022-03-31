@@ -14,7 +14,7 @@ const MealsProvider = ({ children }) => {
   const { errorMessage, isLoading, data } = useFetch(CATEGORIES_ENDPOINT);
 
   const context = {
-    characters: data ? data.results : [],
+    meals: data ? data.results : [],
     isLoading,
     errorMessage,
   };
