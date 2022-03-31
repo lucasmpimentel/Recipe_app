@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { setMealsToken, setCocktailsToken } from '../services/setTokensLS';
+import './Login.css';
 
 export default function Login() {
   const history = useHistory();
@@ -13,6 +16,8 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setMealsToken(1);
+    setCocktailsToken(1);
     history.push('/foods');
   };
 
@@ -38,11 +43,12 @@ export default function Login() {
   }, [userState, setUserValue]);
 
   return (
-    <main>
-      <form onSubmit={ handleSubmit }>
+    <main className="login-container">
+      <form className="login-form" onSubmit={ handleSubmit }>
         <input
           type="email"
           data-testid="email-input"
+          className="login-input"
           name="userEmail"
           value={ userState.userEmail }
           placeholder={ userValue }
@@ -51,17 +57,21 @@ export default function Login() {
         <input
           type="password"
           data-testid="password-input"
+          className="login-input"
           name="userPassword"
           value={ userState.userPassword }
           onChange={ handleChange }
         />
-        <button
+        <Button
+          variant="primary"
+          size="sm"
           type="submit"
           data-testid="login-submit-btn"
+          className="login-submit-button"
           disabled={ isDisabled }
         >
           Enter
-        </button>
+        </Button>
       </form>
     </main>
   );
