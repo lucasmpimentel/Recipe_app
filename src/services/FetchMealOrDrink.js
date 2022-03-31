@@ -19,6 +19,7 @@ const drinkByName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const drinkByFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
+// could be an if/else or even only if, but I think this way is more clear.
 const mealOrDrink = (mealsVisible, drinksVisible) => {
   console.log('entrou na meals or drink');
   if (mealsVisible) {
