@@ -15,8 +15,8 @@ const mealByFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=
 const mealByIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 
 // Drinks
-const drinkByName = 'www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-const drinkByFirstLetter = 'www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+const drinkByName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const drinkByFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
 const mealOrDrink = (mealsVisible, drinksVisible) => {
