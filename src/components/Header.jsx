@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import HeaderSearch from './HeaderSearch';
 import Context from '../context/Context';
 
 export default function Header({ searchTopBtn }) {
+  const history = useHistory();
   const { filters: { searchInput }, setFilter } = useContext(Context);
   const [showInput, setShowInput] = useState('false');
   // const input = <input type="text" data-testid="search-input" />;
@@ -19,15 +20,13 @@ export default function Header({ searchTopBtn }) {
 
     <header>
       <h1> teste header </h1>
-      <Link to="/Profile">
-        <button type="button">
-          <img
-            src={ ProfileIcon }
-            alt="Imagem do Perfil"
-            data-testid="profile-top-btn"
-          />
-        </button>
-      </Link>
+      <button type="button" onClick={ () => history.push('/profile') }>
+        <img
+          src={ ProfileIcon }
+          alt="Imagem do Perfil"
+          data-testid="profile-top-btn"
+        />
+      </button>
       {!showInput
               && <input
                 type="text"
