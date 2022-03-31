@@ -33,6 +33,7 @@ export default function HeaderSearch() {
         const url = `/foods/${data.meals[0].idMeal}`;
         history.push(url);
       }
+      return;
     }
     if (data.drinks) {
       const { drinks } = data;
@@ -41,6 +42,7 @@ export default function HeaderSearch() {
         const url = `/drinks/${data.drinks[0].idDrink}`;
         history.push(url);
       }
+      return;
     }
     return global.alert('Sorry, we haven\'t found any recipes for these filters.');
   };
