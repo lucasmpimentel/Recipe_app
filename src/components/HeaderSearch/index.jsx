@@ -24,6 +24,7 @@ export default function HeaderSearch() {
   };
 
   const handleResults = (data) => {
+    // console.log(Object.values(data.meals[0]));
     const MAX = 12;
     if (data.meals) {
       const { meals } = data;
@@ -41,6 +42,7 @@ export default function HeaderSearch() {
         history.push(url);
       }
     }
+    return global.alert('Sorry, we haven\'t found any recipes for these filters.');
   };
 
   const handleSearch = async (event) => {
@@ -68,7 +70,6 @@ export default function HeaderSearch() {
         />
         Ingredient
       </label>
-
       <label htmlFor="searchCat">
         <input
           type="radio"
@@ -80,7 +81,6 @@ export default function HeaderSearch() {
         />
         Name
       </label>
-
       <label htmlFor="searchCat">
         <input
           type="radio"
@@ -92,7 +92,6 @@ export default function HeaderSearch() {
         />
         First Letter
       </label>
-
       <button
         type="button"
         data-testid="exec-search-btn"
