@@ -1,12 +1,22 @@
 import { useState, useEffect } from 'react';
 
 const getSavedValue = (key, initialValue) => {
-  const savedValue = localStorage.getItem(key);
-  return savedValue ? JSON.parse(savedValue) : initialValue;
+  try {
+    const savedValue = localStorage.getItem(key);
+    return savedValue ? JSON.parse(savedValue) : initialValue;
+  } catch (error) {
+    console.log(error);
+    return initialValue;
+  }
 };
 
 const useLocalStorage = (key, initialValue) => {
-  const [value, setValue] = useState(() => getSavedValue(key, initialValue));
+  const [value, setValue] = useState(() => {
+    if (typeof window === 'undefined') {
+      return initialValue;
+    }
+    getSavedValue(key, initialValue);
+  });
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
@@ -16,3 +26,5 @@ const useLocalStorage = (key, initialValue) => {
 };
 
 export default useLocalStorage;
+
+// Correções feitas com base em: https://usehooks.com/useLocalStorage/
