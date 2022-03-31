@@ -1,4 +1,4 @@
-const fetchMealOrDrink = async (url) => {
+const fetchResults = async (url) => {
   const response = await fetch(`${url}`);
   const results = await response.json();
   console.log(results);
@@ -34,7 +34,7 @@ const mealOrDrink = (mealsVisible, drinksVisible) => {
 const firstLetterSearch = (searchInput, mealsVisible, drinksVisible) => {
   const { byFirstLetter } = mealOrDrink(mealsVisible, drinksVisible);
   if (searchInput.length === 1) {
-    return fetchMealOrDrink(`${byFirstLetter}${searchInput}`);
+    return fetchResults(`${byFirstLetter}${searchInput}`);
   }
   return global.alert('Your search must have only 1 (one) character');
 };
@@ -42,11 +42,11 @@ const firstLetterSearch = (searchInput, mealsVisible, drinksVisible) => {
 export const fetchData = async (searchInput, search, mealsVisible, drinksVisible) => {
   const { byName, byIngredient } = mealOrDrink(mealsVisible, drinksVisible);
   if (search === 'ingredient-search') {
-    const results = await fetchMealOrDrink(`${byIngredient}${searchInput}`);
+    const results = await fetchResults(`${byIngredient}${searchInput}`);
     return results;
   }
   if (search === 'name-search') {
-    const results = fetchMealOrDrink(`${byName}${searchInput}`);
+    const results = fetchResults(`${byName}${searchInput}`);
     return results;
   }
   if (search === 'first-letter-search') {
@@ -54,4 +54,4 @@ export const fetchData = async (searchInput, search, mealsVisible, drinksVisible
   }
 };
 
-export default fetchMealOrDrink;
+export default fetchResults;
