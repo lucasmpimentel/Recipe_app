@@ -36,7 +36,7 @@ const firstLetterSearch = (searchInput, mealsVisible, drinksVisible) => {
   if (searchInput.length === 1) {
     return fetchMealOrDrink(`${byFirstLetter}${searchInput}`);
   }
-  global.alert('Your search must have only 1 (one) character');
+  return global.alert('Your search must have only 1 (one) character');
 };
 
 export const fetchData = async (searchInput, search, mealsVisible, drinksVisible) => {

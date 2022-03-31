@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-// import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import { fetchData } from '../../services/FetchMealOrDrink';
 
@@ -11,13 +11,13 @@ export default function HeaderSearch() {
     drinksVisible,
     setState,
   } = useContext(Context);
+  const history = useHistory();
 
   const [search, setSearch] = useState({
     searchCat: 'ingredient-search',
   });
 
   const handleChange = ({ target: { name, value } }) => {
-    // console.log('entrei na handle change');
     setSearch(() => ({
       [name]: value,
     }));
@@ -28,10 +28,18 @@ export default function HeaderSearch() {
     if (data.meals) {
       const { meals } = data;
       setMeals(meals.filter((_meal, index) => index < MAX));
+      if (data.meals.length === 1) {
+        const url = `/foods/${data.meals[0].idMeal}`;
+        history.push(url);
+      }
     }
     if (data.drinks) {
       const { drinks } = data;
       setDrinks(drinks.filter((_drink, index) => index < MAX));
+      if (data.drinks.length === 1) {
+        const url = `/drinks/${data.drinks[0].idDrink}`;
+        history.push(url);
+      }
     }
   };
 

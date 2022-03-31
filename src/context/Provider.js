@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 const Provider = ({ children }) => {
-  const [meals, setMeals] = useState({
-    meals: [],
-  });
-  const [drinks, setDrinks] = useState({
-    drinks: [],
-  });
+  const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   const [state, setState] = useState({
     filters: {
