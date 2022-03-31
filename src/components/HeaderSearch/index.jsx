@@ -6,6 +6,7 @@ import { fetchData } from '../../services/FetchMealOrDrink';
 export default function HeaderSearch() {
   const { filters: { searchInput },
     setMeals,
+    setDrinks,
     mealsVisible,
     drinksVisible,
     setState,
@@ -22,16 +23,27 @@ export default function HeaderSearch() {
     }));
   };
 
+  const handleResults = (data) => {
+    const MAX = 12;
+    if (data.meals) {
+      const { meals } = data;
+      setMeals(meals.filter((_meal, index) => index < MAX));
+    }
+    if (data.drinks) {
+      const { drinks } = data;
+      setDrinks(drinks.filter((_drink, index) => index < MAX));
+    }
+  };
+
   const handleSearch = async (event) => {
     event.preventDefault();
     const { searchCat } = search;
     const data = await fetchData(searchInput, searchCat, mealsVisible, drinksVisible);
-    console.log(data);
     setState((prevState) => ({
       filters: { ...prevState.filters, searchInput: '' },
     }));
     setSearch(search);
-    setMeals(data);
+    handleResults(data);
   };
 
   return (

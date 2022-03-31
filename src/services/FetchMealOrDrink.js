@@ -1,18 +1,7 @@
 const fetchMealOrDrink = async (url) => {
   const response = await fetch(`${url}`);
-  const json = await response.json();
-  const MAX = 12;
-  if (json.meals) {
-    const { meals } = json;
-    return meals;
-  }
-  if (json.drinks) {
-    const { drinks } = json;
-    return drinks;
-  }
-  let results = json.meals ? meals : drinks;
-  results = results.filter((_data, index) => index < MAX);
-  console.log(meals);
+  const results = await response.json();
+  console.log(results);
   return response.ok ? Promise.resolve(results) : Promise.reject(results);
 };
 

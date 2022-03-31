@@ -4,7 +4,10 @@ import Context from './Context';
 
 const Provider = ({ children }) => {
   const [meals, setMeals] = useState({
-    mealsRetrieved: [],
+    meals: [],
+  });
+  const [drinks, setDrinks] = useState({
+    drinks: [],
   });
 
   const [state, setState] = useState({
@@ -28,6 +31,8 @@ const Provider = ({ children }) => {
     setState,
     meals,
     setMeals,
+    drinks,
+    setDrinks,
     setFilter,
     mealsVisible,
     setMealsVisible,
