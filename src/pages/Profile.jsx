@@ -2,8 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { getSavedValue } from '../hooks/useLocalStorage';
 
 export default function Profile() {
+  const { email } = getSavedValue('user');
+
   function clearStorage() {
     if (localStorage) { // Check if the localStorage object exists
       localStorage.clear(); // clears the localstorage
@@ -19,6 +22,7 @@ export default function Profile() {
       <p data-testid="page-title">Profile</p>
       <p data-testid="profile-email">
         Este é meu email
+        { email }
       </p>
       <Link to="/done-recipes">
         <button
