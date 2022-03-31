@@ -8,8 +8,7 @@ export default function Explore() {
     <>
       <Header />
       <p data-testid="page-title" searchTopBtn>Explore</p>
-      <Link to="/
-    explore/foods">
+      <Link to="/explore/foods">
         <button
           data-testid="explore-foods"
           type="button"
