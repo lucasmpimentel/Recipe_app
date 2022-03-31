@@ -1,12 +1,8 @@
 const fetchMealOrDrink = async (url) => {
   const response = await fetch(`${url}`);
-  const json = await response.json();
-  const MAX = 12;
-  let { meals } = json;
-  meals = meals.filter((_data, index) => index < MAX);
-  console.log(meals);
-
-  return response.ok ? Promise.resolve(meals) : Promise.reject(meals);
+  const results = await response.json();
+  console.log(results);
+  return response.ok ? Promise.resolve(results) : Promise.reject(results);
 };
 
 // Meal
@@ -21,7 +17,6 @@ const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/filter.p
 
 // could be an if/else or even only if, but I think this way is more clear.
 const mealOrDrink = (mealsVisible, drinksVisible) => {
-  console.log('entrou na meals or drink');
   if (mealsVisible) {
     const byName = mealByName;
     const byFirstLetter = mealByFirstLetter;
@@ -37,22 +32,25 @@ const mealOrDrink = (mealsVisible, drinksVisible) => {
 };
 
 const firstLetterSearch = (searchInput, mealsVisible, drinksVisible) => {
-  console.log('entrou na firstLetterSearch');
   const { byFirstLetter } = mealOrDrink(mealsVisible, drinksVisible);
   if (searchInput.length === 1) {
     return fetchMealOrDrink(`${byFirstLetter}${searchInput}`);
   }
-  global.alert('Your search must have only 1 (one) character');
+  return global.alert('Your search must have only 1 (one) character');
 };
 
-export const fetchMeal = (searchInput, search, mealsVisible, drinksVisible) => {
+export const fetchData = async (searchInput, search, mealsVisible, drinksVisible) => {
   const { byName, byIngredient } = mealOrDrink(mealsVisible, drinksVisible);
   if (search === 'ingredient-search') {
-    fetchMealOrDrink(`${byIngredient}${searchInput}`);
-  } else if (search === 'name-search') {
-    fetchMealOrDrink(`${byName}${searchInput}`);
-  } else if (search === 'first-letter-search') {
-    firstLetterSearch(searchInput, mealsVisible, drinksVisible);
+    const results = await fetchMealOrDrink(`${byIngredient}${searchInput}`);
+    return results;
+  }
+  if (search === 'name-search') {
+    const results = fetchMealOrDrink(`${byName}${searchInput}`);
+    return results;
+  }
+  if (search === 'first-letter-search') {
+    return firstLetterSearch(searchInput, mealsVisible, drinksVisible);
   }
 };
 

@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 const Provider = ({ children }) => {
-  const [meals, setMeals] = useState({
-    mealsRetrieved: [],
-  });
+  const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   const [state, setState] = useState({
     filters: {
@@ -25,8 +24,11 @@ const Provider = ({ children }) => {
 
   const context = {
     ...state,
+    setState,
     meals,
     setMeals,
+    drinks,
+    setDrinks,
     setFilter,
     mealsVisible,
     setMealsVisible,
