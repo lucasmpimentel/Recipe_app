@@ -68,7 +68,6 @@ export default function HeaderSearch() {
         />
         Ingredient
       </label>
-
       <label htmlFor="searchCat">
         <input
           type="radio"
@@ -80,7 +79,6 @@ export default function HeaderSearch() {
         />
         Name
       </label>
-
       <label htmlFor="searchCat">
         <input
           type="radio"
@@ -92,7 +90,6 @@ export default function HeaderSearch() {
         />
         First Letter
       </label>
-
       <button
         type="button"
         data-testid="exec-search-btn"
