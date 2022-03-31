@@ -25,6 +25,7 @@ const Provider = ({ children }) => {
 
   const context = {
     ...state,
+    setState,
     meals,
     setMeals,
     setFilter,

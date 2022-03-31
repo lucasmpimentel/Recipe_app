@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
 // import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../context/Context';
-import { fetchMeal } from '../../services/FetchMealOrDrink';
+import { fetchData } from '../../services/FetchMealOrDrink';
 
 export default function HeaderSearch() {
   const { filters: { searchInput },
     setMeals,
     mealsVisible,
     drinksVisible,
+    setState,
   } = useContext(Context);
 
   const [search, setSearch] = useState({
@@ -15,18 +16,22 @@ export default function HeaderSearch() {
   });
 
   const handleChange = ({ target: { name, value } }) => {
-    console.log('entrei na handle change');
+    // console.log('entrei na handle change');
     setSearch(() => ({
       [name]: value,
     }));
   };
 
-  const HandleSearch = (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault();
     const { searchCat } = search;
-    const data = fetchMeal(searchInput, searchCat, mealsVisible, drinksVisible);
-    setMeals(data);
+    const data = await fetchData(searchInput, searchCat, mealsVisible, drinksVisible);
+    console.log(data);
+    setState((prevState) => ({
+      filters: { ...prevState.filters, searchInput: '' },
+    }));
     setSearch(search);
+    setMeals(data);
   };
 
   return (
@@ -71,7 +76,7 @@ export default function HeaderSearch() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ HandleSearch }
+        onClick={ handleSearch }
       >
         Search
       </button>
