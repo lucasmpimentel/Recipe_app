@@ -15,8 +15,6 @@ function Card() {
 
   const toDrinkDetail = (idDrink) => history.push(`/drinks/${idDrink}`);
 
-  const checkMeal = (e) => console.log(e.key);
-
   return (
     <div>
       {mealsRetrieved
@@ -24,11 +22,11 @@ function Card() {
         && mealsRetrieved.map(({ strMeal, strMealThumb, idMeal }, index) => (
           <div
             role="button"
-            tabIndex={ index }
+            tabIndex="0"
             key={ idMeal }
             data-testid={ `${index}-recipe-card` }
             // onClick={ (toMealDetail(idMeal)) }
-            // onKeyDown={ checkMeal(e) }
+            // onKeyPress={ (e) => e.key === 'Enter' && toMealDetail(idMeal) }
           >
             <img
               src={ strMealThumb }
