@@ -25,8 +25,8 @@ function Card() {
             tabIndex="0"
             key={ idMeal }
             data-testid={ `${index}-recipe-card` }
-            // onClick={ (toMealDetail(idMeal)) }
-            // onKeyPress={ (e) => e.key === 'Enter' && toMealDetail(idMeal) }
+            onClick={ () => (toMealDetail(idMeal)) }
+            onKeyPress={ (e) => e.key === 'Enter' && toMealDetail(idMeal) }
           >
             <img
               src={ strMealThumb }
@@ -44,8 +44,8 @@ function Card() {
             tabIndex={ index }
             key={ idDrink }
             data-testid={ `${index}-recipe-card` }
-            onClick={ toDrinkDetail(idDrink) }
-            onKeyDown={ toDrinkDetail(idDrink) }
+            onClick={ () => (toDrinkDetail(idDrink)) }
+            onKeyPress={ (e) => e.key === 'Enter' && toDrinkDetail(idDrink) }
           >
             <img
               src={ strDrinkThumb }

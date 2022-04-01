@@ -50,17 +50,28 @@ function Categories() {
       landingMeals();
       landingDrinks();
     }
-    if (mealsVisible) {
+    if (mealsVisible && !catClicked) {
       const { meals } = await fetchResults(`${mealCategory}${value}`);
       const max = 12;
       setMealsRetrieved(meals.filter((_meal, index) => index < max));
+      setCatClicked(!catClicked);
     }
-    if (drinksVisible) {
+    if (mealsVisible && catClicked) {
+      console.log('entrei no if do toggle, devo mostar fetchMealsCategories');
+      landingMeals();
+      setCatClicked(!catClicked);
+    }
+    if (drinksVisible && !catClicked) {
       const results = await fetch(`${drinkCategory}${value}`);
       const data = await results.json();
       const { drinks } = data;
       const max = 12;
       setDrinksRetrieved(drinks.filter((_drink, index) => index < max));
+      setCatClicked(!catClicked);
+    }
+    if (drinksVisible && catClicked) {
+      landingDrinks();
+      setCatClicked(!catClicked);
     }
   };
 
