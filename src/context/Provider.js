@@ -24,7 +24,7 @@ const Provider = ({ children }) => {
     const data = (async () => {
       let { drinks } = await fetchResults(drinksByIngredient);
       const max = 12;
-      drinks = drinks.filter((_meal, index) => index < max);
+      drinks = drinks.filter((_drink, index) => index < max);
       setDrinksRetrieved(drinks);
     });
     data();
