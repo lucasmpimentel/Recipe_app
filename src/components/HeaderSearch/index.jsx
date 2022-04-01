@@ -5,8 +5,8 @@ import { fetchData } from '../../services/FetchMealOrDrink';
 
 export default function HeaderSearch() {
   const { filters: { searchInput },
-    setMeals,
-    setDrinks,
+    setMealsRetrieved,
+    setDrinksRetrieved,
     mealsVisible,
     drinksVisible,
     setState,
@@ -28,7 +28,7 @@ export default function HeaderSearch() {
     const MAX = 12;
     if (data.meals) {
       const { meals } = data;
-      setMeals(meals.filter((_meal, index) => index < MAX));
+      setMealsRetrieved(meals.filter((_meal, index) => index < MAX));
       if (data.meals.length === 1) {
         const url = `/foods/${data.meals[0].idMeal}`;
         history.push(url);
@@ -37,7 +37,7 @@ export default function HeaderSearch() {
     }
     if (data.drinks) {
       const { drinks } = data;
-      setDrinks(drinks.filter((_drink, index) => index < MAX));
+      setDrinksRetrieved(drinks.filter((_drink, index) => index < MAX));
       if (data.drinks.length === 1) {
         const url = `/drinks/${data.drinks[0].idDrink}`;
         history.push(url);
