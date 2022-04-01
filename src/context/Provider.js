@@ -10,24 +10,26 @@ const Provider = ({ children }) => {
   const mealByIngredient = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-  useEffect(() => {
-    const data = (async () => {
-      let { meals } = await fetchResults(mealByIngredient);
-      const max = 12;
-      meals = meals.filter((_meal, index) => index < max);
-      setMealsRetrieved(meals);
-    });
-    data();
-  }, []);
+  const landingMeals = (async () => {
+    let { meals } = await fetchResults(mealByIngredient);
+    const max = 12;
+    meals = meals.filter((_meal, index) => index < max);
+    setMealsRetrieved(meals);
+  });
 
   useEffect(() => {
-    const data = (async () => {
-      let { drinks } = await fetchResults(drinksByIngredient);
-      const max = 12;
-      drinks = drinks.filter((_drink, index) => index < max);
-      setDrinksRetrieved(drinks);
-    });
-    data();
+    landingMeals();
+  }, []);
+
+  const landingDrinks = (async () => {
+    let { drinks } = await fetchResults(drinksByIngredient);
+    const max = 12;
+    drinks = drinks.filter((_drink, index) => index < max);
+    setDrinksRetrieved(drinks);
+  });
+
+  useEffect(() => {
+    landingDrinks();
   }, []);
 
   const [state, setState] = useState({
@@ -58,6 +60,8 @@ const Provider = ({ children }) => {
     setMealsVisible,
     drinksVisible,
     setDrinksVisible,
+    landingMeals,
+    landingDrinks,
   };
 
   return (
