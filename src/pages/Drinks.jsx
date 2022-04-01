@@ -14,13 +14,16 @@ export default function Drinks() {
   }, [setDrinksVisible]);
 
   // component will unmount
-  useEffect(() => {
-    console.log('Hello World');
-    return () => {
-      console.log('Do some cleanup');
-      setDrinksVisible(false);
-    };
-  }, [setDrinksVisible]);
+  useEffect(() => () => {
+    setDrinksVisible(false);
+  },
+  [setDrinksVisible]);
+
+  //   useEffect(() => {
+  //   return () => {
+  //     setDrinksVisible(false);
+  //   };
+  // }, [setDrinksVisible]);
 
   return (
     <>
