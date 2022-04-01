@@ -9,7 +9,6 @@ import Context from '../context/Context';
 export default function Header({ searchTopBtn }) {
   const { filters: { searchInput }, setFilter } = useContext(Context);
   const [showInput, setShowInput] = useState('false');
-  // const input = <input type="text" data-testid="search-input" />;
 
   const handleChange = ({ target: { name, value } }) => {
     setFilter(name, value);
