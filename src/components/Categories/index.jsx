@@ -14,6 +14,7 @@ function Categories() {
   const [mealsCategories, setMealsCategories] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
   const [catClicked, setCatClicked] = useState('');
+  const [isBtnClicked, setIsBtnClicked] = useState(false);
 
   const foodsCat = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const drinksCat = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -45,31 +46,41 @@ function Categories() {
 
   const handleClick = async ({ target: { value } }) => {
     setCatClicked(value);
-    if (value === catClicked) {
-      landingMeals();
-      landingDrinks();
-    }
-    if (mealsVisible && !catClicked) {
+
+    // primeiro clique não tem catClicked nem anyCatClicked
+    if (mealsVisible && !catClicked && !isBtnClicked) {
       const { meals } = await fetchResults(`${mealCategory}${value}`);
       const max = 12;
       setMealsRetrieved(meals.filter((_meal, index) => index < max));
-      setCatClicked(!catClicked);
     }
-    if (mealsVisible && catClicked) {
-      landingMeals();
-      setCatClicked(!catClicked);
-    }
-    if (drinksVisible && !catClicked) {
+    if (drinksVisible && !catClicked && !isBtnClicked) {
       const results = await fetch(`${drinkCategory}${value}`);
       const data = await results.json();
       const { drinks } = data;
       const max = 12;
       setDrinksRetrieved(drinks.filter((_drink, index) => index < max));
-      setCatClicked(!catClicked);
     }
-    if (drinksVisible && catClicked) {
+
+    setIsBtnClicked(true);
+
+    if (mealsVisible && value === catClicked) {
+      landingMeals();
+    }
+    if (mealsVisible && value !== catClicked) {
+      const { meals } = await fetchResults(`${mealCategory}${value}`);
+      const max = 12;
+      setMealsRetrieved(meals.filter((_meal, index) => index < max));
+    }
+
+    if (drinksVisible && value === catClicked) {
       landingDrinks();
-      setCatClicked(!catClicked);
+    }
+    if (drinksVisible && value !== catClicked) {
+      const results = await fetch(`${drinkCategory}${value}`);
+      const data = await results.json();
+      const { drinks } = data;
+      const max = 12;
+      setDrinksRetrieved(drinks.filter((_drink, index) => index < max));
     }
   };
 
