@@ -1,57 +1,52 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { getSavedValue } from '../hooks/useLocalStorage';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Profile() {
-  const { email } = getSavedValue('user');
+  const [email, setEmail] = useState('email@email.com');
+  const [userValue] = useLocalStorage('user', '');
+  const history = useHistory();
 
-  function clearStorage() {
-    if (localStorage) { // Check if the localStorage object exists
-      localStorage.clear(); // clears the localstorage
-    } else {
-      global.alert('Sorry, no local storage.'); // an alert if localstorage is non-existing
-    }
-  //   if clearStorage.clear() && history.push('/');
-  }
+  useEffect(() => {
+    setEmail(userValue.email);
+  }, [userValue]);
+
+  const handleLogout = () => {
+    history.push('/');
+  };
 
   return (
     <>
       <Header />
       <p data-testid="page-title">Profile</p>
-      <p data-testid="profile-email">
-        Este é meu email
-        { email }
-      </p>
-      <Link to="/done-recipes">
-        <button
-          data-testid="profile-done-btn"
-          type="button"
-        >
-          {' '}
-          Done Recipes
-        </button>
-      </Link>
-      <Link to="/favorite-recipes">
-        <button
-          data-testid="profile-favorite-btn"
-          type="button"
-        >
-          {' '}
-          Favorite Recipes
-        </button>
-      </Link>
-      <Link to="/logout">
-        <button
-          data-testid="profile-logout-btn"
-          type="button"
-          onClick={ clearStorage }
-        >
-          {' '}
-          Logout
-        </button>
-      </Link>
+      { typeof email === 'undefined' ? <p>Usuário indefinido</p>
+        : <p data-testid="profile-email">{ email }</p>}
+      <button
+        data-testid="profile-done-btn"
+        type="button"
+        onClick={ () => history.push('/done-recipes') }
+      >
+        {' '}
+        Done Recipes
+      </button>
+      <button
+        data-testid="profile-favorite-btn"
+        type="button"
+        onClick={ () => history.push('/favorite-recipes') }
+      >
+        {' '}
+        Favorite Recipes
+      </button>
+      <button
+        data-testid="profile-logout-btn"
+        type="button"
+        onClick={ handleLogout }
+      >
+        {' '}
+        Logout
+      </button>
       <Footer />
     </>
   );

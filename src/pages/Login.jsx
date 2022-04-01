@@ -27,6 +27,10 @@ export default function Login() {
     });
   };
 
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   // Como utilizar Regex e um guia de todas as expressões listadas dentro do regex
   // Solução: https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
   // Guia: https://regexr.com/3e48o
@@ -37,10 +41,12 @@ export default function Login() {
     const isValidEmail = regEx.test(userState.userEmail);
     if (isValidEmail && isValidPassword) {
       setUserValue({ email: userState.userEmail });
-      return setIsDisabled(false);
+      if (userValue.email === userState.userEmail) {
+        return setIsDisabled(false);
+      }
     }
     setIsDisabled(true);
-  }, [userState, setUserValue]);
+  }, [userState, setUserValue, userValue.email]);
 
   return (
     <main className="login-container">
@@ -51,7 +57,7 @@ export default function Login() {
           className="login-input"
           name="userEmail"
           value={ userState.userEmail }
-          placeholder={ userValue }
+          placeholder="Email"
           onChange={ handleChange }
         />
         <input
@@ -60,6 +66,7 @@ export default function Login() {
           className="login-input"
           name="userPassword"
           value={ userState.userPassword }
+          placeholder="Password"
           onChange={ handleChange }
         />
         <Button
