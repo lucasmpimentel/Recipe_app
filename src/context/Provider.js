@@ -6,6 +6,13 @@ import { fetchResults } from '../services/FetchMealOrDrink';
 const Provider = ({ children }) => {
   const [mealsRetrieved, setMealsRetrieved] = useState([]);
   const [drinksRetrieved, setDrinksRetrieved] = useState([]);
+  const [mealsVisible, setMealsVisible] = useState(false);
+  const [drinksVisible, setDrinksVisible] = useState(false);
+  const [state, setState] = useState({
+    filters: {
+      searchInput: '',
+    },
+  });
 
   const mealByIngredient = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -29,15 +36,6 @@ const Provider = ({ children }) => {
     });
     data();
   }, []);
-
-  const [state, setState] = useState({
-    filters: {
-      searchInput: '',
-    },
-  });
-
-  const [mealsVisible, setMealsVisible] = useState(false);
-  const [drinksVisible, setDrinksVisible] = useState(false);
 
   const setFilter = (filter, value) => {
     setState((prevState) => ({

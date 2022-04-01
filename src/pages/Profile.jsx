@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Profile() {
-  const [email, setEmail] = useState('email@email.com');
+  const [email, setEmail] = useState('');
   const [userValue] = useLocalStorage('user', '');
   const history = useHistory();
 
