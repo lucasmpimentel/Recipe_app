@@ -39,10 +39,6 @@ function Categories() {
   const drinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
   const handleClick = async ({ target: { value } }) => {
-    // console.log(value.replace(/ /g, '_'));
-    // const category = value.replace(/ /g, '_');
-    // const category = value.replace(/ /g, '_');
-    console.log(value);
     if (mealsVisible) {
       let { meals } = await fetchResults(`${mealCategory}${value}`);
       const max = 12;
@@ -50,19 +46,12 @@ function Categories() {
       setMealsRetrieved(meals);
     }
     if (drinksVisible) {
-      // if (value.indexOf(' ') >= 0) {
-      let { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`);
-      console.log(drinks);
+      const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`);
+      const data = await results.json();
+      const { drinks } = data;
       console.log(`${drinkCategory}${value}`);
       const max = 12;
-      drinks = drinks.filter((_drink, index) => index < max);
-      setDrinksRetrieved(drinks);
-      // }
-      // let { drinks } = await fetchResults(`${drinkCategory}"${category}"`);
-      // console.log(`${drinkCategory}${category}`);
-      // const max = 12;
-      // drinks = drinks.filter((_drink, index) => index < max);
-      // setDrinksRetrieved(drinks);
+      setDrinksRetrieved(drinks.filter((_drink, index) => index < max));
     }
   };
 
