@@ -13,9 +13,7 @@ function Categories() {
   } = useContext(Context);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
-  const [anyCatClicked, setAnyCatClicked] = useState(false);
-  const [CatClicked, setCatClicked] = useState('');
-  // const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+  const [catClicked, setCatClicked] = useState('');
 
   const foodsCat = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const drinksCat = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -45,26 +43,17 @@ function Categories() {
   const mealCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
   const drinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
-  const checkBtn = () => {
-    if (!strCategory) return false;
-    return strCategory;
-  };
-
-  const handleClick = async ({ target: { value, disabled } }) => {
-    console.log(value);
+  const handleClick = async ({ target: { value } }) => {
     setCatClicked(value);
-    console.log(CatClicked);
-    console.log(disabled);
-
-    if (mealsVisible && !anyCatClicked) {
+    if (value === catClicked) {
+      console.log('clique repetito');
+      landingMeals();
+      landingDrinks();
+    }
+    if (mealsVisible) {
       const { meals } = await fetchResults(`${mealCategory}${value}`);
       const max = 12;
       setMealsRetrieved(meals.filter((_meal, index) => index < max));
-      setAnyCatClicked(!anyCatClicked);
-    }
-    if (mealsVisible && anyCatClicked) {
-      landingMeals();
-      setAnyCatClicked(!anyCatClicked);
     }
     if (drinksVisible) {
       const results = await fetch(`${drinkCategory}${value}`);
@@ -72,11 +61,6 @@ function Categories() {
       const { drinks } = data;
       const max = 12;
       setDrinksRetrieved(drinks.filter((_drink, index) => index < max));
-      setAnyCatClicked(!anyCatClicked);
-    }
-    if (drinksVisible && anyCatClicked) {
-      landingDrinks();
-      setAnyCatClicked(!anyCatClicked);
     }
   };
 
@@ -90,11 +74,21 @@ function Categories() {
           value={ strCategory }
           data-testid={ `${strCategory}-category-filter` }
           onClick={ handleClick }
-          disabled={ false }
         >
           {strCategory}
         </button>
       ))}
+      {mealsVisible && mealsCategories
+        && (
+          <button
+            type="button"
+            name="All"
+            data-testid="All-category-filter"
+            onClick={ landingMeals }
+          >
+            All
+          </button>
+        )}
       {drinksVisible
         && drinksCategories
         && drinksCategories.map(({ strCategory }) => (
@@ -105,11 +99,22 @@ function Categories() {
             value={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
             onClick={ handleClick }
-            disabled={ false }
           >
             {strCategory}
           </button>
+
         ))}
+      {drinksVisible && drinksCategories
+        && (
+          <button
+            type="button"
+            name="All"
+            data-testid="All-category-filter"
+            onClick={ landingDrinks }
+          >
+            All
+          </button>
+        )}
     </div>
   );
 }
