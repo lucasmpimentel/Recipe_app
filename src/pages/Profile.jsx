@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import useLocalStorage from '../hooks/useLocalStorage';
+import { getSavedValue } from '../hooks/useLocalStorage';
 
 export default function Profile() {
-  const [email, setEmail] = useState('email@email.com');
-  const [userValue] = useLocalStorage('user', '');
   const history = useHistory();
 
-  useEffect(() => {
-    setEmail(userValue.email);
-  }, [userValue]);
+  const user = getSavedValue('user');
 
   const handleLogout = () => {
     history.push('/');
@@ -21,8 +17,8 @@ export default function Profile() {
     <>
       <Header />
       <p data-testid="page-title">Profile</p>
-      { typeof email === 'undefined' ? <p>Usuário indefinido</p>
-        : <p data-testid="profile-email">{ email }</p>}
+      { typeof user === 'undefined' ? <p>Usuário indefinido</p>
+        : <p data-testid="profile-email">{ user.email }</p>}
       <button
         data-testid="profile-done-btn"
         type="button"
