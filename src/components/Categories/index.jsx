@@ -6,8 +6,9 @@ function Categories() {
   const {
     mealsVisible,
     drinksVisible,
+    setMealsRetrieved,
+    setDrinksRetrieved,
   } = useContext(Context);
-
   const [mealsCategories, setMealsCategories] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
 
@@ -34,13 +35,35 @@ function Categories() {
     data();
   }, []);
 
+  const mealCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+  const drinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+
+  const handleClick = async ({ target: { value } }) => {
+    if (mealsVisible) {
+      let { meals } = await fetchResults(`${mealCategory}${value}`);
+      const max = 12;
+      meals = meals.filter((_meal, index) => index < max);
+      setMealsRetrieved(meals);
+    }
+    if (drinksVisible) {
+      const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`);
+      const data = await results.json();
+      const { drinks } = data;
+      console.log(`${drinkCategory}${value}`);
+      const max = 12;
+      setDrinksRetrieved(drinks.filter((_drink, index) => index < max));
+    }
+  };
+
   return (
     <div>
       {mealsVisible && mealsCategories && mealsCategories.map(({ strCategory }) => (
         <button
           type="button"
           key={ strCategory }
+          value={ strCategory }
           data-testid={ `${strCategory}-category-filter` }
+          onClick={ handleClick }
         >
           {strCategory}
         </button>
@@ -51,7 +74,9 @@ function Categories() {
           <button
             type="button"
             key={ strCategory }
+            value={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
+            onClick={ handleClick }
           >
             {strCategory}
           </button>
