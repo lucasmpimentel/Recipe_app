@@ -14,13 +14,19 @@ export default function Foods() {
   }, [setMealsVisible]);
 
   // component will unmount
-  useEffect(() => {
-    console.log('Hello World');
-    return () => {
-      console.log('Do some cleanup');
-      setMealsVisible(false);
-    };
-  }, [setMealsVisible]);
+  useEffect(() => () => {
+    setMealsVisible(false);
+  },
+  [setMealsVisible]);
+
+  // mesma acima com consoles.log
+  // useEffect(() => {
+  //   console.log('Hello World');
+  //   return () => {
+  //     console.log('Do some cleanup');
+  //     setMealsVisible(false);
+  //   };
+  // }, [setMealsVisible]);
 
   return (
     <>

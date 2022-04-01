@@ -1,18 +1,33 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 
 function Card() {
-  const { drinksRetrieved,
+  const {
+    drinksRetrieved,
     mealsRetrieved,
     mealsVisible,
     drinksVisible,
   } = useContext(Context);
+  const history = useHistory();
+
+  const toMealDetail = (idMeal) => history.push(`/foods/${idMeal}`);
+
+  const toDrinkDetail = (idDrink) => history.push(`/drinks/${idDrink}`);
+
   return (
     <div>
       {mealsRetrieved
         && mealsVisible
         && mealsRetrieved.map(({ strMeal, strMealThumb, idMeal }, index) => (
-          <div key={ idMeal } data-testid={ `${index}-recipe-card` }>
+          <div
+            role="button"
+            tabIndex="0"
+            key={ idMeal }
+            data-testid={ `${index}-recipe-card` }
+            onClick={ () => (toMealDetail(idMeal)) }
+            onKeyPress={ (e) => e.key === 'Enter' && toMealDetail(idMeal) }
+          >
             <img
               src={ strMealThumb }
               width="100px"
@@ -25,8 +40,12 @@ function Card() {
       {drinksRetrieved && drinksVisible
         && drinksRetrieved.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
           <div
+            role="button"
+            tabIndex={ index }
             key={ idDrink }
             data-testid={ `${index}-recipe-card` }
+            onClick={ () => (toDrinkDetail(idDrink)) }
+            onKeyPress={ (e) => e.key === 'Enter' && toDrinkDetail(idDrink) }
           >
             <img
               src={ strDrinkThumb }

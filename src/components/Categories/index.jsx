@@ -13,7 +13,7 @@ function Categories() {
   } = useContext(Context);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
-  const [catClicked, setCatClicked] = useState(false);
+  const [catClicked, setCatClicked] = useState('');
 
   const foodsCat = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const drinksCat = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -44,6 +44,11 @@ function Categories() {
   const drinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
   const handleClick = async ({ target: { value } }) => {
+    setCatClicked(value);
+    if (value === catClicked) {
+      landingMeals();
+      landingDrinks();
+    }
     if (mealsVisible && !catClicked) {
       const { meals } = await fetchResults(`${mealCategory}${value}`);
       const max = 12;
@@ -51,11 +56,10 @@ function Categories() {
       setCatClicked(!catClicked);
     }
     if (mealsVisible && catClicked) {
-      console.log('entrei no if do toggle, devo mostar fetchMealsCategories');
       landingMeals();
       setCatClicked(!catClicked);
     }
-    if (drinksVisible) {
+    if (drinksVisible && !catClicked) {
       const results = await fetch(`${drinkCategory}${value}`);
       const data = await results.json();
       const { drinks } = data;
@@ -75,6 +79,7 @@ function Categories() {
         <button
           type="button"
           key={ strCategory }
+          name={ strCategory }
           value={ strCategory }
           data-testid={ `${strCategory}-category-filter` }
           onClick={ handleClick }
@@ -82,19 +87,43 @@ function Categories() {
           {strCategory}
         </button>
       ))}
+      {mealsVisible && mealsCategories
+        && (
+          <button
+            type="button"
+            name="All"
+            data-testid="All-category-filter"
+            onClick={ landingMeals }
+          >
+            All
+          </button>
+        )}
       {drinksVisible
         && drinksCategories
         && drinksCategories.map(({ strCategory }) => (
           <button
             type="button"
             key={ strCategory }
+            name={ strCategory }
             value={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
             onClick={ handleClick }
           >
             {strCategory}
           </button>
+
         ))}
+      {drinksVisible && drinksCategories
+        && (
+          <button
+            type="button"
+            name="All"
+            data-testid="All-category-filter"
+            onClick={ landingDrinks }
+          >
+            All
+          </button>
+        )}
     </div>
   );
 }
