@@ -46,7 +46,6 @@ function Categories() {
   const handleClick = async ({ target: { value } }) => {
     setCatClicked(value);
     if (value === catClicked) {
-      console.log('clique repetito');
       landingMeals();
       landingDrinks();
     }
@@ -57,7 +56,6 @@ function Categories() {
       setCatClicked(!catClicked);
     }
     if (mealsVisible && catClicked) {
-      console.log('entrei no if do toggle, devo mostar fetchMealsCategories');
       landingMeals();
       setCatClicked(!catClicked);
     }
