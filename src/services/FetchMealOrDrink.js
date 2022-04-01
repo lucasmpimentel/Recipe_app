@@ -1,7 +1,7 @@
-const fetchResults = async (url) => {
-  const response = await fetch(`${url}`);
+export const fetchResults = async (url) => {
+  const response = await fetch(url);
   const results = await response.json();
-  console.log(results);
+  console.log(results, 'teste');
   return response.ok ? Promise.resolve(results) : Promise.reject(results);
 };
 
