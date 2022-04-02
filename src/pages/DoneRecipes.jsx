@@ -30,7 +30,6 @@ const doneRecipes = [
 const copy = require('clipboard-copy');
 
 function copyClick(id) {
-  copy.textContent = 'Link copied!';
   copy(`http://localhost:3000/foods/${id}`);
 }
 
@@ -64,6 +63,8 @@ export default function DoneRecipes() {
         tabIndex="0"
         onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
         onClick={ () => copyClick(meal.id) }
+        textContent="Link copied!"
+        title="Link copied!"
       >
         <img
           src={ shareIcon }
