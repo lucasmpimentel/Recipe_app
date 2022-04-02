@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
 
 const doneRecipes = [
   {
@@ -27,39 +27,34 @@ const doneRecipes = [
   },
 ];
 
-// const doneFoods = doneRecipes.filter((recipe) => recipe.type === 'food');
-// console.log(doneFoods);
+// const food = (meal, index) => {
+//   <div key={ meal.id }>
+//     <img
+//       src={ meal.image }
+//       alt={ meal.name }
+//       data-testid={ `${index}-horizontal-image` }
+//       width="100px"
+//     />
+//     <p data-testid={ `${index}-horizontal-top-text` }>{meal.category}</p>
+//     <p data-testid={ `${index}-horizontal-name` }>{meal.name}</p>
+//     <p data-testid={ `${index}-horizontal-done-date` }>{meal.doneDate}</p>
+//     <img
+//       src={ shareIcon }
+//       alt="imagem de compartilhamento"
+//       data-testid={ `${index}-horizontal-share-btn` }
+//     />
+//     {meal.tags && meal.tags.map((tag, indexTag) => (
+//       <p
+//         data-testid={ `${indexTag}-${tag}-horizontal-tag` }
+//         key={ meal.id }
+//       >
+//         {tag}
+//       </p>
+//     )) }
+//   </div>;
+// };
 
-// const doneDrink = doneRecipes.filter((recipe) => recipe.type === 'drink');
-// console.log(doneDrink);
-// const { tags } = doneDrinks;
-
-const food = ({ id, image, category, name, doneDate, tags }, index) => {
-  <div key={ id }>
-    <img
-      src={ image }
-      alt={ name }
-      data-testid={ `${index}-horizontal-image` }
-      width="100px"
-    />
-    <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
-    <p data-testid={ `${index}-horizontal-name` }>{name}</p>
-    <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-    <img
-      src={ shareIcon }
-      alt="imagem de compartilhamento"
-      data-testid={ `${index}-horizontal-share-btn` }
-    />
-    {tags && tags.map((tag, indexTag) => (
-      <p
-        data-testid={ `${indexTag}-${tag}-horizontal-tag` }
-        key={ id }
-      >
-        {tag}
-      </p>
-    )) }
-  </div>;
-};
+// function drinks() { return (<p>drink</p>); }
 
 export default function DoneRecipes() {
   return (
@@ -86,8 +81,9 @@ export default function DoneRecipes() {
       </button>
       {doneRecipes && doneRecipes
         .map((meal, index) => (
-          meal.type === 'food' ? food(meal, index) : null
-          // meal.type === 'food' ? <span>oi</span> : <span>blz?</span>
+          meal.type === 'food'
+            ? <span key={ index }>{meal.name}</span>
+            : <span key={ index }>{meal.name}</span>
         ))}
     </>
   );
