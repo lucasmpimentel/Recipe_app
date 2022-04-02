@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -34,64 +34,73 @@ function copyClick(id) {
   copy(`http://localhost:3000/foods/${id}`);
 }
 
-const foods = (meal, index) => (
-  <div key={ meal.id }>
-    <img
-      src={ meal.image }
-      alt={ meal.name }
-      data-testid={ `${index}-horizontal-image` }
-      width="100px"
-    />
-    <p
-      data-testid={ `${index}-horizontal-top-text` }
-    >
-      {`${meal.nationality} - ${meal.category}`}
-    </p>
-    <p data-testid={ `${index}-horizontal-name` }>{meal.name}</p>
-    <p data-testid={ `${index}-horizontal-done-date` }>{meal.doneDate}</p>
-    <div
-      role="button"
-      tabIndex="0"
-      onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
-      onClick={ () => copyClick(meal.id) }
-    >
+export default function DoneRecipes() {
+  const [render, setRender] = useState([...doneRecipes]);
+
+  const filterMeals = () => setRender(render.filter(({ type }) => type === 'food'));
+  const filterDrinks = () => setRender(render.filter(({ type }) => type === 'drink'));
+
+  const removeFilters = () => {
+    setRender([...doneRecipes]);
+  };
+
+  const foods = (meal, index) => (
+    <div key={ meal.name }>
+      <img
+        src={ meal.image }
+        alt={ meal.name }
+        data-testid={ `${index}-horizontal-image` }
+        width="100px"
+      />
+      <p
+        data-testid={ `${index}-horizontal-top-text` }
+      >
+        {`${meal.nationality} - ${meal.category}`}
+      </p>
+      <p data-testid={ `${index}-horizontal-name` }>{meal.name}</p>
+      <p data-testid={ `${index}-horizontal-done-date` }>{meal.doneDate}</p>
+      <div
+        role="button"
+        tabIndex="0"
+        onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
+        onClick={ () => copyClick(meal.id) }
+      >
+        <img
+          src={ shareIcon }
+          alt="imagem de compartilhamento"
+          data-testid={ `${index}-horizontal-share-btn` }
+        />
+      </div>
+      {meal.tags && meal.tags.map((tag) => (
+        <p
+          data-testid={ `${index}-${tag}-horizontal-tag` }
+          key={ tag }
+        >
+          {tag}
+        </p>
+      )) }
+    </div>
+  );
+
+  const drinks = (drink, index) => (
+    <div key={ drink.name }>
+      <img
+        src={ drink.image }
+        alt={ drink.name }
+        data-testid={ `${index}-horizontal-image` }
+        width="100px"
+      />
+      <p data-testid={ `${index}-horizontal-top-text` }>{drink.alcoholicOrNot}</p>
+      <p data-testid={ `${index}-horizontal-name` }>{drink.name}</p>
+      <p data-testid={ `${index}-horizontal-done-date` }>{drink.doneDate}</p>
       <img
         src={ shareIcon }
         alt="imagem de compartilhamento"
         data-testid={ `${index}-horizontal-share-btn` }
       />
     </div>
-    {meal.tags && meal.tags.map((tag) => (
-      <p
-        data-testid={ `${index}-${tag}-horizontal-tag` }
-        key={ index }
-      >
-        {tag}
-      </p>
-    )) }
-  </div>
-);
+  );
 
-const drinks = (drink, index) => (
-  <div key={ drink.id }>
-    <img
-      src={ drink.image }
-      alt={ drink.name }
-      data-testid={ `${index}-horizontal-image` }
-      width="100px"
-    />
-    <p data-testid={ `${index}-horizontal-top-text` }>{drink.alcoholicOrNot}</p>
-    <p data-testid={ `${index}-horizontal-name` }>{drink.name}</p>
-    <p data-testid={ `${index}-horizontal-done-date` }>{drink.doneDate}</p>
-    <img
-      src={ shareIcon }
-      alt="imagem de compartilhamento"
-      data-testid={ `${index}-horizontal-share-btn` }
-    />
-  </div>
-);
-
-export default function DoneRecipes() {
   return (
     <>
       <Header />
@@ -99,22 +108,25 @@ export default function DoneRecipes() {
       <button
         type="button"
         data-testid="filter-by-all-btn"
+        onClick={ removeFilters }
       >
         All
       </button>
       <button
         type="button"
         data-testid="filter-by-food-btn"
+        onClick={ filterMeals }
       >
         Food
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
+        onClick={ filterDrinks }
       >
         Drinks
       </button>
-      {doneRecipes && doneRecipes
+      {render && render
         .map((meal, index) => (
           meal.type === 'food'
             ? foods(meal, index)
