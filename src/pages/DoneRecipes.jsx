@@ -27,12 +27,39 @@ const doneRecipes = [
   },
 ];
 
-const doneFoods = doneRecipes.filter((recipe) => recipe.type === 'food');
+// const doneFoods = doneRecipes.filter((recipe) => recipe.type === 'food');
 // console.log(doneFoods);
 
 // const doneDrink = doneRecipes.filter((recipe) => recipe.type === 'drink');
 // console.log(doneDrink);
 // const { tags } = doneDrinks;
+
+const food = ({ id, image, category, name, doneDate, tags }, index) => {
+  <div key={ id }>
+    <img
+      src={ image }
+      alt={ name }
+      data-testid={ `${index}-horizontal-image` }
+      width="100px"
+    />
+    <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
+    <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+    <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+    <img
+      src={ shareIcon }
+      alt="imagem de compartilhamento"
+      data-testid={ `${index}-horizontal-share-btn` }
+    />
+    {tags && tags.map((tag, indexTag) => (
+      <p
+        data-testid={ `${indexTag}-${tag}-horizontal-tag` }
+        key={ id }
+      >
+        {tag}
+      </p>
+    )) }
+  </div>;
+};
 
 export default function DoneRecipes() {
   return (
@@ -57,31 +84,10 @@ export default function DoneRecipes() {
       >
         Drinks
       </button>
-      {doneRecipes && doneFoods
-        .map(({ id, image, category, name, doneDate, tags }, index) => (
-          <div key={ id }>
-            <img
-              src={ image }
-              alt={ name }
-              data-testid={ `${index}-horizontal-image` }
-            />
-            <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
-            <p data-testid={ `${index}-horizontal-name` }>{name}</p>
-            <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-            <img
-              src={ shareIcon }
-              alt="imagem de compartilhamento"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-            {tags && tags.map((tag, indexTag) => (
-              <p
-                data-testid={ `${indexTag}-${tag}-horizontal-tag` }
-                key={ id }
-              >
-                {tag}
-              </p>
-            )) }
-          </div>
+      {doneRecipes && doneRecipes
+        .map((meal, index) => (
+          meal.type === 'food' ? food(meal, index) : null
+          // meal.type === 'food' ? <span>oi</span> : <span>blz?</span>
         ))}
     </>
   );
