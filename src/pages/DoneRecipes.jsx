@@ -27,6 +27,13 @@ const doneRecipes = [
   },
 ];
 
+const copy = require('clipboard-copy');
+
+function copyClick(id) {
+  copy.textContent = 'Link copied!';
+  copy(`http://localhost:3000/foods/${id}`);
+}
+
 const foods = (meal, index) => (
   <div key={ meal.id }>
     <img
@@ -42,11 +49,18 @@ const foods = (meal, index) => (
     </p>
     <p data-testid={ `${index}-horizontal-name` }>{meal.name}</p>
     <p data-testid={ `${index}-horizontal-done-date` }>{meal.doneDate}</p>
-    <img
-      src={ shareIcon }
-      alt="imagem de compartilhamento"
-      data-testid={ `${index}-horizontal-share-btn` }
-    />
+    <div
+      role="button"
+      tabIndex="0"
+      onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
+      onClick={ () => copyClick(meal.id) }
+    >
+      <img
+        src={ shareIcon }
+        alt="imagem de compartilhamento"
+        data-testid={ `${index}-horizontal-share-btn` }
+      />
+    </div>
     {meal.tags && meal.tags.map((tag) => (
       <p
         data-testid={ `${index}-${tag}-horizontal-tag` }
