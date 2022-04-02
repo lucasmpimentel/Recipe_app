@@ -33,16 +33,24 @@ export default function DoneRecipes() {
   const [render, setRender] = useState([...doneRecipes]);
   const [isLinkVisible, setIsLinkVisible] = useState(false);
 
-  const filterMeals = () => setRender(render.filter(({ type }) => type === 'food'));
-  const filterDrinks = () => setRender(render.filter(({ type }) => type === 'drink'));
+  const filterMeals = () => {
+    setRender([...doneRecipes]);
+    setRender(render.filter(({ type }) => type === 'food'));
+  };
+  const filterDrinks = () => {
+    setRender([...doneRecipes]);
+    setRender(render.filter(({ type }) => type === 'drink'));
+  };
 
   const removeFilters = () => {
     setRender([...doneRecipes]);
   };
 
-  const copyClick = (id) => {
-    copy(`http://localhost:3000/foods/${id}`);
+  const copyClick = (id, type) => {
     setIsLinkVisible(true);
+    return type === 'foods'
+      ? copy(`http://localhost:3000/foods/${id}`)
+      : copy(`http://localhost:3000/drinks/${id}`);
   };
 
   const foods = (meal, index) => (
@@ -63,8 +71,8 @@ export default function DoneRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
-        onClick={ () => copyClick(meal.id) }
+        onKeyPress={ (e) => e.key === 'Enter' && copyClick(meal.id, 'foods') }
+        onClick={ () => copyClick(meal.id, 'foods') }
         // textContent="Link copied!"
         // title="Link copied!"
       >
@@ -100,8 +108,8 @@ export default function DoneRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
-        onClick={ () => copyClick(drink.id) }
+        onKeyPress={ (e) => e.key === 'Enter' && copyClick(meal.id, 'drinks') }
+        onClick={ () => copyClick(drink.id, 'drinks') }
       >
         <img
           src={ shareIcon }
