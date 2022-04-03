@@ -3,34 +3,12 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-
-const doneRecipes = [
-  {
-    id: '52771',
-    type: 'food',
-    nationality: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'drink',
-    nationality: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image:
-      'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-];
+import { doneRecipes, removeFavorite, addFav } from '../utils/localStorage';
 
 const copy = require('clipboard-copy');
+
+addFav(doneRecipes[0]);
+addFav(doneRecipes[1]);
 
 export default function FavoriteRecipes() {
   const [render, setRender] = useState([...doneRecipes]);
@@ -105,21 +83,15 @@ export default function FavoriteRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && copyClick(meal.id, 'foods') }
-        onClick={ () => copyClick(meal.id, 'foods') }
+        onKeyPress={ (e) => e.key === 'Enter' && removeFavorite(meal) }
+        onClick={ () => removeFavorite(meal) }
       >
         <img
           src={ blackHeartIcon }
-          alt="imagem de compartilhamento"
+          alt="imagem de favorita"
           data-testid={ `${index}-horizontal-favorite-btn` }
         />
       </div>
-      {meal.tags
-        && meal.tags.map((tag) => (
-          <p data-testid={ `${index}-${tag}-horizontal-tag` } key={ tag }>
-            {tag}
-          </p>
-        ))}
     </div>
   );
 
@@ -164,12 +136,12 @@ export default function FavoriteRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && copyClick(meal.id, 'foods') }
-        onClick={ () => copyClick(meal.id, 'foods') }
+        onKeyPress={ (e) => e.key === 'Enter' && removeFavorite(meal) }
+        onClick={ () => removeFavorite(meal) }
       >
         <img
           src={ blackHeartIcon }
-          alt="imagem de compartilhamento"
+          alt="imagem de favorita"
           data-testid={ `${index}-horizontal-favorite-btn` }
         />
       </div>
