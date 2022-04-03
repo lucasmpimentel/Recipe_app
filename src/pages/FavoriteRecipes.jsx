@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { doneRecipes, removeFavorite, addFav } from '../utils/localStorage';
+import { doneRecipes, removeFavorite, addFav, readFavs } from '../utils/localStorage';
 
 const copy = require('clipboard-copy');
 
@@ -11,21 +11,21 @@ addFav(doneRecipes[0]);
 addFav(doneRecipes[1]);
 
 export default function FavoriteRecipes() {
-  const [render, setRender] = useState([...doneRecipes]);
+  const [render, setRender] = useState(readFavs());
   const [isLinkVisible, setIsLinkVisible] = useState(false);
   const history = useHistory();
 
   const filterMeals = () => {
-    setRender([...doneRecipes]);
+    setRender(readFavs());
     setRender(render.filter(({ type }) => type === 'food'));
   };
   const filterDrinks = () => {
-    setRender([...doneRecipes]);
+    setRender(readFavs());
     setRender(render.filter(({ type }) => type === 'drink'));
   };
 
   const removeFilters = () => {
-    setRender([...doneRecipes]);
+    setRender(readFavs());
   };
 
   const copyClick = (id, type) => {
@@ -38,6 +38,11 @@ export default function FavoriteRecipes() {
   const toMealDetail = (idMeal) => history.push(`/foods/${idMeal}`);
 
   const toDrinkDetail = (idDrink) => history.push(`/drinks/${idDrink}`);
+
+  const removeFav = (recipe) => {
+    removeFavorite(recipe);
+    setRender(readFavs());
+  };
 
   const foods = (meal, index) => (
     <div key={ meal.name }>
@@ -83,8 +88,8 @@ export default function FavoriteRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && removeFavorite(meal) }
-        onClick={ () => removeFavorite(meal) }
+        onKeyPress={ (e) => e.key === 'Enter' && removeFav(meal) }
+        onClick={ () => removeFav(meal) }
       >
         <img
           src={ blackHeartIcon }
@@ -136,8 +141,8 @@ export default function FavoriteRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && removeFavorite(drink) }
-        onClick={ () => removeFavorite(drink) }
+        onKeyPress={ (e) => e.key === 'Enter' && removeFav(drink) }
+        onClick={ () => removeFav(drink) }
       >
         <img
           src={ blackHeartIcon }
