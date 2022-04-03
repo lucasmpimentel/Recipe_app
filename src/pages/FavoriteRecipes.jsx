@@ -136,8 +136,8 @@ export default function FavoriteRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && removeFavorite(meal) }
-        onClick={ () => removeFavorite(meal) }
+        onKeyPress={ (e) => e.key === 'Enter' && removeFavorite(drink) }
+        onClick={ () => removeFavorite(drink) }
       >
         <img
           src={ blackHeartIcon }
