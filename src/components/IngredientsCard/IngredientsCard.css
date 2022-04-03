@@ -1,0 +1,7 @@
+.ingredients-table-container {
+  align-items: flex-start;
+  border: 1px solid;
+  display: flex;
+  justify-content: space-around;
+  width: 100vw;
+}

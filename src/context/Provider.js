@@ -13,6 +13,11 @@ const Provider = ({ children }) => {
       searchInput: '',
     },
   });
+  const [recipeDetails, setRecipeDetails] = useState({
+    ingredients: [],
+    measures: [],
+    instructions: '',
+  });
 
   const mealByIngredient = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -60,6 +65,8 @@ const Provider = ({ children }) => {
     setDrinksVisible,
     landingMeals,
     landingDrinks,
+    recipeDetails,
+    setRecipeDetails,
   };
 
   return (
