@@ -6,9 +6,7 @@ import Context from '../context/Context';
 
 export default function DrinksIngredients() {
   const [allDrinks, setAllDrinks] = useState([]);
-  const {
-    setDrinksRetrieved,
-  } = useContext(Context);
+  const { setDrinksRetrieved } = useContext(Context);
 
   const history = useHistory();
 
