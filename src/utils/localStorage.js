@@ -16,9 +16,9 @@ const addFav = (recipe) => {
 };
 
 const removeFavorite = (recipe) => {
-  console.log('recipe recebida na removeFavorite', recipe);
+  // console.log('recipe recebida na removeFavorite', recipe);
   const favorites = readFavs();
-  console.log(favorites);
+  // console.log(favorites);
   saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
 };
 
