@@ -3,13 +3,13 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { doneRecipes, removeFavorite, addFav, readFavs } from '../utils/localStorage';
+import { favorite, removeFavorite, addFav, readFavs } from '../utils/localStorage';
 
 const copy = require('clipboard-copy');
 
 localStorage.setItem('favoriteRecipes', JSON.stringify(''));
-addFav(doneRecipes[0]);
-addFav(doneRecipes[1]);
+addFav(favorite[0]);
+addFav(favorite[1]);
 
 export default function FavoriteRecipes() {
   const [render, setRender] = useState(readFavs());
