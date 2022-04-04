@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -32,6 +33,7 @@ const copy = require('clipboard-copy');
 export default function DoneRecipes() {
   const [render, setRender] = useState([...doneRecipes]);
   const [isLinkVisible, setIsLinkVisible] = useState(false);
+  const history = useHistory();
 
   const filterMeals = () => {
     setRender([...doneRecipes]);
@@ -53,28 +55,47 @@ export default function DoneRecipes() {
       : copy(`http://localhost:3000/drinks/${id}`);
   };
 
+  const toMealDetail = (idMeal) => history.push(`/foods/${idMeal}`);
+
+  const toDrinkDetail = (idDrink) => history.push(`/drinks/${idDrink}`);
+
   const foods = (meal, index) => (
-    <div key={ meal.name }>
-      <img
-        src={ meal.image }
-        alt={ meal.name }
-        data-testid={ `${index}-horizontal-image` }
-        width="100px"
-      />
+    <div
+      key={ meal.name }
+    >
+      <div
+        role="button"
+        tabIndex="0"
+        onClick={ () => (toMealDetail(meal.id)) }
+        onKeyPress={ (e) => e.key === 'Enter' && toMealDetail(meal.id) }
+      >
+        <img
+          src={ meal.image }
+          alt={ meal.name }
+          data-testid={ `${index}-horizontal-image` }
+          width="100px"
+        />
+      </div>
       <p
         data-testid={ `${index}-horizontal-top-text` }
       >
         {`${meal.nationality} - ${meal.category}`}
       </p>
-      <p data-testid={ `${index}-horizontal-name` }>{meal.name}</p>
+      <div
+        role="button"
+        tabIndex="0"
+        onClick={ () => (toMealDetail(meal.id)) }
+        onKeyPress={ (e) => e.key === 'Enter' && toMealDetail(meal.id) }
+      >
+        <p data-testid={ `${index}-horizontal-name` }>{meal.name}</p>
+      </div>
+
       <p data-testid={ `${index}-horizontal-done-date` }>{meal.doneDate}</p>
       <div
         role="button"
         tabIndex="0"
         onKeyPress={ (e) => e.key === 'Enter' && copyClick(meal.id, 'foods') }
         onClick={ () => copyClick(meal.id, 'foods') }
-        // textContent="Link copied!"
-        // title="Link copied!"
       >
         <img
           src={ shareIcon }
@@ -96,14 +117,29 @@ export default function DoneRecipes() {
 
   const drinks = (drink, index) => (
     <div key={ drink.name }>
-      <img
-        src={ drink.image }
-        alt={ drink.name }
-        data-testid={ `${index}-horizontal-image` }
-        width="100px"
-      />
+      <div
+        role="button"
+        tabIndex="0"
+        onClick={ () => (toDrinkDetail(drink.id)) }
+        onKeyPress={ (e) => e.key === 'Enter' && toDrinkDetail(drink.id) }
+      >
+        <img
+          src={ drink.image }
+          alt={ drink.name }
+          data-testid={ `${index}-horizontal-image` }
+          width="100px"
+        />
+
+      </div>
       <p data-testid={ `${index}-horizontal-top-text` }>{drink.alcoholicOrNot}</p>
-      <p data-testid={ `${index}-horizontal-name` }>{drink.name}</p>
+      <div
+        role="button"
+        tabIndex="0"
+        onClick={ () => (toDrinkDetail(drink.id)) }
+        onKeyPress={ (e) => e.key === 'Enter' && toDrinkDetail(drink.id) }
+      >
+        <p data-testid={ `${index}-horizontal-name` }>{drink.name}</p>
+      </div>
       <p data-testid={ `${index}-horizontal-done-date` }>{drink.doneDate}</p>
       <div
         role="button"
