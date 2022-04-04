@@ -7,6 +7,7 @@ import { doneRecipes, removeFavorite, addFav, readFavs } from '../utils/localSto
 
 const copy = require('clipboard-copy');
 
+localStorage.setItem('favoriteRecipes', JSON.stringify(''));
 addFav(doneRecipes[0]);
 addFav(doneRecipes[1]);
 

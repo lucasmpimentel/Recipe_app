@@ -16,7 +16,7 @@ const addFav = (recipe) => {
 };
 
 const removeFavorite = (recipe) => {
-  console.log('recipe recebeida na removeFavorite', recipe);
+  console.log('recipe recebida na removeFavorite', recipe);
   const favorites = readFavs();
   console.log(favorites);
   saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
@@ -70,4 +70,6 @@ const doneRecipes = [
   },
 ];
 
-export { readFavs, saveFavs, addFav, removeFavorite, favorite, doneRecipes };
+const saveAllFavs = () => [...favorite];
+
+export { readFavs, saveFavs, addFav, removeFavorite, favorite, doneRecipes, saveAllFavs };
