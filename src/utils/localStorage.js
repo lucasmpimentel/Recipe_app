@@ -1,7 +1,3 @@
-// const INITIAL = [
-//   { id, type, nationality, category, alcoholicOrNot, name, image },
-// ];
-
 const FAV_REC = 'favoriteRecipes';
 
 const readFavs = () => JSON.parse(localStorage.getItem(FAV_REC));
@@ -16,9 +12,7 @@ const addFav = (recipe) => {
 };
 
 const removeFavorite = (recipe) => {
-  // console.log('recipe recebida na removeFavorite', recipe);
   const favorites = readFavs();
-  // console.log(favorites);
   saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
 };
 
