@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-// import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 const doneRecipes = [
   {
@@ -27,34 +27,55 @@ const doneRecipes = [
   },
 ];
 
-// const food = (meal, index) => {
-//   <div key={ meal.id }>
-//     <img
-//       src={ meal.image }
-//       alt={ meal.name }
-//       data-testid={ `${index}-horizontal-image` }
-//       width="100px"
-//     />
-//     <p data-testid={ `${index}-horizontal-top-text` }>{meal.category}</p>
-//     <p data-testid={ `${index}-horizontal-name` }>{meal.name}</p>
-//     <p data-testid={ `${index}-horizontal-done-date` }>{meal.doneDate}</p>
-//     <img
-//       src={ shareIcon }
-//       alt="imagem de compartilhamento"
-//       data-testid={ `${index}-horizontal-share-btn` }
-//     />
-//     {meal.tags && meal.tags.map((tag, indexTag) => (
-//       <p
-//         data-testid={ `${indexTag}-${tag}-horizontal-tag` }
-//         key={ meal.id }
-//       >
-//         {tag}
-//       </p>
-//     )) }
-//   </div>;
-// };
+const foods = (meal, index) => (
+  <div key={ meal.id }>
+    <img
+      src={ meal.image }
+      alt={ meal.name }
+      data-testid={ `${index}-horizontal-image` }
+      width="100px"
+    />
+    <p
+      data-testid={ `${index}-horizontal-top-text` }
+    >
+      {`${meal.nationality} - ${meal.category}`}
+    </p>
+    <p data-testid={ `${index}-horizontal-name` }>{meal.name}</p>
+    <p data-testid={ `${index}-horizontal-done-date` }>{meal.doneDate}</p>
+    <img
+      src={ shareIcon }
+      alt="imagem de compartilhamento"
+      data-testid={ `${index}-horizontal-share-btn` }
+    />
+    {meal.tags && meal.tags.map((tag) => (
+      <p
+        data-testid={ `${index}-${tag}-horizontal-tag` }
+        key={ index }
+      >
+        {tag}
+      </p>
+    )) }
+  </div>
+);
 
-// function drinks() { return (<p>drink</p>); }
+const drinks = (drink, index) => (
+  <div key={ drink.id }>
+    <img
+      src={ drink.image }
+      alt={ drink.name }
+      data-testid={ `${index}-horizontal-image` }
+      width="100px"
+    />
+    <p data-testid={ `${index}-horizontal-top-text` }>{drink.category}</p>
+    <p data-testid={ `${index}-horizontal-name` }>{drink.name}</p>
+    <p data-testid={ `${index}-horizontal-done-date` }>{drink.doneDate}</p>
+    <img
+      src={ shareIcon }
+      alt="imagem de compartilhamento"
+      data-testid={ `${index}-horizontal-share-btn` }
+    />
+  </div>
+);
 
 export default function DoneRecipes() {
   return (
@@ -82,8 +103,8 @@ export default function DoneRecipes() {
       {doneRecipes && doneRecipes
         .map((meal, index) => (
           meal.type === 'food'
-            ? <span key={ index }>{meal.name}</span>
-            : <span key={ index }>{meal.name}</span>
+            ? foods(meal, index)
+            : drinks(meal, index)
         ))}
     </>
   );
