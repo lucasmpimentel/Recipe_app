@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import IngredientsCard from '../components/IngredientsCard';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
@@ -8,7 +8,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
 
 export default function DrinksDetails() {
-  // const history = useHistory();
+  const history = useHistory();
   const {
     setDrinksVisible,
     setRecipeDetails,
@@ -111,9 +111,9 @@ export default function DrinksDetails() {
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         type="button"
-        // onClick={ () => history.push(`/drinks/${recipeID}/in-progress`) }
+        onClick={ () => history.push('/done-recipes') }
       >
-        Start Recipe
+        Finish Recipe
       </button>
     </main>
   );
