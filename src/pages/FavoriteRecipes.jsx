@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
@@ -7,14 +7,16 @@ import { favorite, removeFavorite, addFav, readFavs } from '../utils/localStorag
 
 const copy = require('clipboard-copy');
 
-localStorage.setItem('favoriteRecipes', JSON.stringify(''));
-addFav(favorite[0]);
-addFav(favorite[1]);
-
 export default function FavoriteRecipes() {
   const [render, setRender] = useState(readFavs());
   const [isLinkVisible, setIsLinkVisible] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(''));
+    addFav(favorite[0]);
+    addFav(favorite[1]);
+  }, []);
 
   const filterMeals = () => {
     setRender(readFavs());
