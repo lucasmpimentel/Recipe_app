@@ -10,6 +10,7 @@ export default function Profile() {
   const user = getSavedValue('user');
 
   const handleLogout = () => {
+    localStorage.clear();
     history.push('/');
   };
 
