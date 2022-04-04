@@ -44,7 +44,7 @@ export default function FoodsIngredients() {
           role="button"
           tabIndex={ index }
           onClick={ () => handleClick(strIngredient) }
-          onKeyPress={ (e) => e.key === 'Enter' }
+          onKeyPress={ (e) => e.key === 'Enter' && handleClick(strIngredient) }
         >
           <img
             src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
