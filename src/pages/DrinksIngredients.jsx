@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -17,7 +17,9 @@ export default function DrinksIngredients() {
     console.log(allDrinks);
     return response.ok ? Promise.resolve(results) : Promise.reject(results);
   };
-
+  useEffect(() => {
+    fetchDrinksIngredients();
+  });
   return (
     <>
       <Header />
