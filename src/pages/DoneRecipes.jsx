@@ -29,18 +29,28 @@ const doneRecipes = [
 
 const copy = require('clipboard-copy');
 
-function copyClick(id) {
-  copy(`http://localhost:3000/foods/${id}`);
-}
-
 export default function DoneRecipes() {
   const [render, setRender] = useState([...doneRecipes]);
+  const [isLinkVisible, setIsLinkVisible] = useState(false);
 
-  const filterMeals = () => setRender(render.filter(({ type }) => type === 'food'));
-  const filterDrinks = () => setRender(render.filter(({ type }) => type === 'drink'));
+  const filterMeals = () => {
+    setRender([...doneRecipes]);
+    setRender(render.filter(({ type }) => type === 'food'));
+  };
+  const filterDrinks = () => {
+    setRender([...doneRecipes]);
+    setRender(render.filter(({ type }) => type === 'drink'));
+  };
 
   const removeFilters = () => {
     setRender([...doneRecipes]);
+  };
+
+  const copyClick = (id, type) => {
+    setIsLinkVisible(true);
+    return type === 'foods'
+      ? copy(`http://localhost:3000/foods/${id}`)
+      : copy(`http://localhost:3000/drinks/${id}`);
   };
 
   const foods = (meal, index) => (
@@ -61,16 +71,17 @@ export default function DoneRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
-        onClick={ () => copyClick(meal.id) }
-        textContent="Link copied!"
-        title="Link copied!"
+        onKeyPress={ (e) => e.key === 'Enter' && copyClick(meal.id, 'foods') }
+        onClick={ () => copyClick(meal.id, 'foods') }
+        // textContent="Link copied!"
+        // title="Link copied!"
       >
         <img
           src={ shareIcon }
           alt="imagem de compartilhamento"
           data-testid={ `${index}-horizontal-share-btn` }
         />
+        {isLinkVisible && <p>Link copied!</p>}
       </div>
       {meal.tags && meal.tags.map((tag) => (
         <p
@@ -94,11 +105,21 @@ export default function DoneRecipes() {
       <p data-testid={ `${index}-horizontal-top-text` }>{drink.alcoholicOrNot}</p>
       <p data-testid={ `${index}-horizontal-name` }>{drink.name}</p>
       <p data-testid={ `${index}-horizontal-done-date` }>{drink.doneDate}</p>
-      <img
-        src={ shareIcon }
-        alt="imagem de compartilhamento"
-        data-testid={ `${index}-horizontal-share-btn` }
-      />
+      <div
+        role="button"
+        tabIndex="0"
+        onKeyPress={ (e) => e.key === 'Enter' && copyClick(meal.id, 'drinks') }
+        onClick={ () => copyClick(drink.id, 'drinks') }
+      >
+        <img
+          src={ shareIcon }
+          alt="imagem de compartilhamento"
+          data-testid={ `${index}-horizontal-share-btn` }
+        />
+
+      </div>
+      {isLinkVisible && <p>Link copied!</p>}
+
     </div>
   );
 
