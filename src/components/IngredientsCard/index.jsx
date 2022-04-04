@@ -18,10 +18,9 @@ export default function IngredientsCard() {
                 <tr key={ index }>
                   { (mealsInProgress || drinksInProgress) && (
                     (ingredient !== null) && (
-                      <td key={ index }>
+                      <td data-testid={ `${index}-ingredient-step` }>
                         <input
                           type="checkbox"
-                          data-testid={ `${index}-ingredient-step` }
                         />
                       </td>
                     )
