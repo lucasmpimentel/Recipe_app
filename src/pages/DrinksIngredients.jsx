@@ -18,7 +18,7 @@ export default function DrinksIngredients() {
   };
   useEffect(() => {
     fetchDrinksIngredients();
-  });
+  }, []);
   return (
     <>
       <Header />
@@ -26,7 +26,7 @@ export default function DrinksIngredients() {
       {allDrinks.map(({ strIngredient1 }, index) => (
         <div key={ index } data-testid={ `${index}-ingredient-card` }>
           <img
-            src={ `www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+            src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
             alt="Imagem do drink"
             data-testid={ `${index}-card-img` }
           />
