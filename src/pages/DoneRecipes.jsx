@@ -66,7 +66,7 @@ const drinks = (drink, index) => (
       data-testid={ `${index}-horizontal-image` }
       width="100px"
     />
-    <p data-testid={ `${index}-horizontal-top-text` }>{drink.category}</p>
+    <p data-testid={ `${index}-horizontal-top-text` }>{drink.alcoholicOrNot}</p>
     <p data-testid={ `${index}-horizontal-name` }>{drink.name}</p>
     <p data-testid={ `${index}-horizontal-done-date` }>{drink.doneDate}</p>
     <img
