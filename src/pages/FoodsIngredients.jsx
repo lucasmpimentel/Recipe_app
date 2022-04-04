@@ -21,12 +21,20 @@ export default function FoodsIngredients() {
       <Header />
       <p data-testid="page-title">Explore Ingredients</p>
       {allIngredients.map(({ idIngredient, strIngredient }, index) => (
-        <div key={ idIngredient } data-testid={ `${index}-ingredient-card` }>
+        <div
+          key={ idIngredient }
+          data-testid={ `${index}-ingredient-card` }
+          role="button"
+          tabIndex={ index }
+          onClick={ handleClick }
+          onKeyPress={ (e) => e.key === 'Enter' && toDrinkDetail(idDrink) }
+        >
           <img
             src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
             alt="Imagem do ingrediente"
             width="100px"
             data-testid={ `${index}-card-img` }
+
           />
           <p data-testid={ `${index}-card-name` }>{ strIngredient }</p>
         </div>
