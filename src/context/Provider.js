@@ -6,6 +6,20 @@ import { fetchResults } from '../services/FetchMealOrDrink';
 const Provider = ({ children }) => {
   const [mealsRetrieved, setMealsRetrieved] = useState([]);
   const [drinksRetrieved, setDrinksRetrieved] = useState([]);
+  const [mealsVisible, setMealsVisible] = useState(false);
+  const [drinksVisible, setDrinksVisible] = useState(false);
+  const [mealsInProgress, setMealsInProgress] = useState(false);
+  const [drinksInProgress, setDrinksInProgress] = useState(false);
+  const [state, setState] = useState({
+    filters: {
+      searchInput: '',
+    },
+  });
+  const [recipeDetails, setRecipeDetails] = useState({
+    ingredients: [],
+    measures: [],
+    instructions: '',
+  });
 
   const mealByIngredient = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -32,15 +46,6 @@ const Provider = ({ children }) => {
     landingDrinks();
   }, []);
 
-  const [state, setState] = useState({
-    filters: {
-      searchInput: '',
-    },
-  });
-
-  const [mealsVisible, setMealsVisible] = useState(false);
-  const [drinksVisible, setDrinksVisible] = useState(false);
-
   const setFilter = (filter, value) => {
     setState((prevState) => ({
       ...prevState,
@@ -62,6 +67,12 @@ const Provider = ({ children }) => {
     setDrinksVisible,
     landingMeals,
     landingDrinks,
+    recipeDetails,
+    setRecipeDetails,
+    mealsInProgress,
+    setMealsInProgress,
+    drinksInProgress,
+    setDrinksInProgress,
   };
 
   return (
