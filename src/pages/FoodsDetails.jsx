@@ -1,16 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import IngredientsCard from '../components/IngredientsCard';
+import ReactPlayer from 'react-player/lazy';
+import Button from 'react-bootstrap/Button';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
+import IngredientsCard from '../components/IngredientsCard';
+import Recomended from '../components/Recomended';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import './FoodsDetails.css';
+import './DrinksDetails.css';
 
 export default function FoodsDetails() {
   const history = useHistory();
   const {
     setMealsVisible,
+    setDrinksVisible,
     setRecipeDetails,
     recipeDetails,
   } = useContext(Context);
@@ -48,7 +52,6 @@ export default function FoodsDetails() {
   };
 
   const getDetails = async () => {
-    setMealsVisible(true);
     try {
       const results = await fetchResults(recipeURL);
       setAllRecipeDetails(results.meals[0]);
@@ -60,22 +63,20 @@ export default function FoodsDetails() {
   };
 
   useEffect(() => {
+    setMealsVisible(true);
+    setDrinksVisible(false);
     getDetails();
   }, []);
 
-  useEffect(() => () => {
-    setMealsVisible(false);
-  },
-  [setMealsVisible]);
-
   return (
     <main className="main-details">
-      <img
-        className="recipe-image"
-        data-testid="recipe-photo"
-        src={ allRecipeDetails.strMealThumb }
-        alt="Recipe"
-      />
+      <div className="recipe-image">
+        <img
+          data-testid="recipe-photo"
+          src={ allRecipeDetails.strMealThumb }
+          alt="Recipe"
+        />
+      </div>
       <header className="title-container">
         <h1 data-testid="recipe-title">{allRecipeDetails.strMeal}</h1>
         <div>
@@ -94,16 +95,21 @@ export default function FoodsDetails() {
         {allRecipeDetails.strCategory}
       </div>
       <IngredientsCard />
-      <embed data-testid="video" src={ allRecipeDetails.strYoutube } />
-      {/* <Recomended /> */}
-      <button
+      <ReactPlayer
+        data-testid="video"
+        className="video"
+        url={ allRecipeDetails.strYoutube }
+      />
+      <Recomended />
+      <Button
+        variant="danger"
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
         type="button"
         onClick={ () => history.push(`/foods/${recipeID}/in-progress`) }
       >
         Start Recipe
-      </button>
+      </Button>
     </main>
   );
 }
