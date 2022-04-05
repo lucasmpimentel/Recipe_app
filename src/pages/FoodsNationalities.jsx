@@ -33,6 +33,9 @@ export default function FoodsNationalities() {
   useEffect(() => {
     if (!allCountryRecepies.length) {
       showMeal('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
+    if (country === 'All') {
+      showMeal('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     } else {
       showMeal(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`);
     }
@@ -58,7 +61,7 @@ export default function FoodsNationalities() {
             {nationality}
           </option>
         ))}
-        <option>ALL</option>
+        <option data-testid="All-option">All</option>
       </select>
 
       {allCountryRecepies
