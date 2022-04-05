@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import IngredientsCard from '../components/IngredientsCard';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
@@ -20,7 +21,6 @@ export default function FoodsDetails() {
   const CUT_INDEX = 7;
   const END_INDEX = 12;
   const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
-  console.log(actualPath);
   const recipeURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (meals) => {
@@ -45,8 +45,6 @@ export default function FoodsDetails() {
       });
     } catch (error) {
       console.log(`Fail to filter ingredients: ${error}`);
-    } finally {
-      console.log(getMeasures, getIngredients);
     }
   };
 
@@ -108,14 +106,15 @@ export default function FoodsDetails() {
       <IngredientsCard />
       <embed data-testid="video" src={ allRecipeDetails.strYoutube } />
       {/* <Recomended /> */}
-      <button
+      <Button
+        variant="danger"
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         type="button"
         onClick={ () => history.push('/done-recipes') }
       >
         Finish Recipe
-      </button>
+      </Button>
     </main>
   );
 }

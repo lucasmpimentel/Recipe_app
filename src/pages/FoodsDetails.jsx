@@ -46,8 +46,6 @@ export default function FoodsDetails() {
       });
     } catch (error) {
       console.log(`Fail to filter ingredients: ${error}`);
-    } finally {
-      console.log(getMeasures, getIngredients);
     }
   };
 

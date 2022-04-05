@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import IngredientsCard from '../components/IngredientsCard';
@@ -94,14 +95,15 @@ export default function DrinksDetails() {
       </div>
       <IngredientsCard />
       <Recomended />
-      <button
+      <Button
+        variant="danger"
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
         type="button"
         onClick={ () => history.push(`/drinks/${recipeID}/in-progress`) }
       >
         Start Recipe
-      </button>
+      </Button>
     </main>
   );
 }

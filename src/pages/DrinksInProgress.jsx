@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import IngredientsCard from '../components/IngredientsCard';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
@@ -20,7 +21,6 @@ export default function DrinksDetails() {
   const CUT_INDEX = 8;
   const END_INDEX = -12;
   const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
-  console.log(recipeID);
   const recipeURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (drinks) => {
@@ -107,14 +107,15 @@ export default function DrinksDetails() {
       </div>
       <IngredientsCard />
       {/* <Recomended /> */}
-      <button
+      <Button
+        variant="danger"
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         type="button"
         onClick={ () => history.push('/done-recipes') }
       >
         Finish Recipe
-      </button>
+      </Button>
     </main>
   );
 }
