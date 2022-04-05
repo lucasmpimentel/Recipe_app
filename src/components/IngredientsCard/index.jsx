@@ -18,16 +18,24 @@ export default function IngredientsCard() {
                 <tr key={ index }>
                   { (mealsInProgress || drinksInProgress) && (
                     (ingredient !== null) && (
-                      <td data-testid={ `${index}-ingredient-step` }>
-                        <input
-                          type="checkbox"
-                        />
+                      <td
+                        data-testid={ `${index}-ingredient-step` }
+                      >
+                        <label
+                          htmlFor={ ingredient }
+                          data-testid={ `${index}-ingredient-name-and-measure` }
+                        >
+                          <input
+                            type="checkbox"
+                            id={ ingredient }
+                            className="blablabla"
+                          />
+                          {ingredient}
+                        </label>
                       </td>
                     )
                   )}
-                  <td data-testid={ `${index}-ingredient-name-and-measure` }>
-                    {ingredient}
-                  </td>
+
                 </tr>
               )
             ))}

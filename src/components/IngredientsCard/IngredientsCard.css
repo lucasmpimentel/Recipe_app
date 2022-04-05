@@ -5,3 +5,20 @@
   justify-content: space-around;
   width: 100vw;
 }
+
+.blablabla:checked {
+  margin-left: 15px;
+  text-decoration: line-through;
+}
+
+/* .teste {
+  text-decoration: line-through;
+}
+
+.testando {
+  background-color: red;
+}
+
+.completed {
+  text-decoration: line-through solid black;
+} */
