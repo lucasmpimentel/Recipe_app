@@ -5,7 +5,7 @@ import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import './FoodsDetails.css';
+import './DrinksDetails.css';
 
 export default function FoodsDetails() {
   const history = useHistory();

@@ -11,7 +11,7 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   max-width: 100vw;
-  overflow-x:auto;
+  overflow-x: auto;
   padding: 5px 0;
   scroll-behavior: smooth;
 }
