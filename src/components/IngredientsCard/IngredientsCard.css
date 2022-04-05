@@ -16,8 +16,10 @@
 }
 
 .blablabla:checked {
+  background-color: blue;
+  height: 25px;
   margin-left: 15px;
-  text-decoration: line-through;
+  width: 50px;
 }
 
 /* .teste {

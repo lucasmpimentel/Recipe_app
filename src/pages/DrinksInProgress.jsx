@@ -17,6 +17,7 @@ export default function DrinksDetails() {
     setDrinksInProgress,
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
+  // const [buttonDisabled, setButtonDisabled] = useState('false');
   const actualPath = window.location.pathname;
   const CUT_INDEX = 8;
   const END_INDEX = -12;
@@ -112,6 +113,7 @@ export default function DrinksDetails() {
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         type="button"
+        // disabled={ buttonDisabled }
         onClick={ () => history.push('/done-recipes') }
       >
         Finish Recipe

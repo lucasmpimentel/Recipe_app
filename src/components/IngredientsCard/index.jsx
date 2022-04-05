@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Context from '../../context/Context';
 import './IngredientsCard.css';
 
@@ -7,6 +7,60 @@ export default function IngredientsCard() {
     mealsInProgress,
     drinksInProgress,
   } = useContext(Context);
+
+  const [buttonDisabled, setButtonDisabled] = useState('false');
+  // const [buttons, setButtons] = useState([]);
+
+  const handleClick = ({ target, target: { name } }) => {
+    const ingredients = recipeDetails.ingredients.filter((recipe) => recipe !== null);
+    console.log(ingredients.length);
+    console.log(target);
+    console.log(name);
+
+    // if já existe no localStorage passar a "removeFavorite", se não existe passar a AddFav;
+    // quando o tamanho do localstorage for igual ao ingredients.length definido acima, habilitar o botão;
+
+  };
+
+  // function checkItem({ target }) {
+  //   console.log(target);
+  //   console.log(recipeDetails);
+  // }
+
+  const INGR = mealsInProgress ? 'meals' : 'cocktails';
+
+  const readFavs = () => JSON.parse(localStorage.getItem(INGR));
+
+  const saveFavs = (recipe) => localStorage.setItem(INGR, JSON.stringify(recipe));
+
+  const addFav = (recipe) => {
+    if (recipe) {
+      const favs = readFavs() || [];
+      saveFavs([...favs, recipe]);
+    }
+  };
+
+  const removeFavorite = (recipe) => {
+    const favorites = readFavs();
+    saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
+  };
+
+  // objeto da chave inProgressRecipes
+  // const initialObject = {
+  //   cocktails: {
+  //      '${id}': [],
+  //   },
+  //   meals: {
+  //      ' id-da-comida': [],
+  //   }
+  // }
+
+  const handleChange = (e) => {
+    const { target } = e;
+    if (target.checked) {
+      setButtonDisabled('true');
+    }
+  };
 
   return (
     <div>
@@ -27,8 +81,12 @@ export default function IngredientsCard() {
                         >
                           <input
                             type="checkbox"
-                            id={ ingredient }
-                            className="blablabla"
+                            id={ ingredient.id }
+                            name={ ingredient }
+                            className="blablabla checkedIngredients"
+                            onClick={ handleClick }
+                            onChange={ handleChange }
+                            // disabled={ buttonDisabled }
                           />
                           {ingredient}
                         </label>
@@ -58,6 +116,7 @@ export default function IngredientsCard() {
       <div className="instructions" data-testid="instructions">
         {recipeDetails.instructions}
       </div>
+      {!buttonDisabled && <input type="text" />}
     </div>
   );
 }
