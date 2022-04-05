@@ -3,7 +3,10 @@ import Context from '../../context/Context';
 import './IngredientsCard.css';
 
 export default function IngredientsCard() {
-  const { recipeDetails } = useContext(Context);
+  const { recipeDetails,
+    mealsInProgress,
+    drinksInProgress,
+  } = useContext(Context);
 
   return (
     <div>
@@ -13,6 +16,15 @@ export default function IngredientsCard() {
             { recipeDetails.ingredients.map((ingredient, index) => (
               ingredient !== '' && (
                 <tr key={ index }>
+                  { (mealsInProgress || drinksInProgress) && (
+                    (ingredient !== null) && (
+                      <td data-testid={ `${index}-ingredient-step` }>
+                        <input
+                          type="checkbox"
+                        />
+                      </td>
+                    )
+                  )}
                   <td data-testid={ `${index}-ingredient-name-and-measure` }>
                     {ingredient}
                   </td>

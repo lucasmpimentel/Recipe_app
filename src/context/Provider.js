@@ -8,6 +8,8 @@ const Provider = ({ children }) => {
   const [drinksRetrieved, setDrinksRetrieved] = useState([]);
   const [mealsVisible, setMealsVisible] = useState(false);
   const [drinksVisible, setDrinksVisible] = useState(false);
+  const [mealsInProgress, setMealsInProgress] = useState(false);
+  const [drinksInProgress, setDrinksInProgress] = useState(false);
   const [state, setState] = useState({
     filters: {
       searchInput: '',
@@ -67,6 +69,10 @@ const Provider = ({ children }) => {
     landingDrinks,
     recipeDetails,
     setRecipeDetails,
+    mealsInProgress,
+    setMealsInProgress,
+    drinksInProgress,
+    setDrinksInProgress,
   };
 
   return (
