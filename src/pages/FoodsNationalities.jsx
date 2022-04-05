@@ -6,28 +6,34 @@ import Header from '../components/Header';
 export default function FoodsNationalities() {
   const history = useHistory();
   const [allCountries, setAllCountries] = useState([]);
-  const [country, setCountry] = useState(['American']);
+  const [country, setCountry] = useState('American');
   const [allCountryRecepies, setAllCountryRecepies] = useState([]);
   const clickMeal = (idMeal) => history.push(`/foods/${idMeal}`);
 
   const fetchSelectCountries = async () => {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
-    const results = await response.json();
-    const countrie = results.meals;
-    const onlyCountries = countrie.map((item) => item.strArea);
-    setAllCountries(onlyCountries);
-    return response.ok ? Promise.resolve(results) : Promise.reject(results);
+    try {
+      const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+      const results = await response.json();
+      const countrie = results.meals;
+      const onlyCountries = countrie.map((item) => item.strArea);
+      setAllCountries(onlyCountries);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   const showMeal = async (value) => {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${value}`);
-    const allMealsCountry = await response.json();
-    const MAX = 12;
-    const countryMeals = allMealsCountry.meals.filter((_country, index) => index < MAX);
-    console.log(countryMeals);
-    setAllCountryRecepies(countryMeals);
-    return response.ok ? Promise.resolve(allMealsCountry)
-      : Promise.reject(allMealsCountry);
+    try {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${value}`);
+      const allMealsCountry = await response.json();
+      const MAX = 12;
+      const countryMeals = allMealsCountry.meals.filter((_country, index) => index < MAX);
+      setAllCountryRecepies(countryMeals);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   const handleChange = async ({ target: { value } }) => {
     setCountry(value);
     showMeal(value);
@@ -36,8 +42,11 @@ export default function FoodsNationalities() {
   useEffect(() => {
     fetchSelectCountries();
     showMeal(country);
-  }, [country]);
+  }, []);
 
+  useEffect(() => {
+    showMeal(country);
+  }, [country]);
   return (
     <>
       <Header searchTopBtn />
@@ -47,6 +56,7 @@ export default function FoodsNationalities() {
         data-testid="explore-by-nationality-dropdown"
         name={ country }
         onChange={ handleChange }
+        value={ country }
       >
         {allCountries.map((nationality) => (
           <option
