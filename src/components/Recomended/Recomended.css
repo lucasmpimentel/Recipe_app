@@ -1,0 +1,96 @@
+.recomended-carousel-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.recomended-container {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  max-width: 100vw;
+  overflow-x: auto;
+  padding: 5px 0;
+  scroll-behavior: smooth;
+}
+
+.recomended-item {
+  align-items: center;
+  background-color: rgba(201, 229, 237, 0.5);
+  border-radius: 5px;
+  box-shadow: darkgrey 2px 3px 0.4em;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
+  width: 250px;
+}
+
+.recomended-image {
+  height: 120px;
+  object-fit: cover;
+  width: 140px;
+}
+
+.recomended-item-info {
+  display: block;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+}
+
+.recomended-title {
+  margin: 5px 0;
+}
+
+.recomended-category {
+  background-color: coral;
+  border-radius: 5px;
+  margin: 0 0 5px;
+  padding: 2px 5px;
+}
+
+.rec-alcoholic {
+  background-color: rgb(132, 0, 0);
+  border-radius: 5px;
+  color: white;
+  font-size: 10pt;
+  padding: 2px 5px;
+}
+
+.dots-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.dot {
+  background-color: #bbb;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  height: 15px;
+  margin: 0 2px;
+  transition: background-color 0.6s ease;
+  width: 15px;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+.fade {
+  animation-duration: 1.5s;
+  animation-name: fade;
+}
+
+@keyframes fade {
+
+  from { opacity: 0.4; }
+
+  to { opacity: 1; }
+}

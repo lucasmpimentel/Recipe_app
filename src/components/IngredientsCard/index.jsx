@@ -55,7 +55,7 @@ export default function IngredientsCard() {
           </tbody>
         </table>
       </div>
-      <div data-testid="instructions">
+      <div className="instructions" data-testid="instructions">
         {recipeDetails.instructions}
       </div>
     </div>

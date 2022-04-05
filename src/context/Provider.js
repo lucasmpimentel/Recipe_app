@@ -10,6 +10,7 @@ const Provider = ({ children }) => {
   const [drinksVisible, setDrinksVisible] = useState(false);
   const [mealsInProgress, setMealsInProgress] = useState(false);
   const [drinksInProgress, setDrinksInProgress] = useState(false);
+  const [allCountries, setAllCountries] = useState([]);
   const [state, setState] = useState({
     filters: {
       searchInput: '',
@@ -23,6 +24,7 @@ const Provider = ({ children }) => {
 
   const mealByIngredient = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const selectCountries = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 
   const landingMeals = (async () => {
     let { meals } = await fetchResults(mealByIngredient);
@@ -31,10 +33,6 @@ const Provider = ({ children }) => {
     setMealsRetrieved(meals);
   });
 
-  useEffect(() => {
-    landingMeals();
-  }, []);
-
   const landingDrinks = (async () => {
     let { drinks } = await fetchResults(drinksByIngredient);
     const max = 12;
@@ -42,8 +40,20 @@ const Provider = ({ children }) => {
     setDrinksRetrieved(drinks);
   });
 
+  const fetchSelectCountries = async () => {
+    try {
+      const { meals } = await fetchResults(selectCountries);
+      const onlyCountries = meals.map((item) => item.strArea);
+      setAllCountries(onlyCountries);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+    landingMeals();
     landingDrinks();
+    fetchSelectCountries();
   }, []);
 
   const setFilter = (filter, value) => {
@@ -73,6 +83,7 @@ const Provider = ({ children }) => {
     setMealsInProgress,
     drinksInProgress,
     setDrinksInProgress,
+    allCountries,
   };
 
   return (

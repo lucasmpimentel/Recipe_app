@@ -70,7 +70,7 @@ export default function Login() {
           onChange={ handleChange }
         />
         <Button
-          variant="primary"
+          variant="danger"
           size="sm"
           type="submit"
           data-testid="login-submit-btn"

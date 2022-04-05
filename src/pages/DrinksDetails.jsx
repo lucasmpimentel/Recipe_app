@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import IngredientsCard from '../components/IngredientsCard';
+import Button from 'react-bootstrap/Button';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
+import IngredientsCard from '../components/IngredientsCard';
+import Recomended from '../components/Recomended';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
@@ -11,6 +13,7 @@ export default function DrinksDetails() {
   const history = useHistory();
   const {
     setDrinksVisible,
+    setMealsVisible,
     setRecipeDetails,
     recipeDetails,
   } = useContext(Context);
@@ -46,7 +49,6 @@ export default function DrinksDetails() {
   };
 
   const getDetails = async () => {
-    setDrinksVisible(true);
     try {
       const results = await fetchResults(recipeURL);
       setAllRecipeDetails(results.drinks[0]);
@@ -58,22 +60,20 @@ export default function DrinksDetails() {
   };
 
   useEffect(() => {
+    setMealsVisible(false);
+    setDrinksVisible(true);
     getDetails();
   }, []);
 
-  useEffect(() => () => {
-    setDrinksVisible(false);
-  },
-  [setDrinksVisible]);
-
   return (
     <main className="main-details">
-      <img
-        className="recipe-image"
-        data-testid="recipe-photo"
-        src={ allRecipeDetails.strDrinkThumb }
-        alt="Recipe"
-      />
+      <div className="recipe-image">
+        <img
+          data-testid="recipe-photo"
+          src={ allRecipeDetails.strDrinkThumb }
+          alt="Recipe"
+        />
+      </div>
       <header className="title-container">
         <h1 data-testid="recipe-title">{allRecipeDetails.strDrink}</h1>
         <div>
@@ -94,15 +94,16 @@ export default function DrinksDetails() {
         {allRecipeDetails.strAlcoholic}
       </div>
       <IngredientsCard />
-      {/* <Recomended /> */}
-      <button
+      <Recomended />
+      <Button
+        variant="danger"
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
         type="button"
         onClick={ () => history.push(`/drinks/${recipeID}/in-progress`) }
       >
         Start Recipe
-      </button>
+      </Button>
     </main>
   );
 }
