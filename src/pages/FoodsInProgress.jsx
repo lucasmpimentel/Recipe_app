@@ -1,7 +1,121 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import IngredientsCard from '../components/IngredientsCard';
+import Context from '../context/Context';
+import { fetchResults } from '../services/FetchMealOrDrink';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import './FoodsDetails.css';
 
-export default function FoodsInProgress() {
+export default function FoodsDetails() {
+  const history = useHistory();
+  const {
+    setMealsVisible,
+    setRecipeDetails,
+    recipeDetails,
+    setMealsInProgress,
+  } = useContext(Context);
+  const [allRecipeDetails, setAllRecipeDetails] = useState([]);
+  const actualPath = window.location.pathname;
+  const CUT_INDEX = 7;
+  const END_INDEX = 12;
+  const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
+  console.log(actualPath);
+  const recipeURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
+
+  const saveIngredients = (meals) => {
+    const getIngredients = [];
+    const getMeasures = [];
+    try {
+      Object.keys(meals).forEach((key) => {
+        if (key.includes('strIngredient')) {
+          getIngredients.push(meals[key]);
+        }
+      });
+      Object.keys(meals).forEach((key) => {
+        if (key.includes('strMeasure')) {
+          getMeasures.push(meals[key]);
+        }
+      });
+      setRecipeDetails({
+        ...recipeDetails,
+        ingredients: getIngredients,
+        measures: getMeasures,
+        instructions: meals.strInstructions,
+      });
+    } catch (error) {
+      console.log(`Fail to filter ingredients: ${error}`);
+    } finally {
+      console.log(getMeasures, getIngredients);
+    }
+  };
+
+  const getDetails = async () => {
+    setMealsVisible(true);
+    try {
+      const results = await fetchResults(recipeURL);
+      setAllRecipeDetails(results.meals[0]);
+      saveIngredients(results.meals[0]);
+      return results;
+    } catch (error) {
+      console.log(`Error in fetch details: ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
+
+  useEffect(() => () => {
+    setMealsVisible(false);
+  },
+  [setMealsVisible]);
+
+  useEffect(() => {
+    setMealsInProgress(true);
+  }, [setMealsInProgress]);
+
+  useEffect(() => () => {
+    setMealsInProgress(false);
+  },
+  [setMealsInProgress]);
+
   return (
-    <p>FoodsInProgress</p>
+    <main className="main-details">
+      <img
+        className="recipe-image"
+        data-testid="recipe-photo"
+        src={ allRecipeDetails.strMealThumb }
+        alt="Recipe"
+      />
+      <header className="title-container">
+        <h1 data-testid="recipe-title">{allRecipeDetails.strMeal}</h1>
+        <div>
+          <button data-testid="share-btn" type="button">
+            <img src={ shareIcon } alt="Share" />
+          </button>
+          <button data-testid="favorite-btn" type="button">
+            <img src={ whiteHeartIcon } alt="favorite" />
+          </button>
+        </div>
+      </header>
+      <div
+        className="recipe-categorie"
+        data-testid="recipe-category"
+      >
+        {allRecipeDetails.strCategory}
+      </div>
+      <IngredientsCard />
+      <embed data-testid="video" src={ allRecipeDetails.strYoutube } />
+      {/* <Recomended /> */}
+      <button
+        className="finish-recipe-btn"
+        data-testid="finish-recipe-btn"
+        type="button"
+        onClick={ () => history.push('/done-recipes') }
+      >
+        Finish Recipe
+      </button>
+    </main>
   );
 }
