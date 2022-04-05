@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player/lazy';
 import Button from 'react-bootstrap/Button';
+import copy from 'clipboard-copy';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import IngredientsCard from '../components/IngredientsCard';
@@ -22,6 +23,7 @@ export default function FoodsDetails() {
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const [alreadyDone, setAlreadyDone] = useState(false);
+  const [copied, setCopied] = useState(false);
   const actualPath = window.location.pathname;
   const CUT_INDEX = 7;
   const recipeID = actualPath.slice(CUT_INDEX);
@@ -70,6 +72,13 @@ export default function FoodsDetails() {
     }
   };
 
+  const copyLink = () => {
+    const ONE_SEC = 1000;
+    copy(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), ONE_SEC);
+  };
+
   useEffect(() => {
     setMealsVisible(true);
     setDrinksVisible(false);
@@ -89,9 +98,10 @@ export default function FoodsDetails() {
       <header className="title-container">
         <h1 data-testid="recipe-title">{allRecipeDetails.strMeal}</h1>
         <div>
-          <button data-testid="share-btn" type="button">
+          <button data-testid="share-btn" type="button" onClick={ copyLink }>
             <img src={ shareIcon } alt="Share" />
           </button>
+          { copied && <span>Link copied!</span> }
           <button data-testid="favorite-btn" type="button">
             <img src={ whiteHeartIcon } alt="favorite" />
           </button>
