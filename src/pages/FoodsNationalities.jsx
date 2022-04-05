@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Context from '../context/Context';
 
 export default function FoodsNationalities() {
   const history = useHistory();
-  const [allCountries, setAllCountries] = useState([]);
   const [country, setCountry] = useState('American');
-  const [allCountryRecepies, setAllCountryRecepies] = useState([]);
   const clickMeal = (idMeal) => history.push(`/foods/${idMeal}`);
+  const [allCountryRecepies, setAllCountryRecepies] = useState([]);
 
-  const fetchSelectCountries = async () => {
-    try {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
-      const results = await response.json();
-      const countrie = results.meals;
-      const onlyCountries = countrie.map((item) => item.strArea);
-      setAllCountries(onlyCountries);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    allCountries,
+  } = useContext(Context);
+
+  // const fetchSelectCountries = async () => {
+  //   try {
+  //     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  //     const results = await response.json();
+  //     const countrie = results.meals;
+  //     const onlyCountries = countrie.map((item) => item.strArea);
+  //     setAllCountries(onlyCountries);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const showMeal = async (value) => {
     try {
@@ -39,14 +43,14 @@ export default function FoodsNationalities() {
     showMeal(value);
   };
 
-  useEffect(() => {
-    fetchSelectCountries();
-    showMeal(country);
-  }, []);
+  // useEffect(() => {
+  //   fetchSelectCountries();
+  // }, []);
 
   useEffect(() => {
     showMeal(country);
   }, [country]);
+
   return (
     <>
       <Header searchTopBtn />
