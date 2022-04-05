@@ -26,6 +26,20 @@ const Provider = ({ children }) => {
   const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const selectCountries = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 
+  const landingMeals = (async () => {
+    let { meals } = await fetchResults(mealByIngredient);
+    const max = 12;
+    meals = meals.filter((_meal, index) => index < max);
+    setMealsRetrieved(meals);
+  });
+
+  const landingDrinks = (async () => {
+    let { drinks } = await fetchResults(drinksByIngredient);
+    const max = 12;
+    drinks = drinks.filter((_drink, index) => index < max);
+    setDrinksRetrieved(drinks);
+  });
+
   const fetchSelectCountries = async () => {
     try {
       const { meals } = await fetchResults(selectCountries);
@@ -36,27 +50,10 @@ const Provider = ({ children }) => {
     }
   };
 
-  const landingMeals = (async () => {
-    let { meals } = await fetchResults(mealByIngredient);
-    const max = 12;
-    meals = meals.filter((_meal, index) => index < max);
-    setMealsRetrieved(meals);
-  });
-
   useEffect(() => {
     landingMeals();
-    fetchSelectCountries();
-  }, []);
-
-  const landingDrinks = (async () => {
-    let { drinks } = await fetchResults(drinksByIngredient);
-    const max = 12;
-    drinks = drinks.filter((_drink, index) => index < max);
-    setDrinksRetrieved(drinks);
-  });
-
-  useEffect(() => {
     landingDrinks();
+    fetchSelectCountries();
   }, []);
 
   const setFilter = (filter, value) => {
