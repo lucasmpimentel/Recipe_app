@@ -12,59 +12,30 @@ export default function IngredientsCard() {
   const landingIngs = recipeDetails.ingredients.filter((recipe) => recipe !== '');
   const [ingredients, setIngredients] = useState([]);
 
+  const setInProgresRecipes = (checkedIngredients) => {
+    const KEY = 'inProgressRecipes';
+    const prevRecipes = JSON.parse(localStorage.getItem(KEY) || '{}');
+    const prevCocktails = prevRecipes.cocktails;
+    const prevMeals = prevRecipes.meals;
+    const recipeObj = {
+      cocktails: {
+        ...prevCocktails,
+        ...(drinksInProgress && { [recipeDetails.id]: [...checkedIngredients] }),
+      },
+      meals: {
+        ...prevMeals,
+        ...(mealsInProgress && { [recipeDetails.id]: [...checkedIngredients] }),
+      },
+    };
+    localStorage.setItem(KEY, JSON.stringify(recipeObj));
+  };
+
   const handleClick = ({ target: { name } }) => {
     if (ingredients.includes(name)) {
       setIngredients(ingredients.filter((ingredient) => ingredient !== name));
     } else {
       setIngredients([...ingredients, name]);
     }
-    // if já existe no localStorage passar a "removeFavorite", se não existe passar a AddFav;
-    // quando o tamanho do localstorage for igual ao ingredients.length definido acima, habilitar o botão;
-  };
-
-  // function checkItem({ target }) {
-  //   console.log(target);
-  //   console.log(recipeDetails);
-  // }
-
-  const INGR = mealsInProgress ? 'meals' : 'cocktails';
-  const readFavs = () => JSON.parse(localStorage.getItem(INGR));
-  const saveFavs = (recipe) => localStorage.setItem(INGR, JSON.stringify(recipe));
-
-  const addFav = (recipe) => {
-    if (recipe) {
-      const favs = readFavs() || {};
-      saveFavs([...favs, recipe]);
-    }
-  };
-
-  // const removeFavorite = (recipe) => {
-  //   const favorites = readFavs();
-  //   saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
-  // };
-
-  // objeto da chave inProgressRecipes
-  // const initialObject = {
-  //   cocktails: {
-  //      '${id}': [],
-  //   },
-  //   meals: {
-  //      ' id-da-comida': [],
-  //   }
-  // }
-
-  const handleChange = ({ target: { name } }) => {
-    if (drinksInProgress) {
-      console.log('entrou na drinksInProgress');
-      addFav(recipeDetails.id);
-    }
-    console.log('------------------');
-    console.log('handleChange');
-    console.log(mealsInProgress);
-    console.log(drinksInProgress);
-    console.log(name);
-    console.log(recipeDetails.id);
-    console.log('------------------');
   };
 
   if (ingredients.length === landingIngs.length
@@ -74,6 +45,7 @@ export default function IngredientsCard() {
   if (ingredients.length < landingIngs.length) {
     setFinishButtonDisabled(true);
   }
+  if (ingredients.length) setInProgresRecipes(ingredients);
 
   return (
     <div>
@@ -94,12 +66,10 @@ export default function IngredientsCard() {
                         >
                           <input
                             type="checkbox"
-                            // id={ ingredient }// aqui não adianta, nessa lógica só vem a string do ingrediente
                             name={ ingredient }
                             className="blablabla checkedIngredients"
                             onClick={ handleClick }
-                            onChange={ handleChange }
-                            // checked={ landingIngs.includes(ingredient) }
+                            // checked={ ingredients.includes(ingredient) }
                           />
                           {ingredient}
                         </label>
