@@ -17,6 +17,7 @@ const Provider = ({ children }) => {
     },
   });
   const [recipeDetails, setRecipeDetails] = useState({
+    id: '',
     ingredients: [],
     measures: [],
     instructions: '',

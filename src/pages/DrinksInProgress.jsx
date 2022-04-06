@@ -44,6 +44,7 @@ export default function DrinksDetails() {
         ingredients: getIngredients,
         measures: getMeasures,
         instructions: drinks.strInstructions,
+        id: drinks.idDrink,
       });
     } catch (error) {
       console.log(`Fail to filter ingredients: ${error}`);
@@ -114,7 +115,6 @@ export default function DrinksDetails() {
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         type="button"
-        // disabled={ finishButtonDisabled }
         disabled={ finishButtonDisabled }
         onClick={ () => history.push('/done-recipes') }
       >

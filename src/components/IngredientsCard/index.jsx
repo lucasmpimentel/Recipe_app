@@ -10,7 +10,6 @@ export default function IngredientsCard() {
   } = useContext(Context);
 
   const landingIngs = recipeDetails.ingredients.filter((recipe) => recipe !== '');
-
   const [ingredients, setIngredients] = useState([]);
 
   const handleClick = ({ target: { name } }) => {
@@ -28,18 +27,16 @@ export default function IngredientsCard() {
   //   console.log(recipeDetails);
   // }
 
-  // const INGR = mealsInProgress ? 'meals' : 'cocktails';
+  const INGR = mealsInProgress ? 'meals' : 'cocktails';
+  const readFavs = () => JSON.parse(localStorage.getItem(INGR));
+  const saveFavs = (recipe) => localStorage.setItem(INGR, JSON.stringify(recipe));
 
-  // const readFavs = () => JSON.parse(localStorage.getItem(INGR));
-
-  // const saveFavs = (recipe) => localStorage.setItem(INGR, JSON.stringify(recipe));
-
-  // const addFav = (recipe) => {
-  //   if (recipe) {
-  //     const favs = readFavs() || [];
-  //     saveFavs([...favs, recipe]);
-  //   }
-  // };
+  const addFav = (recipe) => {
+    if (recipe) {
+      const favs = readFavs() || {};
+      saveFavs([...favs, recipe]);
+    }
+  };
 
   // const removeFavorite = (recipe) => {
   //   const favorites = readFavs();
@@ -56,18 +53,22 @@ export default function IngredientsCard() {
   //   }
   // }
 
-  const handleChange = ({ target }) => {
+  const handleChange = ({ target: { name } }) => {
+    if (drinksInProgress) {
+      console.log('entrou na drinksInProgress');
+      addFav(recipeDetails.id);
+    }
     console.log('------------------');
     console.log('handleChange');
-    console.log(target);
+    console.log(mealsInProgress);
+    console.log(drinksInProgress);
+    console.log(name);
+    console.log(recipeDetails.id);
     console.log('------------------');
   };
 
   if (ingredients.length === landingIngs.length
     && ingredients.length !== 0 && landingIngs.length !== 0) {
-    console.log('entrou no ingredients.lenght igual ao landingIngs.lenght');
-    console.log('ingredients.length: ', ingredients.length);
-    console.log('landingIngs.length: ', landingIngs.length);
     setFinishButtonDisabled(false);
   }
   if (ingredients.length < landingIngs.length) {
@@ -93,7 +94,7 @@ export default function IngredientsCard() {
                         >
                           <input
                             type="checkbox"
-                            id={ ingredient.id }
+                            // id={ ingredient }// aqui não adianta, nessa lógica só vem a string do ingrediente
                             name={ ingredient }
                             className="blablabla checkedIngredients"
                             onClick={ handleClick }
