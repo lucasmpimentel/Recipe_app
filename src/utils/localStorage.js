@@ -66,4 +66,32 @@ const doneRecipes = [
 
 const saveAllFavs = () => [...favorite];
 
-export { readFavs, saveFavs, addFav, removeFavorite, favorite, doneRecipes, saveAllFavs };
+// In Progress Recipes
+// const setInProgresRecipes = (checkedIngredients) => {
+//   const KEY = 'inProgressRecipes';
+//   const prevRecipes = JSON.parse(localStorage.getItem(KEY) || {});
+//   const prevCocktails = prevRecipes.cocktails;
+//   const prevMeals = prevRecipes.meals;
+//   const recipeObj = {
+//     cocktails: {
+//       ...prevCocktails,
+//       ...(drinksInProgress && { [recipeDetails.id]: [...checkedIngredients] }),
+//     },
+//     meals: {
+//       ...prevMeals,
+//       ...(mealsInProgress && { [recipeDetails.id]: [...checkedIngredients] }),
+//     },
+//   };
+//   localStorage.setItem(KEY, JSON.stringify(recipeObj));
+// };
+
+export {
+  readFavs,
+  saveFavs,
+  addFav,
+  removeFavorite,
+  favorite,
+  doneRecipes,
+  saveAllFavs,
+  // setInProgresRecipes,
+};
