@@ -15,6 +15,7 @@ export default function DrinksDetails() {
     setRecipeDetails,
     recipeDetails,
     setDrinksInProgress,
+    finishButtonDisabled,
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   // const [buttonDisabled, setButtonDisabled] = useState('false');
@@ -113,7 +114,8 @@ export default function DrinksDetails() {
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         type="button"
-        // disabled={ buttonDisabled }
+        // disabled={ finishButtonDisabled }
+        disabled={ finishButtonDisabled }
         onClick={ () => history.push('/done-recipes') }
       >
         Finish Recipe

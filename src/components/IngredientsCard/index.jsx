@@ -6,20 +6,21 @@ export default function IngredientsCard() {
   const { recipeDetails,
     mealsInProgress,
     drinksInProgress,
+    setFinishButtonDisabled,
   } = useContext(Context);
 
-  const [buttonDisabled, setButtonDisabled] = useState('false');
-  // const [buttons, setButtons] = useState([]);
+  const landingIngs = recipeDetails.ingredients.filter((recipe) => recipe !== '');
 
-  const handleClick = ({ target, target: { name } }) => {
-    const ingredients = recipeDetails.ingredients.filter((recipe) => recipe !== null);
-    console.log(ingredients.length);
-    console.log(target);
-    console.log(name);
+  const [ingredients, setIngredients] = useState([]);
 
+  const handleClick = ({ target: { name } }) => {
+    if (ingredients.includes(name)) {
+      setIngredients(ingredients.filter((ingredient) => ingredient !== name));
+    } else {
+      setIngredients([...ingredients, name]);
+    }
     // if já existe no localStorage passar a "removeFavorite", se não existe passar a AddFav;
     // quando o tamanho do localstorage for igual ao ingredients.length definido acima, habilitar o botão;
-
   };
 
   // function checkItem({ target }) {
@@ -27,23 +28,23 @@ export default function IngredientsCard() {
   //   console.log(recipeDetails);
   // }
 
-  const INGR = mealsInProgress ? 'meals' : 'cocktails';
+  // const INGR = mealsInProgress ? 'meals' : 'cocktails';
 
-  const readFavs = () => JSON.parse(localStorage.getItem(INGR));
+  // const readFavs = () => JSON.parse(localStorage.getItem(INGR));
 
-  const saveFavs = (recipe) => localStorage.setItem(INGR, JSON.stringify(recipe));
+  // const saveFavs = (recipe) => localStorage.setItem(INGR, JSON.stringify(recipe));
 
-  const addFav = (recipe) => {
-    if (recipe) {
-      const favs = readFavs() || [];
-      saveFavs([...favs, recipe]);
-    }
-  };
+  // const addFav = (recipe) => {
+  //   if (recipe) {
+  //     const favs = readFavs() || [];
+  //     saveFavs([...favs, recipe]);
+  //   }
+  // };
 
-  const removeFavorite = (recipe) => {
-    const favorites = readFavs();
-    saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
-  };
+  // const removeFavorite = (recipe) => {
+  //   const favorites = readFavs();
+  //   saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
+  // };
 
   // objeto da chave inProgressRecipes
   // const initialObject = {
@@ -55,12 +56,23 @@ export default function IngredientsCard() {
   //   }
   // }
 
-  const handleChange = (e) => {
-    const { target } = e;
-    if (target.checked) {
-      setButtonDisabled('true');
-    }
+  const handleChange = ({ target }) => {
+    console.log('------------------');
+    console.log('handleChange');
+    console.log(target);
+    console.log('------------------');
   };
+
+  if (ingredients.length === landingIngs.length
+    && ingredients.length !== 0 && landingIngs.length !== 0) {
+    console.log('entrou no ingredients.lenght igual ao landingIngs.lenght');
+    console.log('ingredients.length: ', ingredients.length);
+    console.log('landingIngs.length: ', landingIngs.length);
+    setFinishButtonDisabled(false);
+  }
+  if (ingredients.length < landingIngs.length) {
+    setFinishButtonDisabled(true);
+  }
 
   return (
     <div>
@@ -86,7 +98,7 @@ export default function IngredientsCard() {
                             className="blablabla checkedIngredients"
                             onClick={ handleClick }
                             onChange={ handleChange }
-                            // disabled={ buttonDisabled }
+                            // checked={ landingIngs.includes(ingredient) }
                           />
                           {ingredient}
                         </label>
@@ -116,7 +128,7 @@ export default function IngredientsCard() {
       <div className="instructions" data-testid="instructions">
         {recipeDetails.instructions}
       </div>
-      {!buttonDisabled && <input type="text" />}
+      {/* {!buttonDisabled && <input type="text" />} */}
     </div>
   );
 }

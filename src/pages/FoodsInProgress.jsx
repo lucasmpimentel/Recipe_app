@@ -15,6 +15,7 @@ export default function FoodsDetails() {
     setRecipeDetails,
     recipeDetails,
     setMealsInProgress,
+    finishButtonDisabled,
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const actualPath = window.location.pathname;
@@ -112,6 +113,7 @@ export default function FoodsDetails() {
         data-testid="finish-recipe-btn"
         type="button"
         onClick={ () => history.push('/done-recipes') }
+        disabled={ finishButtonDisabled }
       >
         Finish Recipe
       </Button>
