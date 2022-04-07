@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Context from '../../context/Context';
 import './IngredientsCard.css';
+import landing from '../../helpers/Landing';
 
 export default function IngredientsCard() {
   const { recipeDetails,
@@ -10,6 +11,7 @@ export default function IngredientsCard() {
     drinksInProgress,
     setFinishButtonDisabled,
   } = useContext(Context);
+
   const [savedSteps, setSavedSteps] = useLocalStorage(
     'inProgressRecipes', { cocktails: {}, meals: {} },
   );
@@ -18,8 +20,6 @@ export default function IngredientsCard() {
   const path = history.location.pathname;
   const recipeID = path.replace(/[^0-9]/g, '');
 
-  // drink chegam null e meals chegam ''
-  // const nullRecipe = typeRecipe === 'meals' ?  "" : null;
   const landingIngs = recipeDetails.ingredients
     .filter((recipe) => recipe !== '')
     .filter((recipe) => recipe !== null);
@@ -51,18 +51,56 @@ export default function IngredientsCard() {
     }
   };
 
-  const landing = () => {
-    console.log('dentro do landing');
-    console.log(ingredients?.length);
-    console.log(landingIngs?.length);
-    if (ingredients?.length === landingIngs.length
-      && ingredients.length !== 0 && landingIngs.length !== 0) {
-      console.log('dentro do false do landing');
-      return setFinishButtonDisabled(false);
-    }
-    return setFinishButtonDisabled(true);
-  };
-  landing();
+  // function originalImplementation(A, B) {
+  //   if (A && B) {
+  //     console.log("do something 1");
+  //   } else {
+  //     if (B) {
+  //       console.log("set some boolean to false");
+  //     }
+  //     console.log("do something 2");
+  //   }
+  // }
+
+  // function newImplementation(A, B) {
+  //   if (A && B) {
+  //     console.log("do something 1");
+  //   }
+  //   else if (B) {
+  //     console.log("set some boolean to false");
+  //   }
+  //   if (!A || !B) {
+  //     console.log("do something 2");
+  //   }
+  // }
+
+  // console.log("originalImplementation");
+
+  // originalImplementation(0, 0);
+  // originalImplementation(0, 1);
+  // originalImplementation(1, 0);
+  // originalImplementation(1, 1);
+
+  // console.log("newImplementation");
+
+  // newImplementation(0, 0);
+  // newImplementation(0, 1);
+  // newImplementation(1, 0);
+  // newImplementation(1, 1);
+
+  // const landing = () => {
+  //   // console.log('dentro do landing');
+  //   // console.log(ingredients?.length);
+  //   // console.log(landingIngs?.length);
+  //   if (ingredients?.length === landingIngs.length
+  //     && ingredients.length !== 0 && landingIngs.length !== 0) {
+  //     // console.log('dentro do false do landing');
+  //     return setFinishButtonDisabled(false);
+  //   }
+  //   return setFinishButtonDisabled(true);
+  // };
+
+  landing(ingredients, landingIngs, setFinishButtonDisabled);
 
   const verifyIfChecked = (ingredient) => {
     const localRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));

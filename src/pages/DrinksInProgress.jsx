@@ -7,6 +7,7 @@ import { fetchResults } from '../services/FetchMealOrDrink';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
+// import useReduceComplexity from '../hooks/useAndre';
 
 const copy = require('clipboard-copy');
 
@@ -78,6 +79,7 @@ export default function DrinksDetails() {
   },
   [setDrinksVisible]);
 
+  // useReduceComplexity(true, setDrinksInProgress);
   useEffect(() => {
     setDrinksInProgress(true);
   }, [setDrinksInProgress]);

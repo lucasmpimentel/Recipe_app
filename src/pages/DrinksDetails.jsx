@@ -16,14 +16,13 @@ export default function DrinksDetails() {
     setMealsVisible,
     setRecipeDetails,
     recipeDetails,
-    recipeURL,
   } = useContext(Context);
 
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
-  // const actualPath = window.location.pathname;
-  // const CUT_INDEX = 8;
-  // const recipeID = actualPath.slice(CUT_INDEX);
-  // const recipeURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
+  const actualPath = window.location.pathname;
+  const CUT_INDEX = 8;
+  const recipeID = actualPath.slice(CUT_INDEX);
+  const recipeURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (drinks) => {
     const getIngredients = [];
