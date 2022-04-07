@@ -17,7 +17,7 @@ export default function Profile() {
   };
 
   return (
-    <main className="header">
+    <main className="main-profile">
       <Header />
       <section className="buttons">
         <p data-testid="page-title">Profile</p>
