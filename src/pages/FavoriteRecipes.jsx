@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -159,27 +160,27 @@ export default function FavoriteRecipes() {
     <>
       <Header />
       <p data-testid="page-title">Favorite Recipes</p>
-      <button
+      <Button
         type="button"
         data-testid="filter-by-all-btn"
         onClick={ removeFilters }
       >
         All
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         data-testid="filter-by-food-btn"
         onClick={ filterMeals }
       >
         Food
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ filterDrinks }
       >
         Drinks
-      </button>
+      </Button>
       {render
         && render.map((meal, i) => (meal.type === 'food'
           ? foods(meal, i) : drinks(meal, i)))}
