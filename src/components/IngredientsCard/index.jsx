@@ -1,9 +1,8 @@
-/* eslint-disable */
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Context from '../../context/Context';
 import './IngredientsCard.css';
-import { useHistory } from 'react-router-dom';
 
 export default function IngredientsCard() {
   const { recipeDetails,
@@ -21,7 +20,9 @@ export default function IngredientsCard() {
 
   // drink chegam null e meals chegam ''
   // const nullRecipe = typeRecipe === 'meals' ?  "" : null;
-  const landingIngs = recipeDetails.ingredients.filter((recipe) => recipe !== "").filter((recipe) => recipe !== null);
+  const landingIngs = recipeDetails.ingredients
+    .filter((recipe) => recipe !== '')
+    .filter((recipe) => recipe !== null);
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
