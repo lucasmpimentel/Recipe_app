@@ -1,6 +1,20 @@
 .footer {
   bottom: 0;
-  left: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
   position: fixed;
-  width: 100%;
+
+}
+
+.drinks {
+  padding: 10px;
+}
+
+.explore {
+  padding: 10px;
+}
+
+.foods {
+  padding: 10px;
 }

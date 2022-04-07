@@ -10,19 +10,20 @@ export default function Footer() {
     <footer data-testid="footer" className="footer">
       <Link
         to="/drinks"
+        className="drinks"
       >
         <button type="button" data-testid="drinks-bottom-btn" src={ drinkIcon }>
           <img name="drink" src={ drinkIcon } alt="Ícone de drinks" />
         </button>
       </Link>
 
-      <Link to="/explore">
+      <Link to="/explore" className="explore">
         <button type="button" data-testid="explore-bottom-btn" src={ exploreIcon }>
           <img name="explore" src={ exploreIcon } alt="Ícone de explorar" />
         </button>
       </Link>
 
-      <Link to="/foods">
+      <Link to="/foods" className="foods">
         <button type="button" data-testid="food-bottom-btn" src={ mealIcon }>
           <img name="food" src={ mealIcon } alt="Ícone de comida" />
         </button>
