@@ -8,6 +8,8 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
 
+const copy = require('clipboard-copy');
+
 export default function FoodsDetails() {
   const history = useHistory();
   const {
@@ -18,6 +20,8 @@ export default function FoodsDetails() {
     finishButtonDisabled,
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
+  const [isLinkVisible, setIsLinkVisible] = useState(false);
+
   const actualPath = window.location.pathname;
   const CUT_INDEX = 7;
   const END_INDEX = 12;
@@ -79,6 +83,13 @@ export default function FoodsDetails() {
   },
   [setMealsInProgress]);
 
+  const copyClick = (id, type) => {
+    setIsLinkVisible(true);
+    return type === 'foods'
+      ? copy(`http://localhost:3000/foods/${id}`)
+      : copy(`http://localhost:3000/drinks/${id}`);
+  };
+
   return (
     <main className="main-details">
       <img
@@ -89,14 +100,22 @@ export default function FoodsDetails() {
       />
       <header className="title-container">
         <h1 data-testid="recipe-title">{allRecipeDetails.strMeal}</h1>
-        <div>
+
+        <div
+          role="button"
+          tabIndex="0"
+          onKeyPress={ (e) => e.key === 'Enter' && copyClick(recipeID, 'foods') }
+          onClick={ () => copyClick(recipeID, 'foods') }
+        >
           <button data-testid="share-btn" type="button">
             <img src={ shareIcon } alt="Share" />
           </button>
           <button data-testid="favorite-btn" type="button">
             <img src={ whiteHeartIcon } alt="favorite" />
           </button>
+          {isLinkVisible && <p>Link copied!</p>}
         </div>
+
       </header>
       <div
         className="recipe-categorie"
