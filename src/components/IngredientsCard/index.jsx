@@ -56,7 +56,8 @@ export default function IngredientsCard() {
 
   const verifyIfChecked = (ingredient) => {
     const localRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (drinksInProgress && localRecipes) {
+    // if ((drinksInProgress || mealsInProgress) && localRecipes) {
+    if (localRecipes) {
       const check = savedSteps[typeRecipe][recipeDetails.id]?.includes(ingredient);
       return check;
     }
