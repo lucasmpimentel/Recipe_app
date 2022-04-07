@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { getSavedValue } from '../hooks/useLocalStorage';
@@ -20,30 +21,30 @@ export default function Profile() {
       <p data-testid="page-title">Profile</p>
       { typeof user === 'undefined' ? <p>Usuário indefinido</p>
         : <p data-testid="profile-email">{ user.email }</p>}
-      <button
+      <Button
         data-testid="profile-done-btn"
         type="button"
         onClick={ () => history.push('/done-recipes') }
       >
         {' '}
         Done Recipes
-      </button>
-      <button
+      </Button>
+      <Button
         data-testid="profile-favorite-btn"
         type="button"
         onClick={ () => history.push('/favorite-recipes') }
       >
         {' '}
         Favorite Recipes
-      </button>
-      <button
+      </Button>
+      <Button
         data-testid="profile-logout-btn"
         type="button"
         onClick={ handleLogout }
       >
         {' '}
         Logout
-      </button>
+      </Button>
       <Footer />
     </>
   );
