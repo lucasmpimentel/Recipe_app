@@ -1,0 +1,16 @@
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.done-recepies {
+  margin: 20px;
+}
+
+.favorite {
+  margin: 20px;
+}
+
+.logout {
+  margin: 20px;
+}

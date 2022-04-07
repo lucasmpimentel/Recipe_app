@@ -18,7 +18,6 @@ export default function Header({ searchTopBtn }) {
   return (
 
     <header>
-      <h1> teste header </h1>
       <button type="button" onClick={ () => history.push('/profile') }>
         <img
           src={ ProfileIcon }

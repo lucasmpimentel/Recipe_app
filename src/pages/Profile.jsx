@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { getSavedValue } from '../hooks/useLocalStorage';
+import './profile.css';
 
 export default function Profile() {
   const history = useHistory();
@@ -16,37 +17,42 @@ export default function Profile() {
   };
 
   return (
-    <>
+    <main className="header">
       <Header />
-      <p data-testid="page-title">Profile</p>
-      { typeof user === 'undefined' ? <p>Usuário indefinido</p>
-        : <p data-testid="profile-email">{ user.email }</p>}
-      <Button
-        data-testid="profile-done-btn"
-        type="button"
-        onClick={ () => history.push('/done-recipes') }
-      >
-        {' '}
-        Done Recipes
-      </Button>
-      <Button
-        data-testid="profile-favorite-btn"
-        type="button"
-        onClick={ () => history.push('/favorite-recipes') }
-      >
-        {' '}
-        Favorite Recipes
-      </Button>
-      <Button
-        data-testid="profile-logout-btn"
-        type="button"
-        onClick={ handleLogout }
-      >
-        {' '}
-        Logout
-      </Button>
+      <section className="buttons">
+        <p data-testid="page-title">Profile</p>
+        { typeof user === 'undefined' ? <p>Usuário indefinido</p>
+          : <p data-testid="profile-email">{ user.email }</p>}
+        <Button
+          className="done-recepies"
+          data-testid="profile-done-btn"
+          type="button"
+          onClick={ () => history.push('/done-recipes') }
+        >
+          {' '}
+          Done Recipes
+        </Button>
+        <Button
+          className="favorite"
+          data-testid="profile-favorite-btn"
+          type="button"
+          onClick={ () => history.push('/favorite-recipes') }
+        >
+          {' '}
+          Favorite Recipes
+        </Button>
+        <Button
+          className="logout"
+          data-testid="profile-logout-btn"
+          type="button"
+          onClick={ handleLogout }
+        >
+          {' '}
+          Logout
+        </Button>
+      </section>
       <Footer />
-    </>
+    </main>
   );
 }
 
