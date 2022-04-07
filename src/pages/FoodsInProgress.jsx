@@ -5,8 +5,10 @@ import IngredientsCard from '../components/IngredientsCard';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
+import { fetchMealFav, readFavs } from '../utils/localStorage';
 
 const copy = require('clipboard-copy');
 
@@ -92,6 +94,14 @@ export default function FoodsDetails() {
     copy(`http://localhost:3000/foods/${recipeID}`);
   };
 
+  const addOrRemove = async () => {
+    fetchMealFav(recipeID);
+    const favorites = readFavs();
+    console.log(favorites);
+    const isFavorite = favorites.some((fav) => fav.id === recipeID);
+    console.log(isFavorite);
+  };
+
   return (
     <main className="main-details">
       <img
@@ -112,11 +122,24 @@ export default function FoodsDetails() {
           <button data-testid="share-btn" type="button">
             <img src={ shareIcon } alt="Share" />
           </button>
-          <button data-testid="favorite-btn" type="button">
-            <img src={ whiteHeartIcon } alt="favorite" />
-          </button>
           {isLinkVisible && <p>Link copied!</p>}
         </div>
+
+        {/* <button data-testid="favorite-btn" type="button"> */}
+        <div
+          role="button"
+          tabIndex="0"
+          onKeyPress={ (e) => e.key === 'Enter' && addOrRemove() }
+          onClick={ () => addOrRemove() }
+        >
+          <img
+            // src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            src={ blackHeartIcon }
+            alt="favorite"
+            data-testid="favorite-btn"
+          />
+        </div>
+        {/* </button> */}
 
       </header>
       <div

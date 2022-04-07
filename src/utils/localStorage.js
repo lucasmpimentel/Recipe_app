@@ -66,6 +66,37 @@ const doneRecipes = [
 
 const saveAllFavs = () => [...favorite];
 
+const meal = ({ meals }) => {
+  console.log(meals);
+  console.log(meals[0].idMeal);
+  const data = {
+    id: meals[0].idMeal,
+    type: 'food',
+    nationality: meals[0].strArea,
+    category: meals[0].strCategory,
+    alcoholicOrNot: '',
+    name: meals[0].strMeal,
+    image: meals[0].strMealThumb,
+  };
+  addFav(data);
+  return data;
+};
+
+export const fetchMealFav = async (id) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(url);
+  const results = await response.json();
+  meal(results);
+  // return response.ok ? Promise.resolve(results) : Promise.reject(results);
+};
+
+// export const fetchDrinkFav = async (id) => {
+//   const response = await fetch(url);
+//   const results = await response.json();
+//   console.log(results, 'results na fetchMealOrDrink');
+//   return response.ok ? Promise.resolve(results) : Promise.reject(results);
+// };
+
 export {
   readFavs,
   saveFavs,
