@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player';
 import Button from 'react-bootstrap/Button';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
@@ -93,11 +93,11 @@ export default function FoodsDetails() {
         {allRecipeDetails.strCategory}
       </div>
       <IngredientsCard />
-      {/* <ReactPlayer
+      <ReactPlayer
         data-testid="video"
         className="video"
         url={ allRecipeDetails.strYoutube }
-      /> */}
+      />
       <Recomended />
       <Button
         variant="danger"
