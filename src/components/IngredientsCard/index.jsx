@@ -16,7 +16,8 @@ export default function IngredientsCard() {
   const typeRecipe = mealsInProgress ? 'meals' : 'cocktails';
 
   // drink chegam null e meals chegam ''
-  const landingIngs = recipeDetails.ingredients.filter((recipe) => recipe !== null);
+  const nullRecipe = typeRecipe === 'meals' ?  "" : null;
+  const landingIngs = recipeDetails.ingredients.filter((recipe) => recipe !== nullRecipe);
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
