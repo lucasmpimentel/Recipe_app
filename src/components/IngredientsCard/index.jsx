@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Context from '../../context/Context';
 import './IngredientsCard.css';
+import { useHistory } from 'react-router-dom';
 
 export default function IngredientsCard() {
   const { recipeDetails,
@@ -14,15 +15,18 @@ export default function IngredientsCard() {
     'inProgressRecipes', { cocktails: {}, meals: {} },
   );
   const typeRecipe = mealsInProgress ? 'meals' : 'cocktails';
+  const history = useHistory();
+  const path = history.location.pathname;
+  const recipeID = path.replace(/[^0-9]/g, '');
 
   // drink chegam null e meals chegam ''
-  const nullRecipe = typeRecipe === 'meals' ?  "" : null;
-  const landingIngs = recipeDetails.ingredients.filter((recipe) => recipe !== nullRecipe);
+  // const nullRecipe = typeRecipe === 'meals' ?  "" : null;
+  const landingIngs = recipeDetails.ingredients.filter((recipe) => recipe !== "").filter((recipe) => recipe !== null);
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     const getitem = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    setIngredients(getitem[typeRecipe][recipeDetails.id]);
+    setIngredients(getitem[typeRecipe][recipeID]);
   }, [recipeDetails]);
 
   const handleClick = ({ target: { name } }) => {
@@ -30,7 +34,7 @@ export default function IngredientsCard() {
       const newIngredients = ingredients.filter((ingredient) => ingredient !== name);
       setIngredients(newIngredients);
       setSavedSteps(
-        { ...savedSteps, [typeRecipe]: { [recipeDetails.id]: newIngredients } },
+        { ...savedSteps, [typeRecipe]: { [recipeID]: newIngredients } },
       );
     } else {
       let actualIngredients = [];
@@ -40,15 +44,19 @@ export default function IngredientsCard() {
         actualIngredients.push(name);
       }
       setSavedSteps(
-        { ...savedSteps, [typeRecipe]: { [recipeDetails.id]: actualIngredients } },
+        { ...savedSteps, [typeRecipe]: { [recipeID]: actualIngredients } },
       );
       setIngredients(actualIngredients);
     }
   };
 
   const landing = () => {
+    console.log('dentro do landing');
+    console.log(ingredients?.length);
+    console.log(landingIngs?.length);
     if (ingredients?.length === landingIngs.length
-    && ingredients.length !== 0 && landingIngs.length !== 0) {
+      && ingredients.length !== 0 && landingIngs.length !== 0) {
+      console.log('dentro do false do landing');
       return setFinishButtonDisabled(false);
     }
     return setFinishButtonDisabled(true);
@@ -57,9 +65,8 @@ export default function IngredientsCard() {
 
   const verifyIfChecked = (ingredient) => {
     const localRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    // if ((drinksInProgress || mealsInProgress) && localRecipes) {
     if (localRecipes) {
-      const check = savedSteps[typeRecipe][recipeDetails.id]?.includes(ingredient);
+      const check = savedSteps[typeRecipe][recipeID]?.includes(ingredient);
       return check;
     }
     return false;

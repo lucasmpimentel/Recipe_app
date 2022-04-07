@@ -22,10 +22,13 @@ export default function FoodsDetails() {
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const [isLinkVisible, setIsLinkVisible] = useState(false);
 
-  const actualPath = window.location.pathname;
-  const CUT_INDEX = 7;
-  const END_INDEX = 12;
-  const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
+  const path = history.location.pathname;
+  const recipeID = path.replace(/[^0-9]/g, '');
+
+  // const actualPath = window.location.pathname;
+  // const CUT_INDEX = 7;
+  // const END_INDEX = 12;
+  // const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
   const recipeURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (meals) => {
@@ -47,6 +50,7 @@ export default function FoodsDetails() {
         ingredients: getIngredients,
         measures: getMeasures,
         instructions: meals.strInstructions,
+        id: recipeID,
       });
     } catch (error) {
       console.log(`Fail to filter ingredients: ${error}`);
@@ -83,11 +87,9 @@ export default function FoodsDetails() {
   },
   [setMealsInProgress]);
 
-  const copyClick = (id, type) => {
+  const copyClick = () => {
     setIsLinkVisible(true);
-    return type === 'foods'
-      ? copy(`http://localhost:3000/foods/${id}`)
-      : copy(`http://localhost:3000/drinks/${id}`);
+    copy(`http://localhost:3000/foods/${recipeID}`);
   };
 
   return (
@@ -104,8 +106,8 @@ export default function FoodsDetails() {
         <div
           role="button"
           tabIndex="0"
-          onKeyPress={ (e) => e.key === 'Enter' && copyClick(recipeID, 'foods') }
-          onClick={ () => copyClick(recipeID, 'foods') }
+          onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
+          onClick={ () => copyClick() }
         >
           <button data-testid="share-btn" type="button">
             <img src={ shareIcon } alt="Share" />

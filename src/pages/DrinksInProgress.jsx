@@ -15,17 +15,20 @@ export default function DrinksDetails() {
   const {
     setDrinksVisible,
     setRecipeDetails,
-    recipeDetails,
     setDrinksInProgress,
+    recipeDetails,
     finishButtonDisabled,
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const [isLinkVisible, setIsLinkVisible] = useState(false);
 
-  const actualPath = window.location.pathname;
-  const CUT_INDEX = 8;
-  const END_INDEX = -12;
-  const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
+  const path = history.location.pathname;
+  const recipeID = path.replace(/[^0-9]/g, '');
+
+  // const actualPath = window.location.pathname;
+  // const CUT_INDEX = 8;
+  // const END_INDEX = -12;
+  // const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
   const recipeURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (drinks) => {
@@ -47,7 +50,7 @@ export default function DrinksDetails() {
         ingredients: getIngredients,
         measures: getMeasures,
         instructions: drinks.strInstructions,
-        id: drinks.idDrink,
+        id: recipeID,
       });
     } catch (error) {
       console.log(`Fail to filter ingredients: ${error}`);
@@ -84,11 +87,9 @@ export default function DrinksDetails() {
   },
   [setDrinksInProgress]);
 
-  const copyClick = (id, type) => {
+  const copyClick = () => {
     setIsLinkVisible(true);
-    return type === 'foods'
-      ? copy(`http://localhost:3000/foods/${id}`)
-      : copy(`http://localhost:3000/drinks/${id}`);
+    copy(`http://localhost:3000/drinks/${recipeID}`);
   };
 
   return (
@@ -105,8 +106,8 @@ export default function DrinksDetails() {
         <div
           role="button"
           tabIndex="0"
-          onKeyPress={ (e) => e.key === 'Enter' && copyClick(recipeID, 'drinks') }
-          onClick={ () => copyClick(recipeID, 'drinks') }
+          onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
+          onClick={ () => copyClick() }
         >
           <button data-testid="share-btn" type="button">
             <img src={ shareIcon } alt="Share" />
