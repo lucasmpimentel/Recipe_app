@@ -9,13 +9,25 @@
 }
 
 .done-recepies {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: 20px;
 }
 
 .favorite {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: 20px;
+  width: 300px;
 }
 
 .logout {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: 20px;
+  width: 300px;
+}
+
+.title {
+  margin-top: 10px;
+  text-align: center;
+  width: 300px;
+  
 }

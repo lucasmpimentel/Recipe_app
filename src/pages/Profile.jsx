@@ -20,7 +20,7 @@ export default function Profile() {
     <main className="main-profile">
       <Header />
       <section className="buttons">
-        <p data-testid="page-title">Profile</p>
+        <p className="title" data-testid="page-title">Profile</p>
         { typeof user === 'undefined' ? <p>Usuário indefinido</p>
           : <p data-testid="profile-email">{ user.email }</p>}
         <Button
