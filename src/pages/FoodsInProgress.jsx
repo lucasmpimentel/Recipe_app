@@ -6,9 +6,10 @@ import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
-import { fetchMealFav, readFavs } from '../utils/localStorage';
+import { readFavs } from '../utils/localStorage';
+import addOrRemove from '../helpers/FoodsInProgressHelper';
 
 const copy = require('clipboard-copy');
 
@@ -23,7 +24,7 @@ export default function FoodsDetails() {
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const [isLinkVisible, setIsLinkVisible] = useState(false);
-
+  const favorites = readFavs();
   const path = history.location.pathname;
   const recipeID = path.replace(/[^0-9]/g, '');
 
@@ -94,14 +95,6 @@ export default function FoodsDetails() {
     copy(`http://localhost:3000/foods/${recipeID}`);
   };
 
-  const addOrRemove = async () => {
-    fetchMealFav(recipeID);
-    const favorites = readFavs();
-    console.log(favorites);
-    const isFavorite = favorites.some((fav) => fav.id === recipeID);
-    console.log(isFavorite);
-  };
-
   return (
     <main className="main-details">
       <img
@@ -125,16 +118,17 @@ export default function FoodsDetails() {
           {isLinkVisible && <p>Link copied!</p>}
         </div>
 
-        {/* <button data-testid="favorite-btn" type="button"> */}
         <div
           role="button"
           tabIndex="0"
           onKeyPress={ (e) => e.key === 'Enter' && addOrRemove() }
-          onClick={ () => addOrRemove() }
+          onClick={ () => addOrRemove(recipeID) }
         >
           <img
             // src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            src={ blackHeartIcon }
+            src={ favorites?.some((fav) => fav.id === recipeID)
+              ? blackHeartIcon
+              : whiteHeartIcon }
             alt="favorite"
             data-testid="favorite-btn"
           />

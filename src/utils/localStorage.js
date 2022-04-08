@@ -12,8 +12,15 @@ const addFav = (recipe) => {
 };
 
 const removeFavorite = (recipe) => {
+  console.log('recipe', recipe[0].id);
   const favorites = readFavs();
-  saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
+  if (favorites.length === 1) {
+    localStorage.setItem(FAV_REC, JSON.stringify([]));
+    return;
+  }
+  console.log(favorites);
+  saveFavs(favorites.filter((favorite) => favorite.id !== recipe[0].id));
+  console.log(favorites.filter((favorite) => favorite.id !== recipe[0].id));
 };
 
 const favorite = [
@@ -67,8 +74,6 @@ const doneRecipes = [
 const saveAllFavs = () => [...favorite];
 
 const meal = ({ meals }) => {
-  console.log(meals);
-  console.log(meals[0].idMeal);
   const data = {
     id: meals[0].idMeal,
     type: 'food',
@@ -79,6 +84,7 @@ const meal = ({ meals }) => {
     image: meals[0].strMealThumb,
   };
   addFav(data);
+  console.log(data);
   return data;
 };
 
