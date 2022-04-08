@@ -18,9 +18,9 @@ const removeFavorite = (recipe) => {
     localStorage.setItem(FAV_REC, JSON.stringify([]));
     return;
   }
-  console.log(favorites);
+  // console.log(favorites);
   saveFavs(favorites.filter((favorite) => favorite.id !== recipe[0].id));
-  console.log(favorites.filter((favorite) => favorite.id !== recipe[0].id));
+  // console.log(favorites.filter((favorite) => favorite.id !== recipe[0].id));
 };
 
 const favorite = [
@@ -97,6 +97,30 @@ const addMealFav = async (recipeID, setIsFavorite) => {
   // return response.ok ? Promise.resolve(results) : Promise.reject(results);
 };
 
+const addDrink = ({ drinks }, setIsFavorite, recipeID) => {
+  const data = {
+    id: drinks[0].idDrink,
+    type: 'drink',
+    nationality: '',
+    category: drinks[0].strCategory,
+    alcoholicOrNot: drinks[0].strAlcoholic,
+    name: drinks[0].strDrink,
+    image: drinks[0].strDrinkThumb,
+  };
+  addFav(data);
+  const favorites = readFavs();
+  setIsFavorite(favorites?.some((fav) => fav.id === recipeID));
+  return data;
+};
+
+const addDrinkFav = async (recipeID, setIsFavorite) => {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
+  const response = await fetch(url);
+  const results = await response.json();
+  addDrink(results, setIsFavorite, recipeID);
+  // return response.ok ? Promise.resolve(results) : Promise.reject(results);
+};
+
 export {
   readFavs,
   saveFavs,
@@ -106,4 +130,5 @@ export {
   doneRecipes,
   saveAllFavs,
   addMealFav,
+  addDrinkFav,
 };

@@ -30,10 +30,6 @@ export default function FoodsDetails() {
   const [isFavorite, setIsFavorite] = useState(favorites
     ?.some((favorite) => favorite.id === recipeID));
 
-  // const actualPath = window.location.pathname;
-  // const CUT_INDEX = 7;
-  // const END_INDEX = 12;
-  // const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
   const recipeURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (meals) => {
