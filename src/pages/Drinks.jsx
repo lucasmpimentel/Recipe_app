@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Footer from '../components/Footer';
+import './drinks.css';
 import Header from '../components/Header';
 import MealsContext from '../context/Context';
 import Card from '../components/Card';
@@ -26,12 +27,12 @@ export default function Drinks() {
   // }, [setDrinksVisible]);
 
   return (
-    <>
+    <main className="drinks">
       <Header searchTopBtn />
-      <p data-testid="page-title">Drinks</p>
+      <p className="title" data-testid="page-title">Drinks</p>
       <Categories />
       <Card />
       <Footer />
-    </>
+    </main>
   );
 }

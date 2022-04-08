@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import { fetchData } from '../../services/FetchMealOrDrink';
+import './headerSearch.css';
 
 export default function HeaderSearch() {
   const { filters: { searchInput },
