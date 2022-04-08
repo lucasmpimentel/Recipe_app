@@ -5,6 +5,7 @@ import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import HeaderSearch from './HeaderSearch';
 import Context from '../context/Context';
+import './header.css';
 
 export default function Header({ searchTopBtn }) {
   const history = useHistory();
@@ -17,7 +18,7 @@ export default function Header({ searchTopBtn }) {
 
   return (
 
-    <header>
+    <header className="header">
       <button type="button" onClick={ () => history.push('/profile') }>
         <img
           src={ ProfileIcon }

@@ -26,8 +26,15 @@
 }
 
 .title {
+  font-size: 30px;
+  font-weight: 700;
   margin-top: 10px;
   text-align: center;
-  width: 300px;
-  
+}
+
+.email {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 10px;
+  text-align: center;
 }
