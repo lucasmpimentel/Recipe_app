@@ -48,6 +48,7 @@ export default function FoodsNationalities() {
       <p className="title" data-testid="page-title">Explore Nationalities</p>
 
       <select
+        className="countries"
         data-testid="explore-by-nationality-dropdown"
         name={ country }
         onChange={ handleChange }
