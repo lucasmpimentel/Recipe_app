@@ -12,14 +12,15 @@ const addFav = (recipe) => {
 };
 
 const removeFavorite = (recipe) => {
-  // console.log('recipe', recipe[0].id);
+  console.log('entrei na remove favorite do localstorage');
+  console.log('recipe', recipe.id);
   const favorites = readFavs();
   if (favorites.length === 1) {
     localStorage.setItem(FAV_REC, JSON.stringify([]));
     return;
   }
-  // console.log(favorites);
-  saveFavs(favorites.filter((favorite) => favorite.id !== recipe[0].id));
+  console.log(favorites);
+  saveFavs(favorites.filter((favorite) => favorite.id !== recipe.id));
   // console.log(favorites.filter((favorite) => favorite.id !== recipe[0].id));
 };
 
