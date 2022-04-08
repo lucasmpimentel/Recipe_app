@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
+import './foodsNationalities.css';
 
 export default function FoodsNationalities() {
   const history = useHistory();
@@ -42,9 +43,9 @@ export default function FoodsNationalities() {
   }, [country]);
 
   return (
-    <>
+    <main className="main-nationalities">
       <Header searchTopBtn />
-      <p data-testid="page-title">Explore Nationalities</p>
+      <p className="title" data-testid="page-title">Explore Nationalities</p>
 
       <select
         data-testid="explore-by-nationality-dropdown"
@@ -85,6 +86,6 @@ export default function FoodsNationalities() {
 
         ))}
       <Footer />
-    </>
+    </main>
   );
 }

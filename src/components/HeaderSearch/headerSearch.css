@@ -1,0 +1,12 @@
+.headerSearch {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.options {
+  display: flex;
+  justify-content: space-around;
+}
+
