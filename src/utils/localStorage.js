@@ -12,7 +12,7 @@ const addFav = (recipe) => {
 };
 
 const removeFavorite = (recipe) => {
-  console.log('recipe', recipe[0].id);
+  // console.log('recipe', recipe[0].id);
   const favorites = readFavs();
   if (favorites.length === 1) {
     localStorage.setItem(FAV_REC, JSON.stringify([]));
@@ -73,7 +73,7 @@ const doneRecipes = [
 
 const saveAllFavs = () => [...favorite];
 
-const meal = ({ meals }) => {
+const addMeal = ({ meals }, setIsFavorite, recipeID) => {
   const data = {
     id: meals[0].idMeal,
     type: 'food',
@@ -84,24 +84,18 @@ const meal = ({ meals }) => {
     image: meals[0].strMealThumb,
   };
   addFav(data);
-  console.log(data);
+  const favorites = readFavs();
+  setIsFavorite(favorites?.some((fav) => fav.id === recipeID));
   return data;
 };
 
-export const fetchMealFav = async (id) => {
-  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+const addMealFav = async (recipeID, setIsFavorite) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
   const response = await fetch(url);
   const results = await response.json();
-  meal(results);
+  addMeal(results, setIsFavorite, recipeID);
   // return response.ok ? Promise.resolve(results) : Promise.reject(results);
 };
-
-// export const fetchDrinkFav = async (id) => {
-//   const response = await fetch(url);
-//   const results = await response.json();
-//   console.log(results, 'results na fetchMealOrDrink');
-//   return response.ok ? Promise.resolve(results) : Promise.reject(results);
-// };
 
 export {
   readFavs,
@@ -111,4 +105,5 @@ export {
   favorite,
   doneRecipes,
   saveAllFavs,
+  addMealFav,
 };

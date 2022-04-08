@@ -27,6 +27,8 @@ export default function FoodsDetails() {
   const favorites = readFavs();
   const path = history.location.pathname;
   const recipeID = path.replace(/[^0-9]/g, '');
+  const [isFavorite, setIsFavorite] = useState(favorites
+    ?.some((favorite) => favorite.id === recipeID));
 
   // const actualPath = window.location.pathname;
   // const CUT_INDEX = 7;
@@ -121,19 +123,15 @@ export default function FoodsDetails() {
         <div
           role="button"
           tabIndex="0"
-          onKeyPress={ (e) => e.key === 'Enter' && addOrRemove() }
-          onClick={ () => addOrRemove(recipeID) }
+          onKeyPress={ (e) => e.key === 'Enter' && addOrRemove(recipeID, setIsFavorite) }
+          onClick={ () => addOrRemove(recipeID, setIsFavorite) }
         >
           <img
-            // src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            src={ favorites?.some((fav) => fav.id === recipeID)
-              ? blackHeartIcon
-              : whiteHeartIcon }
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
             alt="favorite"
             data-testid="favorite-btn"
           />
         </div>
-        {/* </button> */}
 
       </header>
       <div
