@@ -1,0 +1,22 @@
+.main-explore {
+  display: flex;
+  flex-direction: column;
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+}
+
+.explore-foods {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 20px;
+  width: 300px;
+}
+
+.explore-drinks {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 20px;
+  width: 300px;
+}
