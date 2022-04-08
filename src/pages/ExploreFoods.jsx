@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -23,11 +24,11 @@ export default function ExploreFoods() {
       <p data-testid="page-title">Explore Foods</p>
 
       <Link to="/explore/foods/ingredients">
-        <button type="button" data-testid="explore-by-ingredient">By Ingredient</button>
+        <Button type="button" data-testid="explore-by-ingredient">By Ingredient</Button>
       </Link>
 
       <Link to="/explore/foods/nationalities">
-        <button type="button" data-testid="explore-by-nationality">By Nationality</button>
+        <Button type="button" data-testid="explore-by-nationality">By Nationality</Button>
       </Link>
 
       <button

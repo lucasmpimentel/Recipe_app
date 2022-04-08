@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import Button from 'react-bootstrap/Button';
 import { fetchResults } from '../../services/FetchMealOrDrink';
 import Context from '../../context/Context';
+import './categories.css';
 
 function Categories() {
   const {
@@ -87,7 +89,10 @@ function Categories() {
   return (
     <div>
       {mealsVisible && mealsCategories && mealsCategories.map(({ strCategory }) => (
-        <button
+        <Button
+          size="sm"
+          className="button"
+          variant="outline-dark"
           type="button"
           key={ strCategory }
           name={ strCategory }
@@ -96,23 +101,27 @@ function Categories() {
           onClick={ handleClick }
         >
           {strCategory}
-        </button>
+        </Button>
       ))}
       {mealsVisible && mealsCategories
         && (
-          <button
+          <Button
+            size="sm"
+            variant="outline-dark"
             type="button"
             name="All"
             data-testid="All-category-filter"
             onClick={ landingMeals }
           >
             All
-          </button>
+          </Button>
         )}
       {drinksVisible
         && drinksCategories
         && drinksCategories.map(({ strCategory }) => (
-          <button
+          <Button
+            size="sm"
+            variant="outline-dark"
             type="button"
             key={ strCategory }
             name={ strCategory }
@@ -121,19 +130,21 @@ function Categories() {
             onClick={ handleClick }
           >
             {strCategory}
-          </button>
+          </Button>
 
         ))}
       {drinksVisible && drinksCategories
         && (
-          <button
+          <Button
+            size="sm"
+            variant="outline-dark"
             type="button"
             name="All"
             data-testid="All-category-filter"
             onClick={ landingDrinks }
           >
             All
-          </button>
+          </Button>
         )}
     </div>
   );
