@@ -17,10 +17,12 @@ const Provider = ({ children }) => {
     },
   });
   const [recipeDetails, setRecipeDetails] = useState({
+    id: '',
     ingredients: [],
     measures: [],
     instructions: '',
   });
+  const [finishButtonDisabled, setFinishButtonDisabled] = useState(true);
 
   const mealByIngredient = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -84,6 +86,8 @@ const Provider = ({ children }) => {
     drinksInProgress,
     setDrinksInProgress,
     allCountries,
+    finishButtonDisabled,
+    setFinishButtonDisabled,
   };
 
   return (

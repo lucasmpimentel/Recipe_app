@@ -7,20 +7,29 @@ import { fetchResults } from '../services/FetchMealOrDrink';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
+// import useReduceComplexity from '../hooks/useAndre';
+
+const copy = require('clipboard-copy');
 
 export default function DrinksDetails() {
   const history = useHistory();
   const {
     setDrinksVisible,
     setRecipeDetails,
-    recipeDetails,
     setDrinksInProgress,
+    recipeDetails,
+    finishButtonDisabled,
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
-  const actualPath = window.location.pathname;
-  const CUT_INDEX = 8;
-  const END_INDEX = -12;
-  const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
+  const [isLinkVisible, setIsLinkVisible] = useState(false);
+
+  const path = history.location.pathname;
+  const recipeID = path.replace(/[^0-9]/g, '');
+
+  // const actualPath = window.location.pathname;
+  // const CUT_INDEX = 8;
+  // const END_INDEX = -12;
+  // const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
   const recipeURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (drinks) => {
@@ -42,6 +51,7 @@ export default function DrinksDetails() {
         ingredients: getIngredients,
         measures: getMeasures,
         instructions: drinks.strInstructions,
+        id: recipeID,
       });
     } catch (error) {
       console.log(`Fail to filter ingredients: ${error}`);
@@ -69,6 +79,7 @@ export default function DrinksDetails() {
   },
   [setDrinksVisible]);
 
+  // useReduceComplexity(true, setDrinksInProgress);
   useEffect(() => {
     setDrinksInProgress(true);
   }, [setDrinksInProgress]);
@@ -77,6 +88,11 @@ export default function DrinksDetails() {
     setDrinksInProgress(false);
   },
   [setDrinksInProgress]);
+
+  const copyClick = () => {
+    setIsLinkVisible(true);
+    copy(`http://localhost:3000/drinks/${recipeID}`);
+  };
 
   return (
     <main className="main-details">
@@ -88,14 +104,23 @@ export default function DrinksDetails() {
       />
       <header className="title-container">
         <h1 data-testid="recipe-title">{allRecipeDetails.strDrink}</h1>
-        <div>
+
+        <div
+          role="button"
+          tabIndex="0"
+          onKeyPress={ (e) => e.key === 'Enter' && copyClick() }
+          onClick={ () => copyClick() }
+        >
           <button data-testid="share-btn" type="button">
             <img src={ shareIcon } alt="Share" />
           </button>
-          <button data-testid="favorite-btn" type="button">
-            <img src={ whiteHeartIcon } alt="favorite" />
-          </button>
+          {isLinkVisible && <p>Link copied!</p>}
         </div>
+
+        <button data-testid="favorite-btn" type="button">
+          <img src={ whiteHeartIcon } alt="favorite" />
+        </button>
+
       </header>
       <div
         className="recipe-categorie"
@@ -112,6 +137,7 @@ export default function DrinksDetails() {
         className="finish-recipe-btn"
         data-testid="finish-recipe-btn"
         type="button"
+        disabled={ finishButtonDisabled }
         onClick={ () => history.push('/done-recipes') }
       >
         Finish Recipe

@@ -66,4 +66,12 @@ const doneRecipes = [
 
 const saveAllFavs = () => [...favorite];
 
-export { readFavs, saveFavs, addFav, removeFavorite, favorite, doneRecipes, saveAllFavs };
+export {
+  readFavs,
+  saveFavs,
+  addFav,
+  removeFavorite,
+  favorite,
+  doneRecipes,
+  saveAllFavs,
+};

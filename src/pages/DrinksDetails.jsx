@@ -20,6 +20,7 @@ export default function DrinksDetails() {
     setRecipeDetails,
     recipeDetails,
   } = useContext(Context);
+
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const [alreadyDone, setAlreadyDone] = useState(false);
   const [copied, setCopied] = useState(false);
