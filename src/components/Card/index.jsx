@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
+import './card.css';
 
 function Card() {
   const {
@@ -16,7 +17,7 @@ function Card() {
   const toDrinkDetail = (idDrink) => history.push(`/drinks/${idDrink}`);
 
   return (
-    <div>
+    <div className="meals-drinks-images">
       {mealsRetrieved
         && mealsVisible
         && mealsRetrieved.map(({ strMeal, strMealThumb, idMeal }, index) => (

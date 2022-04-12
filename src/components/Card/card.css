@@ -1,0 +1,5 @@
+.meals-drinks-images {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
