@@ -22,7 +22,7 @@ export default function Foods() {
   return (
     <>
       <Header searchTopBtn />
-      <p data-testid="page-title">Foods</p>
+      <p data-testid="page-title" className="title">Foods</p>
       <Categories />
       <Card />
       <Footer />
