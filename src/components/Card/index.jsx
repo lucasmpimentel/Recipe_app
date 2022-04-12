@@ -28,14 +28,16 @@ function Card() {
             data-testid={ `${index}-recipe-card` }
             onClick={ () => (toMealDetail(idMeal)) }
             onKeyPress={ (e) => e.key === 'Enter' && toMealDetail(idMeal) }
+            className="card-item"
           >
             <img
               src={ strMealThumb }
               width="100px"
               alt={ strMeal }
               data-testid={ `${index}-card-img` }
+              className="card-img"
             />
-            <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+            <p data-testid={ `${index}-card-name` } className="card-name">{strMeal}</p>
           </div>
         ))}
       {drinksRetrieved && drinksVisible
@@ -47,14 +49,16 @@ function Card() {
             data-testid={ `${index}-recipe-card` }
             onClick={ () => (toDrinkDetail(idDrink)) }
             onKeyPress={ (e) => e.key === 'Enter' && toDrinkDetail(idDrink) }
+            className="card-item"
           >
             <img
               src={ strDrinkThumb }
               width="100px"
               alt={ strDrink }
               data-testid={ `${index}-card-img` }
+              className="card-img"
             />
-            <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+            <p data-testid={ `${index}-card-name` } className="card-name">{strDrink}</p>
           </div>
         ))}
     </div>

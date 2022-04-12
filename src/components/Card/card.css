@@ -3,3 +3,32 @@
   display: flex;
   flex-direction: column;
 }
+
+.card-item {
+  align-items: center;
+  background-color: rgba(201, 229, 237, 0.5);
+  border-radius: 5px;
+  box-shadow: darkgrey 2px 3px 0.4em;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.card-img {
+  height: 140px;
+
+  /* object-fit: cover; */
+  width: 100px;
+}
+
+.card-name {
+  border-radius: 5px;
+  font-size: 30px;
+  margin: 20px 0 5px;
+  padding: 2px 5px;
+}
+
