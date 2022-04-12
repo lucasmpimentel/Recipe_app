@@ -14,3 +14,22 @@
   max-width: 90vw;
   padding: 10px;
 }
+
+.blablabla:checked {
+  background-color: blue;
+  height: 25px;
+  margin-left: 15px;
+  width: 50px;
+}
+
+/* .teste {
+  text-decoration: line-through;
+}
+
+.testando {
+  background-color: red;
+}
+
+.completed {
+  text-decoration: line-through solid black;
+} */

@@ -17,6 +17,7 @@ export default function DrinksDetails() {
     setRecipeDetails,
     recipeDetails,
   } = useContext(Context);
+
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const actualPath = window.location.pathname;
   const CUT_INDEX = 8;

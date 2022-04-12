@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from 'react-player';
 import Button from 'react-bootstrap/Button';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
