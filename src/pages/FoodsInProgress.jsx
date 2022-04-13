@@ -137,8 +137,6 @@ export default function FoodsDetails() {
         {allRecipeDetails.strCategory}
       </div>
       <IngredientsCard />
-      <embed data-testid="video" src={ allRecipeDetails.strYoutube } />
-      {/* <Recomended /> */}
       <Button
         variant="danger"
         className="finish-recipe-btn"

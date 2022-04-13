@@ -25,7 +25,9 @@ export default function DoneRecipes() {
   };
 
   const copyClick = (id, type) => {
+    const ONE_SEC = 1000;
     setIsLinkVisible(true);
+    setTimeout(() => setIsLinkVisible(false), ONE_SEC);
     return type === 'foods'
       ? copy(`http://localhost:3000/foods/${id}`)
       : copy(`http://localhost:3000/drinks/${id}`);
@@ -120,7 +122,7 @@ export default function DoneRecipes() {
       <div
         role="button"
         tabIndex="0"
-        onKeyPress={ (e) => e.key === 'Enter' && copyClick(meal.id, 'drinks') }
+        onKeyPress={ (e) => e.key === 'Enter' && copyClick(drink.id, 'drinks') }
         onClick={ () => copyClick(drink.id, 'drinks') }
       >
         <img

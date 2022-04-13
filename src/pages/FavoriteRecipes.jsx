@@ -32,7 +32,9 @@ export default function FavoriteRecipes() {
   };
 
   const copyClick = (id, type) => {
+    const ONE_SEC = 1000;
     setIsLinkVisible(true);
+    setTimeout(() => setCopied(false), ONE_SEC);
     return type === 'foods'
       ? copy(`http://localhost:3000/foods/${id}`)
       : copy(`http://localhost:3000/drinks/${id}`);

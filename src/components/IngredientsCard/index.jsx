@@ -22,7 +22,8 @@ export default function IngredientsCard() {
 
   const landingIngs = recipeDetails.ingredients
     .filter((recipe) => recipe !== '')
-    .filter((recipe) => recipe !== null);
+    .filter((recipe) => recipe !== null)
+    .filter((recipe) => recipe !== ' ');
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
@@ -92,36 +93,6 @@ export default function IngredientsCard() {
                   </td>
                 </tr>
               ))}
-
-            {/* { recipeDetails.ingredients.filter((ingredient, index) => (
-              ingredient !== '' && (
-                <tr key={ index }>
-                  { (mealsInProgress || drinksInProgress) && (
-                    (ingredient !== null) && (
-                      <td>
-                        <div data-testid={ `${index}-ingredient-step` }>
-                          <label
-                            htmlFor={ ingredient }
-                            data-testid={ `${index}-ingredient-name-and-measure` }
-                          >
-                            <input
-                              type="checkbox"
-                              name={ ingredient }
-                              value={ ingredient }
-                              className="blablabla checkedIngredients"
-                              onChange={ handleClick }
-                              checked={ verifyIfChecked(ingredient) }
-                            />
-                            {ingredient}
-                          </label>
-                        </div>
-                      </td>
-                    )
-                  )}
-
-                </tr>
-              )
-            ))} */}
           </tbody>
         </table>
         <table>
