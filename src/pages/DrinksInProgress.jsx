@@ -5,9 +5,11 @@ import IngredientsCard from '../components/IngredientsCard';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
-// import useReduceComplexity from '../hooks/useAndre';
+import { readFavs } from '../utils/localStorage';
+import addOrRemove from '../helpers/DrinksInProgressHelper';
 
 const copy = require('clipboard-copy');
 
@@ -22,14 +24,12 @@ export default function DrinksDetails() {
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const [isLinkVisible, setIsLinkVisible] = useState(false);
-
+  const favorites = readFavs();
   const path = history.location.pathname;
   const recipeID = path.replace(/[^0-9]/g, '');
+  const [isFavorite, setIsFavorite] = useState(favorites
+    ?.some((favorite) => favorite.id === recipeID));
 
-  // const actualPath = window.location.pathname;
-  // const CUT_INDEX = 8;
-  // const END_INDEX = -12;
-  // const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
   const recipeURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (drinks) => {
@@ -79,7 +79,6 @@ export default function DrinksDetails() {
   },
   [setDrinksVisible]);
 
-  // useReduceComplexity(true, setDrinksInProgress);
   useEffect(() => {
     setDrinksInProgress(true);
   }, [setDrinksInProgress]);
@@ -117,9 +116,18 @@ export default function DrinksDetails() {
           {isLinkVisible && <p>Link copied!</p>}
         </div>
 
-        <button data-testid="favorite-btn" type="button">
-          <img src={ whiteHeartIcon } alt="favorite" />
-        </button>
+        <div
+          role="button"
+          tabIndex="0"
+          onKeyPress={ (e) => e.key === 'Enter' && addOrRemove(recipeID, setIsFavorite) }
+          onClick={ () => addOrRemove(recipeID, setIsFavorite) }
+        >
+          <img
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite"
+            data-testid="favorite-btn"
+          />
+        </div>
 
       </header>
       <div

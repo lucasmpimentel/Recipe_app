@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { favorite, removeFavorite, addFav, readFavs } from '../utils/localStorage';
+import { removeFavorite, readFavs } from '../utils/localStorage';
 
 const copy = require('clipboard-copy');
 
@@ -12,11 +12,11 @@ export default function FavoriteRecipes() {
   const [isLinkVisible, setIsLinkVisible] = useState(false);
   const history = useHistory();
 
-  useEffect(() => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(''));
-    addFav(favorite[0]);
-    addFav(favorite[1]);
-  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify(''));
+  //   addFav(favorite[0]);
+  //   addFav(favorite[1]);
+  // }, []);
 
   const filterMeals = () => {
     setRender(readFavs());
@@ -45,6 +45,7 @@ export default function FavoriteRecipes() {
   const toDrinkDetail = (idDrink) => history.push(`/drinks/${idDrink}`);
 
   const removeFav = (recipe) => {
+    console.log('cliquei na remove favorite');
     removeFavorite(recipe);
     setRender(readFavs());
   };

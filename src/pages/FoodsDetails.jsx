@@ -8,6 +8,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import IngredientsCard from '../components/IngredientsCard';
 import Recomended from '../components/Recomended';
+import useLocalStorage from '../hooks/useLocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -17,6 +18,7 @@ export default function FoodsDetails() {
   const history = useHistory();
   const [doneRecipes] = useLocalStorage('doneRecipes', []);
   const [favoriteRecipes, setFavoriteRecipes] = useLocalStorage('favoriteRecipes', []);
+  const [doneRecipes] = useLocalStorage('doneRecipes', '');
   const {
     // setMealsVisible,
     // setDrinksVisible,
