@@ -8,7 +8,7 @@ import landing from '../../helpers/Landing';
 export default function IngredientsCard() {
   const { recipeDetails,
     mealsInProgress,
-    drinksInProgress,
+    // drinksInProgress,
     setFinishButtonDisabled,
   } = useContext(Context);
 
@@ -67,7 +67,33 @@ export default function IngredientsCard() {
       <div className="ingredients-table-container">
         <table>
           <tbody>
-            { recipeDetails.ingredients.map((ingredient, index) => (
+            {recipeDetails.ingredients
+              .filter((ingredient) => ingredient !== '')
+              .filter((ing) => ing !== null)
+              .map((ingredient, index) => (
+                <tr key={ index }>
+                  <td>
+                    <div data-testid={ `${index}-ingredient-step` }>
+                      <label
+                        htmlFor={ ingredient }
+                        data-testid={ `${index}-ingredient-name-and-measure` }
+                      >
+                        <input
+                          type="checkbox"
+                          name={ ingredient }
+                          value={ ingredient }
+                          className="blablabla checkedIngredients"
+                          onChange={ handleClick }
+                          checked={ verifyIfChecked(ingredient) }
+                        />
+                        {ingredient}
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+
+            {/* { recipeDetails.ingredients.filter((ingredient, index) => (
               ingredient !== '' && (
                 <tr key={ index }>
                   { (mealsInProgress || drinksInProgress) && (
@@ -95,7 +121,7 @@ export default function IngredientsCard() {
 
                 </tr>
               )
-            ))}
+            ))} */}
           </tbody>
         </table>
         <table>
