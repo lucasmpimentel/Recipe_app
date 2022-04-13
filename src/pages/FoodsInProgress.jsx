@@ -5,8 +5,11 @@ import IngredientsCard from '../components/IngredientsCard';
 import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
+import { readFavs } from '../utils/localStorage';
+import addOrRemove from '../helpers/FoodsInProgressHelper';
 
 const copy = require('clipboard-copy');
 
@@ -21,14 +24,12 @@ export default function FoodsDetails() {
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const [isLinkVisible, setIsLinkVisible] = useState(false);
-
+  const favorites = readFavs();
   const path = history.location.pathname;
   const recipeID = path.replace(/[^0-9]/g, '');
+  const [isFavorite, setIsFavorite] = useState(favorites
+    ?.some((favorite) => favorite.id === recipeID));
 
-  // const actualPath = window.location.pathname;
-  // const CUT_INDEX = 7;
-  // const END_INDEX = 12;
-  // const recipeID = actualPath.slice(CUT_INDEX, END_INDEX);
   const recipeURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
   const saveIngredients = (meals) => {
@@ -112,10 +113,20 @@ export default function FoodsDetails() {
           <button data-testid="share-btn" type="button">
             <img src={ shareIcon } alt="Share" />
           </button>
-          <button data-testid="favorite-btn" type="button">
-            <img src={ whiteHeartIcon } alt="favorite" />
-          </button>
           {isLinkVisible && <p>Link copied!</p>}
+        </div>
+
+        <div
+          role="button"
+          tabIndex="0"
+          onKeyPress={ (e) => e.key === 'Enter' && addOrRemove(recipeID, setIsFavorite) }
+          onClick={ () => addOrRemove(recipeID, setIsFavorite) }
+        >
+          <img
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite"
+            data-testid="favorite-btn"
+          />
         </div>
 
       </header>
@@ -126,8 +137,6 @@ export default function FoodsDetails() {
         {allRecipeDetails.strCategory}
       </div>
       <IngredientsCard />
-      <embed data-testid="video" src={ allRecipeDetails.strYoutube } />
-      {/* <Recomended /> */}
       <Button
         variant="danger"
         className="finish-recipe-btn"

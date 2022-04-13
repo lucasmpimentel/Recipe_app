@@ -19,6 +19,15 @@ export default function Foods() {
   },
   [setMealsVisible]);
 
+  // mesma acima com consoles.log
+  // useEffect(() => {
+  //   console.log('Hello World');
+  //   return () => {
+  //     console.log('Do some cleanup');
+  //     setMealsVisible(false);
+  //   };
+  // }, [setMealsVisible]);
+
   return (
     <>
       <Header searchTopBtn />

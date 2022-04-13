@@ -2,68 +2,103 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Button from 'react-bootstrap/Button';
+import copy from 'clipboard-copy';
 import Context from '../context/Context';
+import useLocalStorage from '../hooks/useLocalStorage';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import IngredientsCard from '../components/IngredientsCard';
 import Recomended from '../components/Recomended';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './DrinksDetails.css';
 
 export default function FoodsDetails() {
   const history = useHistory();
-  const {
-    setMealsVisible,
-    setDrinksVisible,
-    setRecipeDetails,
-    recipeDetails,
-  } = useContext(Context);
+  const [doneRecipes] = useLocalStorage('doneRecipes', []);
+  const [favoriteRecipes, setFavoriteRecipes] = useLocalStorage('favoriteRecipes', []);
+  const { setRecipeDetails, recipeDetails } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
+  const [alreadyDone, setAlreadyDone] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const actualPath = window.location.pathname;
   const CUT_INDEX = 7;
   const recipeID = actualPath.slice(CUT_INDEX);
   const recipeURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
 
-  const saveIngredients = (meals) => {
-    const getIngredients = [];
-    const getMeasures = [];
+  const saveIngredients = (type, recipeKey, data) => {
+    const getValues = [];
     try {
-      Object.keys(meals).forEach((key) => {
-        if (key.includes('strIngredient')) {
-          getIngredients.push(meals[key]);
+      Object.keys(data).forEach((key) => {
+        if (key.includes(type)) {
+          getValues.push(data[key]);
         }
       });
-      Object.keys(meals).forEach((key) => {
-        if (key.includes('strMeasure')) {
-          getMeasures.push(meals[key]);
-        }
-      });
-      setRecipeDetails({
-        ...recipeDetails,
-        ingredients: getIngredients,
-        measures: getMeasures,
-        instructions: meals.strInstructions,
-      });
+      const result = { [recipeKey]: getValues };
+      return result;
     } catch (error) {
       console.log(`Fail to filter ingredients: ${error}`);
     }
   };
 
+  const checking = (param) => {
+    if (param.length !== 0) {
+      const result = param.some((item) => Object.values(item).includes(recipeID));
+      return result;
+    }
+    return false;
+  };
+
   const getDetails = async () => {
     try {
       const results = await fetchResults(recipeURL);
+      const makeIngredients = saveIngredients(
+        'strIngredient',
+        'ingredients',
+        results.meals[0],
+      );
+      const makeMeasures = saveIngredients('strMeasure', 'measures', results.meals[0]);
       setAllRecipeDetails(results.meals[0]);
-      saveIngredients(results.meals[0]);
-      return results;
+      setRecipeDetails(
+        {
+          ...recipeDetails,
+          ingredients: [...makeIngredients.ingredients],
+          measures: [...makeMeasures.measures],
+          instructions: results.meals[0].strInstructions,
+        },
+      );
+      return results.meals[0];
     } catch (error) {
       console.log(`Error in fetch details: ${error}`);
     }
   };
 
+  const copyLink = () => {
+    const ONE_SEC = 1000;
+    copy(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), ONE_SEC);
+  };
+
+  const handleFavorite = () => {
+    if (isFavorite) {
+      const newFav = favoriteRecipes.filter((item) => item.id !== recipeID);
+      setFavoriteRecipes([...newFav]);
+      return setIsFavorite(false);
+    }
+    setFavoriteRecipes([...favoriteRecipes, allRecipeDetails]);
+    return setIsFavorite(true);
+  };
+
+  const getRecipeStatus = () => {
+    setAlreadyDone(checking(doneRecipes));
+    setIsFavorite(checking(favoriteRecipes));
+  };
+
   useEffect(() => {
-    setMealsVisible(true);
-    setDrinksVisible(false);
     getDetails();
+    getRecipeStatus();
   }, []);
 
   return (
@@ -78,14 +113,15 @@ export default function FoodsDetails() {
       <header className="title-container">
         <h1 data-testid="recipe-title">{allRecipeDetails.strMeal}</h1>
         <div>
-          <button data-testid="share-btn" type="button">
+          <button data-testid="share-btn" type="button" onClick={ copyLink }>
             <img src={ shareIcon } alt="Share" />
           </button>
-          <button data-testid="favorite-btn" type="button">
-            <img src={ whiteHeartIcon } alt="favorite" />
+          <button data-testid="favorite-btn" type="button" onClick={ handleFavorite }>
+            <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
           </button>
         </div>
       </header>
+      { copied && <span>Link copied!</span> }
       <div
         className="recipe-categorie"
         data-testid="recipe-category"
@@ -99,15 +135,17 @@ export default function FoodsDetails() {
         url={ allRecipeDetails.strYoutube }
       />
       <Recomended />
-      <Button
-        variant="danger"
-        className="start-recipe-btn"
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ () => history.push(`/foods/${recipeID}/in-progress`) }
-      >
-        Start Recipe
-      </Button>
+      { !alreadyDone && (
+        <Button
+          variant="danger"
+          className="start-recipe-btn"
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ () => history.push(`/foods/${recipeID}/in-progress`) }
+        >
+          Start Recipe
+        </Button>
+      ) }
     </main>
   );
 }

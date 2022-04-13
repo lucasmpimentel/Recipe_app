@@ -8,7 +8,7 @@ import landing from '../../helpers/Landing';
 export default function IngredientsCard() {
   const { recipeDetails,
     mealsInProgress,
-    drinksInProgress,
+    // drinksInProgress,
     setFinishButtonDisabled,
   } = useContext(Context);
 
@@ -22,7 +22,8 @@ export default function IngredientsCard() {
 
   const landingIngs = recipeDetails.ingredients
     .filter((recipe) => recipe !== '')
-    .filter((recipe) => recipe !== null);
+    .filter((recipe) => recipe !== null)
+    .filter((recipe) => recipe !== ' ');
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
@@ -51,55 +52,6 @@ export default function IngredientsCard() {
     }
   };
 
-  // function originalImplementation(A, B) {
-  //   if (A && B) {
-  //     console.log("do something 1");
-  //   } else {
-  //     if (B) {
-  //       console.log("set some boolean to false");
-  //     }
-  //     console.log("do something 2");
-  //   }
-  // }
-
-  // function newImplementation(A, B) {
-  //   if (A && B) {
-  //     console.log("do something 1");
-  //   }
-  //   else if (B) {
-  //     console.log("set some boolean to false");
-  //   }
-  //   if (!A || !B) {
-  //     console.log("do something 2");
-  //   }
-  // }
-
-  // console.log("originalImplementation");
-
-  // originalImplementation(0, 0);
-  // originalImplementation(0, 1);
-  // originalImplementation(1, 0);
-  // originalImplementation(1, 1);
-
-  // console.log("newImplementation");
-
-  // newImplementation(0, 0);
-  // newImplementation(0, 1);
-  // newImplementation(1, 0);
-  // newImplementation(1, 1);
-
-  // const landing = () => {
-  //   // console.log('dentro do landing');
-  //   // console.log(ingredients?.length);
-  //   // console.log(landingIngs?.length);
-  //   if (ingredients?.length === landingIngs.length
-  //     && ingredients.length !== 0 && landingIngs.length !== 0) {
-  //     // console.log('dentro do false do landing');
-  //     return setFinishButtonDisabled(false);
-  //   }
-  //   return setFinishButtonDisabled(true);
-  // };
-
   landing(ingredients, landingIngs, setFinishButtonDisabled);
 
   const verifyIfChecked = (ingredient) => {
@@ -116,35 +68,31 @@ export default function IngredientsCard() {
       <div className="ingredients-table-container">
         <table>
           <tbody>
-            { recipeDetails.ingredients.map((ingredient, index) => (
-              ingredient !== '' && (
+            {recipeDetails.ingredients
+              .filter((ingredient) => ingredient !== '')
+              .filter((ing) => ing !== null)
+              .map((ingredient, index) => (
                 <tr key={ index }>
-                  { (mealsInProgress || drinksInProgress) && (
-                    (ingredient !== null) && (
-                      <td>
-                        <div data-testid={ `${index}-ingredient-step` }>
-                          <label
-                            htmlFor={ ingredient }
-                            data-testid={ `${index}-ingredient-name-and-measure` }
-                          >
-                            <input
-                              type="checkbox"
-                              name={ ingredient }
-                              value={ ingredient }
-                              className="blablabla checkedIngredients"
-                              onChange={ handleClick }
-                              checked={ verifyIfChecked(ingredient) }
-                            />
-                            {ingredient}
-                          </label>
-                        </div>
-                      </td>
-                    )
-                  )}
-
+                  <td>
+                    <div data-testid={ `${index}-ingredient-step` }>
+                      <label
+                        htmlFor={ ingredient }
+                        data-testid={ `${index}-ingredient-name-and-measure` }
+                      >
+                        <input
+                          type="checkbox"
+                          name={ ingredient }
+                          value={ ingredient }
+                          className="blablabla checkedIngredients"
+                          onChange={ handleClick }
+                          checked={ verifyIfChecked(ingredient) }
+                        />
+                        {ingredient}
+                      </label>
+                    </div>
+                  </td>
                 </tr>
-              )
-            ))}
+              ))}
           </tbody>
         </table>
         <table>
