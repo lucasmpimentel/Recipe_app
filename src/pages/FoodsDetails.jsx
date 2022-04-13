@@ -6,12 +6,14 @@ import Context from '../context/Context';
 import { fetchResults } from '../services/FetchMealOrDrink';
 import IngredientsCard from '../components/IngredientsCard';
 import Recomended from '../components/Recomended';
+import useLocalStorage from '../hooks/useLocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DrinksDetails.css';
 
 export default function FoodsDetails() {
   const history = useHistory();
+  const [doneRecipes] = useLocalStorage('doneRecipes', '');
   const {
     setMealsVisible,
     setDrinksVisible,
@@ -19,6 +21,7 @@ export default function FoodsDetails() {
     recipeDetails,
   } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
+  const [alreadyDone, setAlreadyDone] = useState(false);
   const actualPath = window.location.pathname;
   const CUT_INDEX = 7;
   const recipeID = actualPath.slice(CUT_INDEX);
@@ -60,10 +63,18 @@ export default function FoodsDetails() {
     }
   };
 
+  const checkRecipe = () => {
+    if (doneRecipes !== '') {
+      const result = doneRecipes.some((item) => item.id === recipeID);
+      setAlreadyDone(result);
+    }
+  };
+
   useEffect(() => {
     setMealsVisible(true);
     setDrinksVisible(false);
     getDetails();
+    checkRecipe();
   }, []);
 
   return (
@@ -99,15 +110,17 @@ export default function FoodsDetails() {
         url={ allRecipeDetails.strYoutube }
       />
       <Recomended />
-      <Button
-        variant="danger"
-        className="start-recipe-btn"
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ () => history.push(`/foods/${recipeID}/in-progress`) }
-      >
-        Start Recipe
-      </Button>
+      { !alreadyDone && (
+        <Button
+          variant="danger"
+          className="start-recipe-btn"
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ () => history.push(`/foods/${recipeID}/in-progress`) }
+        >
+          Start Recipe
+        </Button>
+      ) }
     </main>
   );
 }
