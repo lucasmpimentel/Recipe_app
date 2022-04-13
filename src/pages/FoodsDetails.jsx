@@ -17,12 +17,7 @@ export default function FoodsDetails() {
   const history = useHistory();
   const [doneRecipes] = useLocalStorage('doneRecipes', []);
   const [favoriteRecipes, setFavoriteRecipes] = useLocalStorage('favoriteRecipes', []);
-  const {
-    // setMealsVisible,
-    // setDrinksVisible,
-    setRecipeDetails,
-    recipeDetails,
-  } = useContext(Context);
+  const { setRecipeDetails, recipeDetails } = useContext(Context);
   const [allRecipeDetails, setAllRecipeDetails] = useState([]);
   const [alreadyDone, setAlreadyDone] = useState(false);
   const [copied, setCopied] = useState(false);
