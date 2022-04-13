@@ -51,55 +51,6 @@ export default function IngredientsCard() {
     }
   };
 
-  // function originalImplementation(A, B) {
-  //   if (A && B) {
-  //     console.log("do something 1");
-  //   } else {
-  //     if (B) {
-  //       console.log("set some boolean to false");
-  //     }
-  //     console.log("do something 2");
-  //   }
-  // }
-
-  // function newImplementation(A, B) {
-  //   if (A && B) {
-  //     console.log("do something 1");
-  //   }
-  //   else if (B) {
-  //     console.log("set some boolean to false");
-  //   }
-  //   if (!A || !B) {
-  //     console.log("do something 2");
-  //   }
-  // }
-
-  // console.log("originalImplementation");
-
-  // originalImplementation(0, 0);
-  // originalImplementation(0, 1);
-  // originalImplementation(1, 0);
-  // originalImplementation(1, 1);
-
-  // console.log("newImplementation");
-
-  // newImplementation(0, 0);
-  // newImplementation(0, 1);
-  // newImplementation(1, 0);
-  // newImplementation(1, 1);
-
-  // const landing = () => {
-  //   // console.log('dentro do landing');
-  //   // console.log(ingredients?.length);
-  //   // console.log(landingIngs?.length);
-  //   if (ingredients?.length === landingIngs.length
-  //     && ingredients.length !== 0 && landingIngs.length !== 0) {
-  //     // console.log('dentro do false do landing');
-  //     return setFinishButtonDisabled(false);
-  //   }
-  //   return setFinishButtonDisabled(true);
-  // };
-
   landing(ingredients, landingIngs, setFinishButtonDisabled);
 
   const verifyIfChecked = (ingredient) => {
