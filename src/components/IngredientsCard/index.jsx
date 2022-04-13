@@ -102,7 +102,6 @@ export default function IngredientsCard() {
                 <tr key={ index }>
                   <td data-testid={ `${index}-ingredient-name-and-measure` }>
                     {measure}
-                    {console.log(measure)}
                   </td>
                 </tr>
               )

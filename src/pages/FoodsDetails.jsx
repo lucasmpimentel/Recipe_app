@@ -30,7 +30,6 @@ export default function FoodsDetails() {
   const saveIngredients = (type, recipeKey, data) => {
     const getValues = [];
     try {
-      console.log('try', recipeKey);
       Object.keys(data).forEach((key) => {
         if (key.includes(type)) {
           getValues.push(data[key]);
