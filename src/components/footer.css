@@ -1,34 +1,20 @@
-/* .footer {
-  background-color: #dc3545;
-  border-radius: 50px;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  margin: 3px solid #dc3545;
-  margin-bottom: 15px;
-  margin-left: 60px;
-  padding: 10px;
-  position: fixed;
-} */
-
 .footer {
-  background-color: #dc3545;
+  background-color: #2185c5;
+  border-top: solid 3px #ff9715;
   bottom: 0;
   display: flex;
-  justify-content: space-around;
-  margin-top: 30px 10px;
+  justify-content: space-between;
+  padding: 5px;
   position: fixed;
   width: 100vw;
 }
 
-.drinks-footer {
+.footer-btn {
+  border: none !important;
+  border-bottom: solid #dc3545 3px !important;
   padding: 5px;
 }
 
-.explore-footer {
-  padding: 5px;
-}
-
-.foods-footer {
-  padding: 5px;
+.footer-icons {
+  filter: invert();
 }

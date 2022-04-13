@@ -1,4 +1,37 @@
 .header {
-  margin-left: 20px;
-  margin-top: 40px;
+  align-items: center;
+  background-color: #2185c5;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  left: 0;
+  min-width: 100vw;
+  padding: 5px;
+  position: relative;
+  top: 0;
+}
+
+.logo-header {
+  filter: invert();
+  max-width: 80px;
+}
+
+.header-icons {
+  filter: invert();
+}
+
+.header-buttons {
+  align-items: center !important;
+  border: none !important;
+  border-bottom: #dc3545 solid 2px !important;
+  display: flex !important;
+  justify-content: center !important;
+  min-width: 50px;
+  min-height: 50px;
+  padding: 5px;
+}
+
+.input-header {
+  border-radius: 5px;
 }

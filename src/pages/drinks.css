@@ -1,9 +1,0 @@
-.drinks {
-  display: flex;
-  flex-direction: column;
-  max-width: 100vw;
-}
-
-.title {
-  text-align: center;
-}

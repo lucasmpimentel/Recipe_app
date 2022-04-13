@@ -1,12 +1,25 @@
 .headerSearch {
+  align-content: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-top: 10px;
+  min-width: 350px;
+  z-index: 1 !important;
 }
 
 .options {
   display: flex;
   justify-content: space-around;
+  font-size: 14pt;
 }
 
+.search-button {
+  align-items: center !important;
+  color: black;
+  display: flex !important;
+  font-weight: 600 !important;
+  justify-content: center !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}

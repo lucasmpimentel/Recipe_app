@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import logoMC from '../images/Mestre-Cuca-logo.svg';
 import HeaderSearch from './HeaderSearch';
 import Context from '../context/Context';
 import './header.css';
@@ -19,32 +21,44 @@ export default function Header({ searchTopBtn }) {
   return (
 
     <header className="header">
-      <button type="button" onClick={ () => history.push('/profile') }>
+      <Button
+        variant="outline-info"
+        className="header-buttons"
+        type="button"
+        onClick={ () => history.push('/profile') }
+      >
         <img
+          className="header-icons"
           src={ ProfileIcon }
           alt="Imagem do Perfil"
           data-testid="profile-top-btn"
         />
-      </button>
+      </Button>
+      {showInput && <img className="logo-header" src={ logoMC } alt="logomarca app" />}
       {!showInput
               && <input
+                className="input-header"
                 type="text"
                 data-testid="search-input"
                 name="searchInput"
                 value={ searchInput }
+                placeholder="Search"
                 onChange={ handleChange }
               />}
       { searchTopBtn && (
-        <button
+        <Button
+          variant="outline-info"
+          className="header-buttons"
           type="button"
           onClick={ () => { setShowInput(!showInput); } }
         >
           <img
+            className="header-icons"
             src={ SearchIcon }
             alt="Buscar"
             data-testid="search-top-btn"
           />
-        </button>
+        </Button>
       )}
       { !showInput && <HeaderSearch /> }
     </header>

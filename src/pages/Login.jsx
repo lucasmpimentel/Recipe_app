@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+// import ReactPlayer from 'react-player/file';
 import Button from 'react-bootstrap/Button';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { setMealsToken, setCocktailsToken } from '../services/setTokensLS';
+import logo from '../images/Mestre-Cuca-logo.svg';
 import './Login.css';
+
+const loginVideo = require('../videos/loginVideo2.mp4');
 
 export default function Login() {
   const history = useHistory();
@@ -50,7 +54,9 @@ export default function Login() {
 
   return (
     <main className="login-container">
+      <video src={ loginVideo } className="login-video" autoPlay muted loop />
       <form className="login-form" onSubmit={ handleSubmit }>
+        <img src={ logo } alt="Logomarca Mestra Cuca" className="logo-mestre-cuca" />
         <input
           type="email"
           data-testid="email-input"
@@ -70,7 +76,7 @@ export default function Login() {
           onChange={ handleChange }
         />
         <Button
-          variant="danger"
+          variant="primary"
           size="sm"
           type="submit"
           data-testid="login-submit-btn"

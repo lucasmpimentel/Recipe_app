@@ -1,27 +1,50 @@
 .login-container {
   align-items: center;
+  background-color: #4886cc;
   display: flex;
   height: 100vh;
   justify-content: center;
   width: 100vw;
+  z-index: 0;
+}
+
+.login-video {
+  min-height: 108%;
+  min-width: 100vw;
+  object-fit: cover;
+  position: fixed;
+  width: auto;
+  z-index: 1;
 }
 
 .login-form {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: solid 1px;
-  border-radius: 3px;
+  background-color: rgba(126, 206, 253, 0.6);
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  height: 30vh;
   justify-content: center;
   padding: 15px;
+  z-index: 2;
 }
 
 .login-input {
   border-radius: 3px;
   margin: 5px 0;
+  z-index: 3;
 }
 
 .login-submit-button {
   cursor: pointer;
+  margin-top: 10px;
+  z-index: 4;
+}
+
+.logo-mestre-cuca {
+  align-items: center;
+  align-self: center;
+  filter: invert();
+  display: flex;
+  justify-content: center;
+  max-width: 200px;
+  margin: 10px;
 }

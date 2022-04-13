@@ -10,7 +10,7 @@ import Recomended from '../components/Recomended';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import './DrinksDetails.css';
+import './FoodsAndDrinksDetails.css';
 
 export default function DrinksDetails() {
   const history = useHistory();
@@ -101,46 +101,67 @@ export default function DrinksDetails() {
 
   return (
     <main className="main-details">
-      <div className="recipe-image">
-        <img
-          data-testid="recipe-photo"
-          src={ allRecipeDetails.strDrinkThumb }
-          alt="Recipe"
-        />
-      </div>
-      <header className="title-container">
-        <h1 data-testid="recipe-title">{allRecipeDetails.strDrink}</h1>
-        <div>
-          <button data-testid="share-btn" type="button" onClick={ copyLink }>
-            <img src={ shareIcon } alt="Share" />
-          </button>
-          <button data-testid="favorite-btn" type="button" onClick={ handleFavorite }>
-            <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
-          </button>
+      <div className="white-glass">
+        <div className="recipe-image">
+          <img
+            data-testid="recipe-photo"
+            src={ allRecipeDetails.strDrinkThumb }
+            alt="Recipe"
+          />
         </div>
-      </header>
-      { copied && <span>Link copied!</span> }
-      <div
-        className="recipe-categorie"
-        data-testid="recipe-category"
-      >
-        {allRecipeDetails.strCategory}
-        {' '}
-        {allRecipeDetails.strAlcoholic}
-      </div>
-      <IngredientsCard />
-      <Recomended />
-      { !alreadyDone && (
-        <Button
-          variant="danger"
-          className="start-recipe-btn"
-          data-testid="start-recipe-btn"
-          type="button"
-          onClick={ () => history.push(`/drinks/${recipeID}/in-progress`) }
+        <header className="title-container">
+          <h1
+            className="title-details"
+            data-testid="recipe-title"
+          >
+            {allRecipeDetails.strDrink}
+          </h1>
+          <Button
+            variant="outline-info"
+            className="share-details-btn"
+            data-testid="share-btn"
+            type="button"
+            onClick={ copyLink }
+          >
+            <img className="share-like-details-icon" src={ shareIcon } alt="Share" />
+          </Button>
+          <Button
+            variant="outline-info"
+            className="share-details-btn"
+            data-testid="favorite-btn"
+            type="button"
+            onClick={ handleFavorite }
+          >
+            <img
+              className="share-like-details-icon"
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite"
+            />
+          </Button>
+        </header>
+        { copied && <span className="copied">Link copied!</span> }
+        <div
+          className="recipe-categorie"
+          data-testid="recipe-category"
         >
-          Start Recipe
-        </Button>
-      ) }
+          {allRecipeDetails.strCategory}
+          {' '}
+          {allRecipeDetails.strAlcoholic}
+        </div>
+        <IngredientsCard />
+        <Recomended />
+        { !alreadyDone && (
+          <Button
+            variant="danger"
+            className="start-recipe-btn"
+            data-testid="start-recipe-btn"
+            type="button"
+            onClick={ () => history.push(`/drinks/${recipeID}/in-progress`) }
+          >
+            Start Recipe
+          </Button>
+        ) }
+      </div>
     </main>
   );
 }

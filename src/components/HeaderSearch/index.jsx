@@ -102,8 +102,8 @@ export default function HeaderSearch() {
         </label>
       </section>
       <Button
-        variant="danger"
-        className="button"
+        variant="outline-warning"
+        className="search-button"
         type="button"
         data-testid="exec-search-btn"
         onClick={ handleSearch }

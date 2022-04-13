@@ -45,8 +45,6 @@ export default function Recomended() {
     <Suspense fallback={ <Spinner /> }>
       <div className="recomended-component">
         <section className="recomended-container">
-          <BsArrowLeftSquare className="left-arrow" onClick={ prevCard } />
-          <BsArrowRightSquare className="right-arrow" onClick={ nextCard } />
           <div
             className="inner-slider"
           >
@@ -113,6 +111,8 @@ export default function Recomended() {
                 </div>
               ))) }
           </div>
+          <BsArrowLeftSquare className="left-arrow" onClick={ prevCard } />
+          <BsArrowRightSquare className="right-arrow" onClick={ nextCard } />
         </section>
         <div className="dots-container">
           <span

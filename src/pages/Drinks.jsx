@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import Footer from '../components/Footer';
-import './drinks.css';
 import Header from '../components/Header';
 import MealsContext from '../context/Context';
 import Card from '../components/Card';
 import Categories from '../components/Categories';
+import './FoodsAndDrinks.css';
 
 export default function Drinks() {
   const { setDrinksVisible } = useContext(MealsContext);
@@ -27,9 +27,9 @@ export default function Drinks() {
   // }, [setDrinksVisible]);
 
   return (
-    <main className="drinks">
+    <main className="foods-drinks-main">
       <Header searchTopBtn />
-      <p className="title" data-testid="page-title">Drinks</p>
+      <p className="foods-drinks-title" data-testid="page-title">Drinks</p>
       <Categories />
       <Card />
       <Footer />

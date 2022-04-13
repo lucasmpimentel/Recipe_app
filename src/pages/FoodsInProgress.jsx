@@ -7,7 +7,7 @@ import { fetchResults } from '../services/FetchMealOrDrink';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import './DrinksDetails.css';
+import './FoodsAndDrinksDetails.css';
 import { readFavs } from '../utils/localStorage';
 import addOrRemove from '../helpers/FoodsInProgressHelper';
 

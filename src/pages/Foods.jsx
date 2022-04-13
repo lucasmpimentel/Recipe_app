@@ -4,6 +4,7 @@ import Context from '../context/Context';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import Categories from '../components/Categories';
+import './FoodsAndDrinks.css';
 
 export default function Foods() {
   const { setMealsVisible } = useContext(Context);
@@ -29,12 +30,12 @@ export default function Foods() {
   // }, [setMealsVisible]);
 
   return (
-    <>
+    <main className="foods-drinks-main">
       <Header searchTopBtn />
-      <p data-testid="page-title" className="title">Foods</p>
+      <p data-testid="page-title" className="foods-drinks-title">Foods</p>
       <Categories />
       <Card />
       <Footer />
-    </>
+    </main>
   );
 }

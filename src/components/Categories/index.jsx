@@ -87,12 +87,12 @@ function Categories() {
   };
 
   return (
-    <div>
+    <div className="category-container">
       {mealsVisible && mealsCategories && mealsCategories.map(({ strCategory }) => (
         <Button
           size="sm"
-          className="button"
-          variant="outline-dark"
+          className="category-button"
+          variant="info"
           type="button"
           key={ strCategory }
           name={ strCategory }
@@ -107,7 +107,8 @@ function Categories() {
         && (
           <Button
             size="sm"
-            variant="outline-dark"
+            className="category-button"
+            variant="info"
             type="button"
             name="All"
             data-testid="All-category-filter"
@@ -121,7 +122,8 @@ function Categories() {
         && drinksCategories.map(({ strCategory }) => (
           <Button
             size="sm"
-            variant="outline-dark"
+            className="category-button"
+            variant="info"
             type="button"
             key={ strCategory }
             name={ strCategory }
@@ -137,7 +139,8 @@ function Categories() {
         && (
           <Button
             size="sm"
-            variant="outline-dark"
+            className="category-button"
+            variant="info"
             type="button"
             name="All"
             data-testid="All-category-filter"

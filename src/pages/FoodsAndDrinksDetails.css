@@ -1,0 +1,89 @@
+.main-details {
+  align-items: center;
+  background: url('../images/43731-O4130W.png');
+  background-attachment: fixed;
+  background-size: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
+.white-glass {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.title-container {
+  align-items: center;
+  background-color: #2185c5;
+  /* border-top: solid 2px #dc3545; */
+  border-top: solid 3px #ff9715;
+  color: white;
+  display: flex;
+  flex-flow: column;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 20px;
+  width: 100vw;
+}
+
+.title-details {
+  margin: 0;
+  width: 80%;
+}
+
+.recipe-image {
+  align-items: center;
+  display: flex;
+  height: 200px;
+  object-fit: fill;
+  overflow: hidden;
+  width: 100vw;
+}
+
+.recipe-image img {
+  width: 100vw;
+}
+
+.share-details-btn{
+  border: none !important;
+  border-bottom: solid #dc3545 3px !important;
+  padding: 5px;
+}
+
+.share-like-details-icon {
+  filter: invert();
+}
+
+.copied {
+  background-color: rgb(255, 151, 21);
+  border-bottom: solid #dc3545 3px !important;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.recipe-categorie {
+  align-self: flex-start;
+  background-color: #ff9715;
+  border-radius: 8px;
+  margin: 10px 20px;
+  padding: 2px 5px;
+  text-align: center;
+}
+
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
+}
+
+.video {
+  margin-bottom: 30px;
+  max-width: 90vw;
+  min-width: 340px;
+}
